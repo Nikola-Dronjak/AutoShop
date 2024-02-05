@@ -1,0 +1,172 @@
+﻿@model CarListingVM
+
+<form method="post" enctype="multipart/form-data">
+    <input asp-for="Car.CarId" hidden />
+    <input asp-for="Car.ImageUrl" hidden />
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary">Update Listing</h2>
+            <hr />
+        </div>
+        <div class="row">
+            <div class="col-10">
+                <div class="mb-3 row p-1">
+                    <label asp-for="Car.BrandName" class="p-0"></label>
+                    <select asp-for="Car.BrandName" asp-items="@Model.BrandOptions" class="form-control p-0" id="brandDropdown">
+                        <option value="">---Select Brand---</option>
+                    </select>
+                    <span asp-validation-for="Car.BrandName" class="text-danger"></span>
+                </div>
+                <div class="mb-3 row p-1">
+                    <label asp-for="Car.Model" class="p-0"></label>
+                    <select asp-for="Car.ModelId" asp-items="@Model.ModelOptions" class="form-control p-0" id="modelDropdown" disabled>
+                        <option value="">---Select Model---</option>
+                    </select>
+                    <span asp-validation-for="Car.ModelId" class="text-danger"></span>
+                </div>
+                <div class="mb-3 row p-1">
+                    <label asp-for="Car.Year" class="p-0"></label>
+                    <input asp-for="Car.Year" type="number" class="form-control" />
+                    <span asp-validation-for="Car.Year" class="text-danger"></span>
+                </div>
+                <div class="mb-3 row p-1">
+                    <label asp-for="Car.Color" class="p-0"></label>
+                    <select asp-for="Car.Color" class="form-control">
+                        <option value="">---Select Color---</option>
+                        @foreach (var value in Enum.GetValues(typeof(CarColor)))
+                        {
+                            <option value="@value">@value</option>
+                        }
+                    </select>
+                    <span asp-validation-for="Car.Color" class="text-danger"></span>
+                </div>
+                <div class="mb-3 row p-1">
+                    <label asp-for="Car.EngineType" class="p-0"></label>
+                    <select asp-for="Car.EngineTypeId" asp-items="@Model.EngineTypeOptions" class="form-control p-0">
+                        <option value="">---Select Engine Type---</option>
+                    </select>
+                    <span asp-validation-for="Car.EngineTypeId" class="text-danger"></span>
+                </div>
+                <div class="mb-3 row p-1">
+                    <label asp-for="Car.TransmissionType" class="p-0"></label>
+                    <select asp-for="Car.TransmissionTypeId" asp-items="@Model.TransmissionTypeOptions" class="form-control p-0">
+                        <option value="">---Select Transmission Type---</option>
+                    </select>
+                    <span asp-validation-for="Car.TransmissionTypeId" class="text-danger"></span>
+                </div>
+                <div class="mb-3 row p-1">
+                    <label asp-for="Car.FuelType" class="p-0"></label>
+                    <select asp-for="Car.FuelTypeId" asp-items="@Model.FuelTypeOptions" class="form-control p-0">
+                        <option value="">---Select Fuel Type---</option>
+                    </select>
+                    <span asp-validation-for="Car.FuelTypeId" class="text-danger"></span>
+                </div>
+                <div class="mb-3 row p-1">
+                    <label asp-for="Car.BodyType" class="p-0"></label>
+                    <select asp-for="Car.BodyTypeId" asp-items="@Model.BodyTypeOptions" class="form-control p-0">
+                        <option value="">---Select Body Type---</option>
+                    </select>
+                    <span asp-validation-for="Car.BodyTypeId" class="text-danger"></span>
+                </div>
+                <div class="mb-3 row p-1">
+                    <label asp-for="Car.Mileage" class="p-0"></label>
+                    <input asp-for="Car.Mileage" type="number" class="form-control" />
+                    <span asp-validation-for="Car.Mileage" class="text-danger"></span>
+                </div>
+                <div class="mb-3 row p-1">
+                    <label asp-for="Car.Price" class="p-0"></label>
+                    <input asp-for="Car.Price" type="number" class="form-control" />
+                    <span asp-validation-for="Car.Price" class="text-danger"></span>
+                </div>
+                <div class="mb-3 row p-1">
+                    <label asp-for="Car.NumberOfDoors" class="p-0"></label>
+                    <select asp-for="Car.NumberOfDoors" class="form-control">
+                        <option value="">---Select Number of Doors---</option>
+                        @foreach (var value in Enum.GetValues(typeof(CarDoors)))
+                        {
+                            <option value="@value">@value</option>
+                        }
+                    </select>
+                    <span asp-validation-for="Car.NumberOfDoors" class="text-danger"></span>
+                </div>
+                <div class="mb-3 row p-1">
+                    <label asp-for="Car.NumberOfSeats" class="p-0"></label>
+                    <input asp-for="Car.NumberOfSeats" type="number" class="form-control" />
+                    <span asp-validation-for="Car.NumberOfSeats" class="text-danger"></span>
+                </div>
+                <div class="mb-3 row p-1">
+                    <label asp-for="Car.VIN" class="p-0"></label>
+                    <input asp-for="Car.VIN" type="text" class="form-control" />
+                    <span asp-validation-for="Car.VIN" class="text-danger"></span>
+                </div>
+                <div class="mb-3 row p-1">
+                    <label asp-for="Car.Description" class="p-0"></label>
+                    <textarea asp-for="Car.Description" class="form-control"></textarea>
+                    <span asp-validation-for="Car.Description" class="text-danger"></span>
+                </div>
+                <div class="mb-3 row p-1">
+                    <label asp-for="Car.ImageUrl" class="p-0"></label>
+                    <input type="file" name="file" class="form-control border-0 shadow" />
+                    <span asp-validation-for="Car.ImageUrl" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-secondary" style="width:150px">Update</button>
+                <a asp-controller="CarListing" asp-action="Index" class="btn btn-primary" style="width:150px">Back to List</a>
+            </div>
+            <div class="col-2">
+                <img src="@Model.Car.ImageUrl" alt="Car Image" width="100%;" style="border-radius:5px; border:1px solid #bbb9b9" />
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const brandDropdown = document.getElementById("brandDropdown");
+            const modelDropdown = document.getElementById("modelDropdown");
+            const modelIdFromBackend = "@Model.Car.ModelId"; // Replace this with the appropriate property from your backend model
+
+            // Function to populate the models based on the selected brand
+            function populateModels(selectedBrandId) {
+                if (selectedBrandId !== "") {
+                    modelDropdown.disabled = false;
+
+                    // Clear existing options
+                    modelDropdown.innerHTML = "";
+
+                    // Fetch models based on the selected brand (assuming you have an API or method to retrieve models based on brandId)
+                    fetch(`/GetModelsByBrand?brandId=${selectedBrandId}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            data.forEach(model => {
+                                const option = document.createElement("option");
+                                option.value = model.modelId;
+                                option.text = model.name;
+                                modelDropdown.appendChild(option);
+                            });
+
+                            // Pre-select the model from the database if available
+                            if (modelIdFromBackend !== "") {
+                                modelDropdown.value = modelIdFromBackend;
+                            }
+                        })
+                        .catch(error => console.error('Error:', error));
+                } else {
+                    modelDropdown.disabled = true;
+                    modelDropdown.innerHTML = "<option value=''>---Select Model---</option>";
+                }
+            }
+
+            // Event listener for brand dropdown change
+            brandDropdown.addEventListener("change", function () {
+                const selectedBrandId = brandDropdown.value;
+                populateModels(selectedBrandId);
+            });
+
+            // When the page loads, populate models if a brand is already selected
+            const selectedBrandId = brandDropdown.value;
+            populateModels(selectedBrandId);
+        });
+    </script>
+}

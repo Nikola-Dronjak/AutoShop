@@ -1,0 +1,24 @@
+﻿@model Model
+
+<form method="post">
+    <input type="hidden" asp-for="BrandId" value="@ViewData["BrandId"]" />
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary">Add Model</h2>
+            <hr />
+        </div>
+        <div class="mb-3 row p-1">
+            <label asp-for="Name" class="p-0"></label>
+            <input asp-for="Name" type="text" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:150px">Add</button>
+        <a asp-controller="Model" asp-action="Index" asp-route-BrandId="@ViewData["BrandId"]" class="btn btn-primary mx-2">Back to List</a>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

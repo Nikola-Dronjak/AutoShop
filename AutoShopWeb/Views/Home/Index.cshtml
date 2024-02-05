@@ -1,0 +1,328 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@model CarListingPaginationVM
+
+
+@{
+    @inject IEngineTypeService _engineTypeService
+    @inject ITransmissionTypeService _transmissionTypeService
+    @inject IFuelTypeService _fuelTypeService
+    @inject IBodyTypeService _bodyTypeService
+    @inject IModelService _modelService
+    @inject IBrandService _brandService
+
+    var carListingVm = new CarListingFilterVM
+            {
+                EngineTypeOptions = _engineTypeService.EngineTypes.Select(et => new SelectListItem
+                {
+                    Text = et.Type,
+                    Value = et.EngineTypeId.ToString()
+                }),
+
+                TransmissionTypeOptions = _transmissionTypeService.TransmissionTypes.Select(tt => new SelectListItem
+                {
+                    Text = tt.Type,
+                    Value = tt.TransmissionTypeId.ToString()
+                }),
+
+                FuelTypeOptions = _fuelTypeService.FuelTypes.Select(ft => new SelectListItem
+                {
+                    Text = ft.Type,
+                    Value = ft.FuelTypeId.ToString()
+                }),
+
+                BodyTypeOptions = _bodyTypeService.BodyTypes.Select(bt => new SelectListItem
+                {
+                    Text = bt.Type,
+                    Value = bt.BodyTypeId.ToString()
+                }),
+
+                ModelOptions = _modelService.Models.Select(m => new SelectListItem
+                {
+                    Text = m.Name,
+                    Value = m.ModelId.ToString()
+                }),
+
+                BrandOptions = _brandService.Brands.Select(b => new SelectListItem
+                {
+                    Text = b.Name,
+                    Value = b.BrandId.ToString()
+                })
+            };
+}
+
+<div>
+    @await Html.PartialAsync("_SearchBar", carListingVm)
+</div>
+
+@if (Model.CarListings.Any())
+{
+    <div class="row pb-3">
+        @foreach (var Car in Model.CarListings)
+        {
+            <div class="col-log-3 col-sm-6">
+                <div class="row p-2">
+                    <div class="col-12 p-1">
+                        <div class="card border-top border-5 p-3 shadow rounded" style="height: 500px;">
+                            <img src="@Car.ImageUrl" class="card-img-top rounded" style="object-fit: cover; height: 50%; width: 100%;" />
+                            <div class="card-body pb-0">
+                                <div class="pl-1">
+                                    <p class="card-title h5 text-dark bg-opacity-75 text-uppercase text-center">@Car.Model?.Brand.Name @Car.Model?.Name</p>
+                                    <p class="card-title h5 text-dark bg-opacity-75 text-uppercase text-center">@Car.Price.ToString()€</p>
+                                    <p class="card-title h5 text-dark bg-opacity-75 text-uppercase text-center">Mileage: @Car.Mileage.ToString("N0")km</p>
+                                    <p class="card-title h5 text-dark bg-opacity-75 text-uppercase text-center">Manufacturing year: @Car.Year.ToString()</p>
+                                </div>
+                                <div>
+                                    <a asp-controller="Home" asp-action="Details" asp-route-id="@Car.CarId" class="btn btn-primary form-control">View Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="text-center">
+        <br />
+        <p>No car listings found.</p>
+    </div>
+}
+
+<div class="d-flex justify-content-center">
+    <ul class="pagination">
+        <!-- Pagination Previous Button -->
+        @if (Model.HasPreviousPage)
+        {
+            <li class="page-item">
+                @if (Model.SearchCriteria == null)
+                {
+                    <a class="page-link" asp-controller="Home" asp-action="Index" asp-route-page="@(Model.PageIndex - 1)">Previous</a>
+                }
+                else
+                {
+                    var queryString = $"page={(Model.PageIndex - 1)}";
+
+                    if (Model.SearchCriteria.SelectedBrandId != null)
+                    {
+                        queryString += $"&SelectedBrandId={Model.SearchCriteria.SelectedBrandId}";
+                    }
+
+                    if (Model.SearchCriteria.SelectedModelIds != null)
+                    {
+                        foreach (var modelId in Model.SearchCriteria.SelectedModelIds)
+                        {
+                            queryString += $"&SelectedModelIds={modelId}";
+                        }
+                    }
+
+                    if (Model.SearchCriteria.SelectedEngineTypeIds != null)
+                    {
+                        foreach (var engineTypeId in Model.SearchCriteria.SelectedEngineTypeIds)
+                        {
+                            queryString += $"&SelectedEngineTypeIds={engineTypeId}";
+                        }
+                    }
+
+                    if (Model.SearchCriteria.SelectedTransmissionTypeIds != null)
+                    {
+                        foreach (var transmissionTypeId in Model.SearchCriteria.SelectedTransmissionTypeIds)
+                        {
+                            queryString += $"&SelectedTransmissionTypeIds={transmissionTypeId}";
+                        }
+                    }
+
+                    if (Model.SearchCriteria.SelectedFuelTypeIds != null)
+                    {
+                        foreach (var fuelTypeId in Model.SearchCriteria.SelectedFuelTypeIds)
+                        {
+                            queryString += $"&SelectedFuelTypeIds={fuelTypeId}";
+                        }
+                    }
+
+                    if (Model.SearchCriteria.SelectedBodyTypeIds != null)
+                    {
+                        foreach (var bodyTypeId in Model.SearchCriteria.SelectedBodyTypeIds)
+                        {
+                            queryString += $"&SelectedBodyTypeIds={bodyTypeId}";
+                        }
+                    }
+
+                    if (Model.SearchCriteria.Price.HasValue)
+                    {
+                        queryString += $"&Price={Model.SearchCriteria.Price.Value}";
+                    }
+
+                    if (Model.SearchCriteria.YearFrom.HasValue)
+                    {
+                        queryString += $"&YearFrom={Model.SearchCriteria.YearFrom.Value}";
+                    }
+
+                    if (Model.SearchCriteria.YearTo.HasValue)
+                    {
+                        queryString += $"&YearTo={Model.SearchCriteria.YearTo.Value}";
+                    }
+
+                    <a class="page-link" href="@Url.Action("Search")?@queryString">Previous</a>
+                }
+            </li>
+        }
+
+
+        <!-- Display numeric page links -->
+        @for (var i = 1; i <= Model.TotalPages; i++)
+        {
+            <li class="page-item @(i == Model.PageIndex ? "active" : "")">
+                @if (Model.SearchCriteria == null)
+                {
+                    <a class="page-link" asp-controller="Home" asp-action="Index" asp-route-page="@i">@i</a>
+                }
+                else
+                {
+                    var queryString = $"page={i}";
+
+                    if (Model.SearchCriteria.SelectedBrandId != null)
+                    {
+                        queryString += $"&SelectedBrandId={Model.SearchCriteria.SelectedBrandId}";
+                    }
+
+                    if (Model.SearchCriteria.SelectedModelIds != null)
+                    {
+                        foreach (var modelId in Model.SearchCriteria.SelectedModelIds)
+                        {
+                            queryString += $"&SelectedModelIds={modelId}";
+                        }
+                    }
+
+                    if (Model.SearchCriteria.SelectedEngineTypeIds != null)
+                    {
+                        foreach (var engineTypeId in Model.SearchCriteria.SelectedEngineTypeIds)
+                        {
+                            queryString += $"&SelectedEngineTypeIds={engineTypeId}";
+                        }
+                    }
+
+                    if (Model.SearchCriteria.SelectedTransmissionTypeIds != null)
+                    {
+                        foreach (var transmissionTypeId in Model.SearchCriteria.SelectedTransmissionTypeIds)
+                        {
+                            queryString += $"&SelectedTransmissionTypeIds={transmissionTypeId}";
+                        }
+                    }
+
+                    if (Model.SearchCriteria.SelectedFuelTypeIds != null)
+                    {
+                        foreach (var fuelTypeId in Model.SearchCriteria.SelectedFuelTypeIds)
+                        {
+                            queryString += $"&SelectedFuelTypeIds={fuelTypeId}";
+                        }
+                    }
+
+                    if (Model.SearchCriteria.SelectedBodyTypeIds != null)
+                    {
+                        foreach (var bodyTypeId in Model.SearchCriteria.SelectedBodyTypeIds)
+                        {
+                            queryString += $"&SelectedBodyTypeIds={bodyTypeId}";
+                        }
+                    }
+
+                    if (Model.SearchCriteria.Price.HasValue)
+                    {
+                        queryString += $"&Price={Model.SearchCriteria.Price.Value}";
+                    }
+
+                    if (Model.SearchCriteria.YearFrom.HasValue)
+                    {
+                        queryString += $"&YearFrom={Model.SearchCriteria.YearFrom.Value}";
+                    }
+
+                    if (Model.SearchCriteria.YearTo.HasValue)
+                    {
+                        queryString += $"&YearTo={Model.SearchCriteria.YearTo.Value}";
+                    }
+
+                    <a class="page-link" href="@Url.Action("Search")?@queryString">@i</a>
+                }
+            </li>
+        }
+
+        <!-- Pagination Next Button -->
+        @if (Model.HasNextPage)
+        {
+            <li class="page-item">
+                @if (Model.SearchCriteria == null)
+                {
+                    <a class="page-link" asp-controller="Home" asp-action="Index" asp-route-page="@(Model.PageIndex + 1)">Next</a>
+                }
+                else
+                {
+                    var queryString = $"page={(Model.PageIndex + 1)}";
+
+                    if (Model.SearchCriteria.SelectedBrandId != null)
+                    {
+                        queryString += $"&SelectedBrandId={Model.SearchCriteria.SelectedBrandId}";
+                    }
+
+                    if (Model.SearchCriteria.SelectedModelIds != null)
+                    {
+                        foreach (var modelId in Model.SearchCriteria.SelectedModelIds)
+                        {
+                            queryString += $"&SelectedModelIds={modelId}";
+                        }
+                    }
+
+                    if (Model.SearchCriteria.SelectedEngineTypeIds != null)
+                    {
+                        foreach (var engineTypeId in Model.SearchCriteria.SelectedEngineTypeIds)
+                        {
+                            queryString += $"&SelectedEngineTypeIds={engineTypeId}";
+                        }
+                    }
+
+                    if (Model.SearchCriteria.SelectedTransmissionTypeIds != null)
+                    {
+                        foreach (var transmissionTypeId in Model.SearchCriteria.SelectedTransmissionTypeIds)
+                        {
+                            queryString += $"&SelectedTransmissionTypeIds={transmissionTypeId}";
+                        }
+                    }
+
+                    if (Model.SearchCriteria.SelectedFuelTypeIds != null)
+                    {
+                        foreach (var fuelTypeId in Model.SearchCriteria.SelectedFuelTypeIds)
+                        {
+                            queryString += $"&SelectedFuelTypeIds={fuelTypeId}";
+                        }
+                    }
+
+                    if (Model.SearchCriteria.SelectedBodyTypeIds != null)
+                    {
+                        foreach (var bodyTypeId in Model.SearchCriteria.SelectedBodyTypeIds)
+                        {
+                            queryString += $"&SelectedBodyTypeIds={bodyTypeId}";
+                        }
+                    }
+
+                    if (Model.SearchCriteria.Price.HasValue)
+                    {
+                        queryString += $"&Price={Model.SearchCriteria.Price.Value}";
+                    }
+
+                    if (Model.SearchCriteria.YearFrom.HasValue)
+                    {
+                        queryString += $"&YearFrom={Model.SearchCriteria.YearFrom.Value}";
+                    }
+
+                    if (Model.SearchCriteria.YearTo.HasValue)
+                    {
+                        queryString += $"&YearTo={Model.SearchCriteria.YearTo.Value}";
+                    }
+
+                    <a class="page-link" href="@Url.Action("Search")?@queryString">Next</a>
+                }
+            </li>
+        }
+    </ul>
+</div>

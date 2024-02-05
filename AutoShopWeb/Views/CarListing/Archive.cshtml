@@ -1,0 +1,101 @@
+﻿@model CarListingVM
+
+<form method="post" enctype="multipart/form-data">
+    <input asp-for="Car.CarId" hidden />
+    <input asp-for="Car.ImageUrl" hidden />
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary">Remove Listing</h2>
+            <hr />
+        </div>
+        <div class="row">
+            <div class="col-10">
+                <div class="mb-3 row p-1">
+                    <label asp-for="Car.BrandName" class="p-0"></label>
+                    <select asp-for="Car.BrandName" asp-items="@Model.BrandOptions" class="form-control p-0" id="brandDropdown" disabled>
+                        <option value="">---Select Brand---</option>
+                    </select>
+                </div>
+                <div class="mb-3 row p-1">
+                    <label asp-for="Car.Model" class="p-0"></label>
+                    <select asp-for="Car.ModelId" asp-items="@Model.ModelOptions" class="form-control p-0" id="modelDropdown" disabled>
+                        <option value="">---Select Model---</option>
+                    </select>
+                </div>
+                <div class="mb-3 row p-1">
+                    <label asp-for="Car.Year" class="p-0"></label>
+                    <input asp-for="Car.Year" type="number" class="form-control" disabled />
+                </div>
+                <div class="mb-3 row p-1">
+                    <label asp-for="Car.Color" class="p-0"></label>
+                    <select asp-for="Car.Color" class="form-control" disabled>
+                        <option value="">---Select Color---</option>
+                        @foreach (var value in Enum.GetValues(typeof(CarColor)))
+                        {
+                            <option value="@value">@value</option>
+                        }
+                    </select>
+                </div>
+                <div class="mb-3 row p-1">
+                    <label asp-for="Car.EngineType" class="p-0"></label>
+                    <select asp-for="Car.EngineTypeId" asp-items="@Model.EngineTypeOptions" class="form-control p-0" disabled>
+                        <option value="">---Select Engine Type---</option>
+                    </select>
+                </div>
+                <div class="mb-3 row p-1">
+                    <label asp-for="Car.TransmissionType" class="p-0"></label>
+                    <select asp-for="Car.TransmissionTypeId" asp-items="@Model.TransmissionTypeOptions" class="form-control p-0" disabled>
+                        <option value="">---Select Transmission Type---</option>
+                    </select>
+                </div>
+                <div class="mb-3 row p-1">
+                    <label asp-for="Car.FuelType" class="p-0"></label>
+                    <select asp-for="Car.FuelTypeId" asp-items="@Model.FuelTypeOptions" class="form-control p-0" disabled>
+                        <option value="">---Select Fuel Type---</option>
+                    </select>
+                </div>
+                <div class="mb-3 row p-1">
+                    <label asp-for="Car.BodyType" class="p-0"></label>
+                    <select asp-for="Car.BodyTypeId" asp-items="@Model.BodyTypeOptions" class="form-control p-0" disabled>
+                        <option value="">---Select Body Type---</option>
+                    </select>
+                </div>
+                <div class="mb-3 row p-1">
+                    <label asp-for="Car.Mileage" class="p-0"></label>
+                    <input asp-for="Car.Mileage" type="number" class="form-control" disabled />
+                </div>
+                <div class="mb-3 row p-1">
+                    <label asp-for="Car.Price" class="p-0"></label>
+                    <input asp-for="Car.Price" type="number" class="form-control" disabled />
+                </div>
+                <div class="mb-3 row p-1">
+                    <label asp-for="Car.NumberOfDoors" class="p-0"></label>
+                    <select asp-for="Car.NumberOfDoors" class="form-control" disabled>
+                        <option value="">---Select Number of Doors---</option>
+                        @foreach (var value in Enum.GetValues(typeof(CarDoors)))
+                        {
+                            <option value="@value">@value</option>
+                        }
+                    </select>
+                </div>
+                <div class="mb-3 row p-1">
+                    <label asp-for="Car.NumberOfSeats" class="p-0"></label>
+                    <input asp-for="Car.NumberOfSeats" type="number" class="form-control" disabled />
+                </div>
+                <div class="mb-3 row p-1">
+                    <label asp-for="Car.VIN" class="p-0"></label>
+                    <input asp-for="Car.VIN" type="text" class="form-control" disabled />
+                </div>
+                <div class="mb-3 row p-1">
+                    <label asp-for="Car.Description" class="p-0"></label>
+                    <textarea asp-for="Car.Description" class="form-control" disabled></textarea>
+                </div>
+                <button type="submit" class="btn btn-danger" style="width:150px">Archive</button>
+                <a asp-controller="CarListing" asp-action="Index" class="btn btn-primary" style="width:150px">Back to List</a>
+            </div>
+            <div class="col-2">
+                <img src="@Model.Car.ImageUrl" alt="Car Image" width="100%;" style="border-radius:5px; border:1px solid #bbb9b9" />
+            </div>
+        </div>
+    </div>
+</form>

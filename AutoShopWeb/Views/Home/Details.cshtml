@@ -1,0 +1,100 @@
+﻿@model CarListingDetailsVM
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>@Model.CarListing.Model?.Brand.Name @Model.CarListing.Model?.Name</h2>
+            <h5>Price: @Model.CarListing.Price€</h5>
+            <img src="@Model.CarListing.ImageUrl" alt="Car image" style="max-width: 100%;" />
+            <hr />
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h3>Basic information:</h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6><strong>Brand Name:</strong></h6>
+                            <hr />
+                            <h6><strong>Model:</strong></h6>
+                            <hr />
+                            <h6><strong>Year:</strong></h6>
+                            <hr />
+                            <h6><strong>Mileage:</strong></h6>
+                            <hr />
+                            <h6><strong>Body Type:</strong></h6>
+                            <hr />
+                            <h6><strong>Fuel Type:</strong></h6>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>@Model.CarListing.Model?.Brand.Name</h6>
+                            <hr />
+                            <h6>@Model.CarListing.Model?.Name</h6>
+                            <hr />
+                            <h6>@Model.CarListing.Year</h6>
+                            <hr />
+                            <h6>@Model.CarListing.Mileage.ToString("N0") km</h6>
+                            <hr />
+                            <h6>@Model.CarListing.BodyType?.Type</h6>
+                            <hr />
+                            <h6>@Model.CarListing.FuelType?.Type</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h3>Additional information:</h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6><strong>Engine Type:</strong></h6>
+                            <hr />
+                            <h6><strong>Transmission Type:</strong></h6>
+                            <hr />
+                            <h6><strong>Number of Doors:</strong></h6>
+                            <hr />
+                            <h6><strong>Number of Seats:</strong></h6>
+                            <hr />
+                            <h6><strong>Color:</strong></h6>
+                            <hr />
+                            <h6><strong>VIN:</strong></h6>
+                            <hr />
+                            <h6><strong>Description:</strong></h6>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>@Model.CarListing.EngineType?.Type</h6>
+                            <hr />
+                            <h6>@Model.CarListing.TransmissionType?.Type</h6>
+                            <hr />
+                            <h6>@Model.CarListing.NumberOfDoors</h6>
+                            <hr />
+                            <h6>@Model.CarListing.NumberOfSeats</h6>
+                            <hr />
+                            <h6>@Model.CarListing.Color</h6>
+                            <hr />
+                            <h6>@Model.CarListing.VIN</h6>
+                            <hr />
+                            <h6>@Model.CarListing.Description</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4" style="padding-top: 7%;">
+            <div class="card">
+                <div class="card-body">
+                    <h3>Contact Information</h3>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6><strong>Email:</strong></h6>
+                            <h6><strong>Phone:</strong></h6>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>@Model.UserEmail</h6>
+                            <h6>@Model.UserPhoneNumber</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

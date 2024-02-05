@@ -1,0 +1,8 @@
+﻿.custom-dropdown-menu li:hover {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+.lbl-checkbox {
+    display: inline-block;
+    width: 93%;
+}

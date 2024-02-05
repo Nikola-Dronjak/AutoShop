@@ -1,0 +1,40 @@
+﻿@model List<TransmissionType>
+
+<div class="container">
+    <div class="row pt-4 pb-3">
+        <div class="col-6">
+            <h2 class="text-primary">List of Transmission types</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-controller="TransmissionType" asp-action="Create" class="btn btn-primary">
+                Add new transmission type
+            </a>
+        </div>
+    </div>
+</div>
+<table class="table table-bordered table-strpied">
+    <thead>
+        <tr>
+            <th class="text-center">
+                Transmission type
+            </th>
+            <th class="text-center">
+                Options
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var TransmissionType in Model)
+        {
+            <tr>
+                <td class="text-center">@TransmissionType.Type</td>
+                <td class="text-center">
+                    <div class="w-75 btn-group" role="group">
+                        <a asp-controller="TransmissionType" asp-action="Edit" asp-route-id="@TransmissionType.TransmissionTypeId" class="btn btn-secondary mx-2">Edit</a>
+                        <a asp-controller="TransmissionType" asp-action="Delete" asp-route-id="@TransmissionType.TransmissionTypeId" class="btn btn-danger mx-2">Remove</a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
