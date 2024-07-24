@@ -1,0 +1,164 @@
+﻿@model CarListingFilterVM
+
+<script src="/js/dropdown.js"></script>
+<link rel="stylesheet" href="/css/dropdown.css" />
+
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Search Cars</h5>
+        </div>
+        <div class="card-body">
+            <form asp-controller="Home" asp-action="Search" method="get">
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <label asp-for="CarListing.BrandName" class="form-label"></label>
+                        <select asp-for="SelectedBrandId" asp-items="@Model.BrandOptions" class="form-select" id="brandDropdown">
+                            <option value="">---Brand---</option>
+                        </select>
+                        <span asp-validation-for="CarListing.BrandName" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="CarListing.Model.Name" class="form-label"></label>
+                        <div class="dropdown">
+                            <button class="form-select" id="modelDropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false" disabled>
+                                ---Model---
+                            </button>
+                            <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="modelDropdown" style="min-width: 100%;">
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="CarListing.EngineType" class="form-label"></label>
+                        <div class="dropdown">
+                            <button class="form-select" type="button" id="engineTypeDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                ---Engine Type---
+                            </button>
+                            <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="engineTypeDropdown" style="min-width: 100%;">
+                                @foreach (var engineType in Model.EngineTypeOptions)
+                                {
+                                    <li>
+                                        <input type="checkbox" name="SelectedEngineTypeIds" value="@engineType.Value" id="@("engineType_" + engineType.Value)">
+                                        <label class="lbl-checkbox" for="@("engineType_" + engineType.Value)">@engineType.Text</label>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="CarListing.TransmissionType" class="form-label"></label>
+                        <div class="dropdown">
+                            <button class="form-select" type="button" id="transmissionTypeDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                ---Transmission Type---
+                            </button>
+                            <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="transmissionTypeDropdown" style="min-width: 100%;">
+                                @foreach (var transmissionType in Model.TransmissionTypeOptions)
+                                {
+                                    <li>
+                                        <input type="checkbox" name="SelectedTransmissionTypeIds" value="@transmissionType.Value" id="@("transmissionType_" + transmissionType.Value)">
+                                        <label class="lbl-checkbox" for="@("transmissionType_" + transmissionType.Value)">@transmissionType.Text</label>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="CarListing.BodyType" class="form-label"></label>
+                        <div class="dropdown">
+                            <button class="form-select" type="button" id="bodyTypeDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                ---Body Type---
+                            </button>
+                            <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="bodyTypeDropdown" style="min-width: 100%;">
+                                @foreach (var bodyType in Model.BodyTypeOptions)
+                                {
+                                    <li>
+                                        <input type="checkbox" name="SelectedBodyTypeIds" value="@bodyType.Value" id="@("bodyType_" + bodyType.Value)">
+                                        <label class="lbl-checkbox" for="@("bodyType_" + bodyType.Value)">@bodyType.Text</label>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="CarListing.FuelType" class="form-label"></label>
+                        <div class="dropdown">
+                            <button class="form-select" type="button" id="fuelTypeDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                ---Fuel Type---
+                            </button>
+                            <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="fuelTypeDropdown" style="min-width: 100%;">
+                                @foreach (var fuelType in Model.FuelTypeOptions)
+                                {
+                                    <li>
+                                        <input type="checkbox" name="SelectedFuelTypeIds" value="@fuelType.Value" id="@("fuelType_" + fuelType.Value)">
+                                        <label class="lbl-checkbox" for="@("fuelType_" + fuelType.Value)">@fuelType.Text</label>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="CarListing.Price" class="form-label"></label>
+                        <input asp-for="Price" type="number" class="form-control price-input-field" placeholder="Enter maximum price">
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="YearFrom" class="form-label">Year from:</label>
+                        <input asp-for="YearFrom" type="number" class="form-control price-input-field" placeholder="Enter start year">
+                        <span asp-validation-for="YearFrom" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="YearTo" class="form-label">Year to:</label>
+                        <input asp-for="YearTo" type="number" class="form-control price-input-field" placeholder="Enter end year">
+                        <span asp-validation-for="YearTo" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="mt-3 text-end">
+                    <button type="submit" class="btn btn-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                        </svg> Search
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const brandDropdown = document.getElementById("brandDropdown");
+        const modelDropdown = document.getElementById("modelDropdown");
+        const modelDropdownMenu = document.querySelector(".dropdown-menu.custom-dropdown-menu");
+
+        function populateModels(selectedBrandId) {
+            if (selectedBrandId !== "") {
+                modelDropdown.disabled = false;
+                modelDropdownMenu.innerHTML = ""; // Clear existing options
+
+                fetch(`/GetModelsByBrandSearch?brandId=${selectedBrandId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        data.forEach(model => {
+                            const listItem = document.createElement("li");
+                            listItem.innerHTML = `
+                                    <input type="checkbox" name="SelectedModelIds" value="${model.modelId}" id="model_${model.modelId}">
+                                    <label class="lbl-checkbox" for="model_${model.modelId}">${model.name}</label>
+                                `;
+                            modelDropdownMenu.appendChild(listItem);
+                        });
+                    })
+                    .catch(error => console.error('Error:', error));
+            } else {
+                modelDropdown.disabled = true;
+                modelDropdownMenu.innerHTML = "<li><a class='dropdown-item' href='#'>---Select Model---</a></li>";
+            }
+        }
+
+        brandDropdown.addEventListener("change", function () {
+            const selectedBrandId = brandDropdown.value;
+            populateModels(selectedBrandId);
+        });
+
+        const selectedBrandId = brandDropdown.value;
+        populateModels(selectedBrandId);
+    });
+</script>
