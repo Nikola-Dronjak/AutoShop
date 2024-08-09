@@ -1,5 +1,6 @@
 ﻿using AutoShop.Domain;
 using AutoShop.ViewModel;
+using Microsoft.EntityFrameworkCore;
 
 namespace AutoShop.Services.Interfaces
 {
@@ -7,6 +8,7 @@ namespace AutoShop.Services.Interfaces
     {
         public IEnumerable<CarListing> CarListings { get; }
         public CarListing Get(int id);
+        public bool VINExists(string vin, int excludeCarId);
         public void Add(CarListing Car);
         public void Update(CarListing Car);
         public void Delete(CarListing Car);

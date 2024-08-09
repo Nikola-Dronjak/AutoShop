@@ -102,9 +102,9 @@
             <span asp-validation-for="Car.Description" class="text-danger"></span>
         </div>
         <div class="mb-3 row p-1">
-            <label asp-for="Car.ImageUrl" class="p-0"></label>
-            <input type="file" name="file" class="form-control border-0 shadow" />
-            <span asp-validation-for="Car.ImageUrl" class="text-danger"></span>
+            <label asp-for="Car.Images" class="p-0"></label>
+            <input asp-for="Car.Images" type="file" name="files" class="form-control border-0 shadow" multiple />
+            <span asp-validation-for="Car.Images" class="text-danger"></span>
         </div>
         <button type="submit" class="btn btn-primary" style="width:150px">Add</button>
         <a asp-controller="CarListing" asp-action="Index" class="btn btn-primary" style="width:150px">Back to List</a>
@@ -124,7 +124,7 @@
                 // Clear existing options
                 modelDropdown.innerHTML = "<option value=''>---Select Model---</option>";
 
-                // Fetch models based on the selected brand (assuming you have an API or method to retrieve models based on brandId)
+                // Fetch models based on the selected brand
                 fetch(`/GetModelsByBrand?brandId=${selectedBrandId}`)
                     .then(response => response.json())
                     .then(data => {

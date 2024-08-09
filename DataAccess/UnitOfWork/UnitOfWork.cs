@@ -6,6 +6,7 @@ using DataAccessLayer.CarListingRepository;
 using DataAccessLayer.EngineTypeRepository;
 using DataAccessLayer.FuelTypeRepository;
 using DataAccessLayer.TransmissionTypeRepository;
+using DataAccessLayer.ImageRepository;
 
 namespace DataAccessLayer.UnitOfWork
 {
@@ -21,6 +22,7 @@ namespace DataAccessLayer.UnitOfWork
             EngineTypeRepository = new EngineTypeRepository.EngineTypeRepository(context);
             ModelRepository = new ModelRepository.ModelRepository(context);
             BrandRepository = new BrandRepository.BrandRepository(context);
+            ImageRepository = new ImageRepository.ImageRepository(context);
             CarListingRepository = new CarListingRepository.CarListingRepository(context);
         }
         public IBodyTypeRepository BodyTypeRepository { get; set; }
@@ -29,6 +31,7 @@ namespace DataAccessLayer.UnitOfWork
         public IEngineTypeRepository EngineTypeRepository { get; set; }
         public IModelRepository ModelRepository { get; set; }
         public IBrandRepository BrandRepository { get; set; }
+        public IImageRepository ImageRepository { get; set; }
         public ICarListingRepository CarListingRepository { get; set; }
 
         public void SaveChanges()

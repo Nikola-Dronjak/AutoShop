@@ -21,6 +21,7 @@ namespace DataAccessLayer.CarListingRepository
                 .Include(u => u.TransmissionType)
                 .Include(u => u.FuelType)
                 .Include(u => u.BodyType)
+                .Include(u => u.Images)
                 .ToList();
         }
 
@@ -33,7 +34,15 @@ namespace DataAccessLayer.CarListingRepository
                 .Include(u => u.TransmissionType)
                 .Include(u => u.FuelType)
                 .Include(u => u.BodyType)
+                .Include(u => u.Images)
                 .FirstOrDefault(u => u.CarId == id);
+        }
+
+        public bool VINExists(string vin, int excludeCarId)
+        {
+            return _db.CarListings
+                .AsNoTracking()
+                .Any(u => u.VIN == vin && u.CarId != excludeCarId);
         }
 
         public void Add(CarListing Car)

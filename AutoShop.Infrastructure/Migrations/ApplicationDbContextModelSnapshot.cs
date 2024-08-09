@@ -168,10 +168,6 @@ namespace AutoShop.Infrastructure.Migrations
                     b.Property<int>("FuelTypeId")
                         .HasColumnType("int");
 
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("Mileage")
                         .HasColumnType("int");
 
@@ -232,7 +228,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Vozilo u odlicnom stanju. Uvoz Svajcarska. U top stanju, bez dinara ulaganja. Zamenjen pogonski lanac komplet sa lancem uljne pumpe. Zamenjen pk kais, spaner i roler pk kaisa, nove svecice, prednji diskovi i plocice novi, zadnji u odlicnom stanju, zamenjeno ulje i 4 filtera. Gume zimske nove. Klima napunjena. Zadnji parking senzori, navigacija azurirana za 2023 godinu,tempomat. Na vozilu sve ispravno i u odlicnom stanju. Cena dogovor....saljem na viber slike od kupovine iz CH i broj sasije. Odlican za pocetnike",
                             EngineTypeId = 5,
                             FuelTypeId = 2,
-                            ImageUrl = "/images/car/Audi A1.jpg",
                             Mileage = 212110,
                             ModelId = 1,
                             NumberOfDoors = 0,
@@ -253,7 +248,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Automobil je u odličnom stanju. Mehanički potpuno ispravan, kao i limarijski. Vozilo za svaku preporuku i vredi pogledati. Za više informacija o vozilu, kao i gledanje istog, pozovite na ispod navedene brojeve. Dozvoljena je svaka vrsta provere po želji kupca. Srećna kupovina!",
                             EngineTypeId = 3,
                             FuelTypeId = 1,
-                            ImageUrl = "/images/car/Audi A2.jpg",
                             Mileage = 172000,
                             ModelId = 2,
                             NumberOfDoors = 1,
@@ -274,7 +268,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Auto je kao NOV !!! Od prvog dana servisiran u ovlascenom servisu. Ovako ocuvan auto je jako tesko naci. Dozvoljen svaki vid provere kod vaseg majstora ili ovlascenom servisu. Srecna kupovina !!!",
                             EngineTypeId = 6,
                             FuelTypeId = 2,
-                            ImageUrl = "/images/car/Audi A3.jpg",
                             Mileage = 101000,
                             ModelId = 3,
                             NumberOfDoors = 1,
@@ -295,7 +288,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Orginalna kilometraza, servisna knjiga, i kompletna servisna istorija od prvog dana, sto se moze proveriti u ovlascenom audi servisu !!!!!!!!! Auto je iz uvoza, prodaje se na ime kupca... Kupac ne placa prenos vozila... Placena carina, pdv i amss... Dobijeno pismeno uverenje o ispravnosti vozila, od agencije za bezbednost saobracaja... Stanje novo, dosta dodatne opreme... Vozilo ispitano, mehanicki pregledano, tehnicki ispravno, bez ikakvih dodatnih ulaganja, pregledano...",
                             EngineTypeId = 6,
                             FuelTypeId = 1,
-                            ImageUrl = "/images/car/Audi A4.jpg",
                             Mileage = 149000,
                             ModelId = 4,
                             NumberOfDoors = 1,
@@ -316,7 +308,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Auto je kupljen u Audijevom salonu u Švedskoj za koji je moguć svaki vid provere kod majstora kao i carvertical koji ćemo mi platiti u slučaju da nešto nije tačno što piše u oglasu. Automobil proizveden u aprilu 2021 godine, dok je prva registracija 23.06.2021 godine. Pri kupovini automobil ide direktno na kupca gde od troškova ima samo registraciju koja je izuzetno niska zbog hybridnog motora.",
                             EngineTypeId = 6,
                             FuelTypeId = 4,
-                            ImageUrl = "/images/car/Audi A5.jpg",
                             Mileage = 24000,
                             ModelId = 5,
                             NumberOfDoors = 1,
@@ -337,7 +328,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Auto u ekstra stanju. Servisiran alnaser, alternator i kompresor klime. Zamenjeni zadnji amortizeri, potkovica i zadnji selen blokovi. Sva četiri diska nova. Enterijer očuvan i nista nije pocepano. Zimske mišelin gume na alu felnama. Gratis još jedan set letnjih guma na alu felnama. Auto skroz pouzdan i siguran. Bez ulaganja. Prodaje se zato sto sam kupio drugi automobil.",
                             EngineTypeId = 6,
                             FuelTypeId = 1,
-                            ImageUrl = "/images/car/Audi A6.jpg",
                             Mileage = 208000,
                             ModelId = 6,
                             NumberOfDoors = 1,
@@ -358,7 +348,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Kupljen nov u Nemačkoj, garancija na pređenu kilometražu i sve ostalo. Čipovan je na 400 ks.",
                             EngineTypeId = 6,
                             FuelTypeId = 4,
-                            ImageUrl = "/images/car/Audi A7.jpg",
                             Mileage = 138000,
                             ModelId = 7,
                             NumberOfDoors = 1,
@@ -379,7 +368,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Besprekorno održavan automobil",
                             EngineTypeId = 6,
                             FuelTypeId = 1,
-                            ImageUrl = "/images/car/Audi A8.jpg",
                             Mileage = 95000,
                             ModelId = 8,
                             NumberOfDoors = 1,
@@ -400,7 +388,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Nove Hankook gume",
                             EngineTypeId = 6,
                             FuelTypeId = 2,
-                            ImageUrl = "/images/car/BMW M2.jpg",
                             Mileage = 31000,
                             ModelId = 9,
                             NumberOfDoors = 0,
@@ -421,7 +408,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Automobil je u TOP stanju u svakom smislu.",
                             EngineTypeId = 4,
                             FuelTypeId = 2,
-                            ImageUrl = "/images/car/BMW M3.jpg",
                             Mileage = 117441,
                             ModelId = 10,
                             NumberOfDoors = 1,
@@ -442,7 +428,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Vozilo je u perfektnom stanju, kupljeno kao novo u Srbiji u Delta Motorsu. Redovno održavano u ovlašćenom BMW servisu. Datum prve registracije: 10.08.2022. Automobil ima produženu fabričku garanciju do 09.08.2026 ili 200.000 km. Poseduje paket besplatnog održavanja (Service inclusive) do 09.08.2026 ili do 120.000 km.",
                             EngineTypeId = 6,
                             FuelTypeId = 2,
-                            ImageUrl = "/images/car/BMW M4.jpg",
                             Mileage = 35535,
                             ModelId = 11,
                             NumberOfDoors = 0,
@@ -463,7 +448,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Vozilo u perfektnom stanju. Mogucnost svake vrste provere u servisu.",
                             EngineTypeId = 6,
                             FuelTypeId = 2,
-                            ImageUrl = "/images/car/BMW M5.jpg",
                             Mileage = 58000,
                             ModelId = 12,
                             NumberOfDoors = 1,
@@ -484,7 +468,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Poslednji model M Bmw-a sa atnosverskim motorom. Redak i cenjen model u Cabrio verziji.",
                             EngineTypeId = 4,
                             FuelTypeId = 4,
-                            ImageUrl = "/images/car/BMW M6.jpg",
                             Mileage = 124000,
                             ModelId = 13,
                             NumberOfDoors = 0,
@@ -505,7 +488,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Motor je u kvaru !!!",
                             EngineTypeId = 5,
                             FuelTypeId = 1,
-                            ImageUrl = "/images/car/BMW X1.jpg",
                             Mileage = 189000,
                             ModelId = 14,
                             NumberOfDoors = 1,
@@ -526,7 +508,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Odličan, spreman za zimu sa XD pogonom. Svi servisi redovno rađeni u BMW-u.",
                             EngineTypeId = 6,
                             FuelTypeId = 1,
-                            ImageUrl = "/images/car/BMW X2.jpg",
                             Mileage = 151000,
                             ModelId = 15,
                             NumberOfDoors = 1,
@@ -547,7 +528,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Vozilo je u besprekornom stanju. Datum prve registracije: 15.04.2021. Mogućnost kupovine vozila preko kredita, finansijskog ili operativnog lizinga. Delta Automoto daje garanciju na motor.",
                             EngineTypeId = 6,
                             FuelTypeId = 2,
-                            ImageUrl = "/images/car/BMW X3.jpg",
                             Mileage = 74442,
                             ModelId = 16,
                             NumberOfDoors = 1,
@@ -568,7 +548,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Panorama krov. Tonirana stakla. Automobil je nov..za vise info pozvati.",
                             EngineTypeId = 6,
                             FuelTypeId = 3,
-                            ImageUrl = "/images/car/Citroen Ami.jpg",
                             Mileage = 58,
                             ModelId = 17,
                             NumberOfDoors = 0,
@@ -589,7 +568,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Uvezen iz Nemacke 2022. Registrovan godinu dana do Decembra 2024. Redovno odrzavan. Dva seta guma. Bez ulaganja.",
                             EngineTypeId = 6,
                             FuelTypeId = 1,
-                            ImageUrl = "/images/car/Citroen Berlingo.jpg",
                             Mileage = 170000,
                             ModelId = 18,
                             NumberOfDoors = 1,
@@ -610,7 +588,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Gradski zvrk sa motorom Toyote. Odlicno stanje kako limarijski tako i mehanicki. Zamenjen lonac auspuha koji je u garanciji 2 godine. Auto bez ulaganja za grad izmisljen. Razlog prodaje sin iznenadno dobio posao u inostranstvu pa bi bio visak.",
                             EngineTypeId = 4,
                             FuelTypeId = 2,
-                            ImageUrl = "/images/car/Citroen C1.jpg",
                             Mileage = 214521,
                             ModelId = 19,
                             NumberOfDoors = 0,
@@ -631,7 +608,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "PRAVA KILOMETRAZA! Digitalna klima!",
                             EngineTypeId = 3,
                             FuelTypeId = 2,
-                            ImageUrl = "/images/car/Citroen C2.jpg",
                             Mileage = 145000,
                             ModelId = 20,
                             NumberOfDoors = 0,
@@ -652,7 +628,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Vozilo je iz uvoza. Poseduje kompletnu servisnu istoriju (istorija je dostupna na uvid prilikom posete izložbenom salonu.",
                             EngineTypeId = 6,
                             FuelTypeId = 2,
-                            ImageUrl = "/images/car/Citroen C3.jpg",
                             Mileage = 68240,
                             ModelId = 21,
                             NumberOfDoors = 1,
@@ -673,7 +648,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Za svaki kupljeni auto kod nas mozete da uradite veliki servis u nasem servisu za koji dobijate GARANCIJU.",
                             EngineTypeId = 6,
                             FuelTypeId = 1,
-                            ImageUrl = "/images/car/Citroen C4.jpg",
                             Mileage = 141382,
                             ModelId = 22,
                             NumberOfDoors = 1,
@@ -694,7 +668,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Auto u ekstra stanju redovno odrzavano, potpuno ispravno. Kupcu ostaje samo tehnicki i registracija.",
                             EngineTypeId = 4,
                             FuelTypeId = 1,
-                            ImageUrl = "/images/car/Citroen C5.jpg",
                             Mileage = 186344,
                             ModelId = 23,
                             NumberOfDoors = 1,
@@ -715,7 +688,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Visoka klasa vozila. Digitalna tabla. Praćenje trake. Redovno servisiran i održavan. Motor mu tiho radi i nema dima. Menjač šalta savršeno i ne lupa ni vruć a ni hladan. Cena smešna za keš - fixno.",
                             EngineTypeId = 4,
                             FuelTypeId = 1,
-                            ImageUrl = "/images/car/Citroen C6.jpg",
                             Mileage = 220000,
                             ModelId = 24,
                             NumberOfDoors = 1,
@@ -736,7 +708,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Prvi i jedini vlasnik do sada.2009-te godine je ugradjen autogas uredjaj (pre neki dan je uradjen reatest a boca treba da se menja tek za 7-8 godina-pošto je zamenjena pre par godina. Do sada su zamenjeni akumulator i auspuh više puta i redovno ulje, filteri, antifriz kablovi i svećice.Zatim su menjani alternator, set kvačila, zupčasti kajiš,kočioni diskovi, nosači motora, diferencijal i kompjuter koji nije sasvim otkazao-čuvam ga i sada za „ne daj bože“ pošto se zameni za 2 minuta a samo je pokazao izvesnu nestabilnost u radu dok se motor ne zagreje. Auto je u solidnom stanju za svoje godine, ispravan, upravo registrovan (registracija važi do 03.01.2025 god.) vrlo malo prešao (uvek je bio drugi sigurni auto).Ima nekoliko manjih oštećenja-ulubljenja od nesmotrenih vozača na parkingu (bilo je i ranije pa mi je pre 7-8 god. autolimar sve to sredio prefarbao ali džaba-opet isto…).",
                             EngineTypeId = 3,
                             FuelTypeId = 2,
-                            ImageUrl = "/images/car/Fiat Albea.jpg",
                             Mileage = 97000,
                             ModelId = 25,
                             NumberOfDoors = 1,
@@ -757,7 +728,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Auto je kupljen u avgustu 2023. godine. Krenuo sam da ga sredjujem za licnu upotrebu, razlog prodaje je poslovna prilika koja se otvorila u medjuvremenu. Registrovan je do kraja aprila 2024. Mozete doci da pogledate auto svakim danom do 9 ujutru ili posle 4 popodne, kontakt na broj telefona.",
                             EngineTypeId = 4,
                             FuelTypeId = 1,
-                            ImageUrl = "/images/car/Fiat Bravo.jpg",
                             Mileage = 221000,
                             ModelId = 26,
                             NumberOfDoors = 1,
@@ -778,7 +748,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "VOZILO IZ UVOZA,OCARINJENO I URADJEN AMSS. MEHANICKI BEZ GRESKE, ENTERIJER KAO NOV. DOZVOLJENE SVE VRSTE PREGLEDA.LEPSI UZIVO NEGO NA SLIKAMA.",
                             EngineTypeId = 4,
                             FuelTypeId = 1,
-                            ImageUrl = "/images/car/Fiat Croma.jpg",
                             Mileage = 189000,
                             ModelId = 27,
                             NumberOfDoors = 1,
@@ -799,7 +768,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Uradjen veliki servis. Utegnut u voznji. Mogucnost svake vrste provere.",
                             EngineTypeId = 5,
                             FuelTypeId = 1,
-                            ImageUrl = "/images/car/Fiat Dublo.jpg",
                             Mileage = 161000,
                             ModelId = 28,
                             NumberOfDoors = 1,
@@ -820,7 +788,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Auto je u odlicnom stanju. Na ime kupca.",
                             EngineTypeId = 4,
                             FuelTypeId = 1,
-                            ImageUrl = "/images/car/Fiat Evo.jpg",
                             Mileage = 186000,
                             ModelId = 29,
                             NumberOfDoors = 0,
@@ -841,7 +808,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Vozilo iz uvoza, kupljeno od prvog vlasnika. Redovno održavano u ovlašćenom servisu FIAT ( original servisna knjižica i elektronska servisna istorija dostupna na uvid ).",
                             EngineTypeId = 5,
                             FuelTypeId = 1,
-                            ImageUrl = "/images/car/Fiat Freemont.jpg",
                             Mileage = 241318,
                             ModelId = 30,
                             NumberOfDoors = 1,
@@ -862,7 +828,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Auto u odličnom stanju. Za vise informacija pozovi.",
                             EngineTypeId = 4,
                             FuelTypeId = 1,
-                            ImageUrl = "/images/car/Fiat Idea.jpg",
                             Mileage = 199000,
                             ModelId = 31,
                             NumberOfDoors = 1,
@@ -883,7 +848,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "MALI POTROŠAČ JEFTIN ZA ODRZÀVANJE. BEZ DINARA DODATNIH ULAGANJA. CENA SKORO FIXNA FIXNA.",
                             EngineTypeId = 4,
                             FuelTypeId = 2,
-                            ImageUrl = "/images/car/Fiat Punto.jpg",
                             Mileage = 94822,
                             ModelId = 32,
                             NumberOfDoors = 1,
@@ -904,7 +868,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Auto se prodaje jer nam vise nije potreban. Baka više ne želi da vozi.",
                             EngineTypeId = 4,
                             FuelTypeId = 2,
-                            ImageUrl = "/images/car/Hyundai Atos.jpg",
                             Mileage = 144148,
                             ModelId = 33,
                             NumberOfDoors = 1,
@@ -925,7 +888,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Garancija na vozilo 5+2 godine, bez ograničenja pređene kilometraže. Mogućnost kupovine pod povoljnim uslovima na kredit ili lizing.",
                             EngineTypeId = 6,
                             FuelTypeId = 2,
-                            ImageUrl = "/images/car/Hyundai Bayon.jpg",
                             Mileage = 7,
                             ModelId = 34,
                             NumberOfDoors = 1,
@@ -946,7 +908,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Stanje odlicno. Uradjen veliki servis na 135.000 km. Urađeno kvačilo na 135.000 km. Gume nove sve cetri, motor i menjac savrseni, za dodatne informacije pozovite.",
                             EngineTypeId = 3,
                             FuelTypeId = 2,
-                            ImageUrl = "/images/car/Hyundai Coupe.jpg",
                             Mileage = 142000,
                             ModelId = 35,
                             NumberOfDoors = 0,
@@ -967,7 +928,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Vozilo je kupljeno novo u Srbiji, redovno servisirano u ovlascenom Hyundai servisu i nakon isteka garancije u ovlašćenom servisu.",
                             EngineTypeId = 6,
                             FuelTypeId = 1,
-                            ImageUrl = "/images/car/Hyundai Elantra.jpg",
                             Mileage = 61000,
                             ModelId = 36,
                             NumberOfDoors = 1,
@@ -988,7 +948,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Automobil je u perfektnom stanju, bez oštećenja i mehaničkih kvarova. Prvi sam vlasnik automobila kupljenog i odrzavanog u Hyundai Srbija u Beogradu. Motor je u besprekornom stanju. Posedujem kompletnu servisnu dokumentaciju.",
                             EngineTypeId = 5,
                             FuelTypeId = 2,
-                            ImageUrl = "/images/car/Hyundai Genesis.jpg",
                             Mileage = 37000,
                             ModelId = 37,
                             NumberOfDoors = 0,
@@ -1009,7 +968,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "U besprekornom stanju. Fabricka garancija. Dva originalna kljuca-kartice. Registrovan do Septembra 2024. godine.",
                             EngineTypeId = 6,
                             FuelTypeId = 2,
-                            ImageUrl = "/images/car/Hyundai Kona.jpg",
                             Mileage = 14200,
                             ModelId = 38,
                             NumberOfDoors = 1,
@@ -1030,7 +988,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "U dobrom stanju. Menjac i motor dobri, limariski nema ulaganja. Gume dobre. Električni podizaci stakala. Gume dobre.",
                             EngineTypeId = 4,
                             FuelTypeId = 1,
-                            ImageUrl = "/images/car/Hyundai Matrix.jpg",
                             Mileage = 236000,
                             ModelId = 39,
                             NumberOfDoors = 1,
@@ -1051,7 +1008,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Kupljen nov u Srbiji; održavan od prvog dana do danas u ovlašćenom Hyundai servisu. Na automobilu se nalaze nove Continental All Season gume kupljene u maju 2023.",
                             EngineTypeId = 6,
                             FuelTypeId = 1,
-                            ImageUrl = "/images/car/Hyundai Santa Fe.jpg",
                             Mileage = 163000,
                             ModelId = 40,
                             NumberOfDoors = 1,
@@ -1072,7 +1028,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Auto je u perfektnom stanju. Placena carina, ide na ime kupca, potrebna samo registracija.",
                             EngineTypeId = 6,
                             FuelTypeId = 2,
-                            ImageUrl = "/images/car/Opel Adam.jpg",
                             Mileage = 190000,
                             ModelId = 41,
                             NumberOfDoors = 0,
@@ -1093,7 +1048,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Kupljena i uvezena od prvog vlasnika sa kompletnom servisnom istorijom od prvog dana + 2 originalna ključa. Automobil je bez ikakvog oštećenja na karoseriji i enterijeru. Mehanički je u perfektnom stanju kako motor tako i menjač, u vožnji utegnut nema stranih zvukova, kvačilo mekano. Izvršen kompletan pregled automobila u 90 tačaka. Svako dugme na automobilu radi, klima odlično hladi. Na automobilu su odlične Letnje gume. Proizvedena 12.2010, a prvi put registrovana 2011 godine. Plaćene sve dažbine, uradjen je i pregled AMSS.",
                             EngineTypeId = 5,
                             FuelTypeId = 1,
-                            ImageUrl = "/images/car/Opel Astra.jpg",
                             Mileage = 175044,
                             ModelId = 42,
                             NumberOfDoors = 1,
@@ -1114,7 +1068,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Vozilo u odlicnom stanju. Uvoz iz Švajcarske. Motor, menjac i trap u odlicnom stanju. Limarijski bez ulaganja. Unutrasnjost vozila izuzetno ocuvana. Na vozilu se nalaze zimski pneumatici. Vozilo poseduje originalnu servisnu knjizicu iz uvoza.",
                             EngineTypeId = 5,
                             FuelTypeId = 2,
-                            ImageUrl = "/images/car/Opel Corsa.jpg",
                             Mileage = 121800,
                             ModelId = 43,
                             NumberOfDoors = 1,
@@ -1135,7 +1088,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "limarijski zdrava. Motor odlican. Menjac odlican, pogon 4x4 odlican. Trapovi odlicni. Gume letnje. Diskovi, plocice, paknovi - sve novo stavljeno, odrzavan auto. Od enterijera, vozacevo sediste leva strana malo pohabana.",
                             EngineTypeId = 3,
                             FuelTypeId = 1,
-                            ImageUrl = "/images/car/Opel Frontera.jpg",
                             Mileage = 257000,
                             ModelId = 44,
                             NumberOfDoors = 1,
@@ -1156,7 +1108,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "U besprkornom stanju u svim segmentima. Izuzetno mali potrosac 6.7/100km GRAD!",
                             EngineTypeId = 6,
                             FuelTypeId = 1,
-                            ImageUrl = "/images/car/Opel Insignia.jpg",
                             Mileage = 192825,
                             ModelId = 45,
                             NumberOfDoors = 1,
@@ -1177,7 +1128,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Auto je u dobrom stanju, motor perfektan, enterijer u dobrom stanju, razlog prodaje posedujem dva automobila. Registrovan do 22.01.2024. Auto poseduje klimu koju nisam koristio.",
                             EngineTypeId = 3,
                             FuelTypeId = 2,
-                            ImageUrl = "/images/car/Opel Kadett.jpg",
                             Mileage = 162365,
                             ModelId = 46,
                             NumberOfDoors = 0,
@@ -1198,7 +1148,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "PERFEKTNO STANJE MOTORA I MENJAČA... FABRIČKI PLIN - ATESTIRAN...",
                             EngineTypeId = 6,
                             FuelTypeId = 5,
-                            ImageUrl = "/images/car/Opel Karl.jpg",
                             Mileage = 187230,
                             ModelId = 47,
                             NumberOfDoors = 1,
@@ -1219,7 +1168,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Dzip u dobrom stanju.",
                             EngineTypeId = 2,
                             FuelTypeId = 1,
-                            ImageUrl = "/images/car/Opel Monterey.jpg",
                             Mileage = 265756,
                             ModelId = 48,
                             NumberOfDoors = 1,
@@ -1240,7 +1188,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Automobil u PERFEKTNOM stanju. Kupljen nov u Srbiji, prvi vlasnik. Redovno i isključivo održavan u ovlašćenom servisu, poseduje kompletnu dokumentaciju.",
                             EngineTypeId = 6,
                             FuelTypeId = 2,
-                            ImageUrl = "/images/car/Porsche 911.jpg",
                             Mileage = 70000,
                             ModelId = 49,
                             NumberOfDoors = 0,
@@ -1261,7 +1208,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Prvi vlasnik, garantovano prava kilometraza (moguca svaka provera), posedujem racune kad je kupljeno vozilo 2009 godine, najjaci paket opreme, panorama… sve 4 gume 2023 godiste kao i felne plus zimski set, dva kljuca, redovno odrzavan, VOZILO JE BUKVALNO KAO NOVO BEZ DINARA ULAGANJA, GARANTUJEM DA JE NAJLEPSI PRIMERAK, garaziran od prvog dana! Navedena cena je fiksna i iskljucivo za kes!",
                             EngineTypeId = 4,
                             FuelTypeId = 1,
-                            ImageUrl = "/images/car/Porsche Cayenne.jpg",
                             Mileage = 190000,
                             ModelId = 50,
                             NumberOfDoors = 1,
@@ -1282,7 +1228,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Urađen mali servis. Zamenjen separator ulja. Zamenjeni svi diskovi i pločice. Nove svećice. Set kvačila. Prednje levo rame. Prednje desno rame. Nove opruge. Novi amortizeri na haubi. Unutrašnja rasveta sa LED sijalicama. LED svetla za maglu i pozicija. Nove patosnice. Nove lajsne na pragovima. Dva ključa. Dva seta alu felni sa gumama (letnje 17\" / zimske 18\")",
                             EngineTypeId = 4,
                             FuelTypeId = 2,
-                            ImageUrl = "/images/car/Porsche Cayman.jpg",
                             Mileage = 178500,
                             ModelId = 51,
                             NumberOfDoors = 0,
@@ -1303,7 +1248,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Vozilo u odličnom stanju, kupljeno kao novo u Srbiji i redovno održavano u ovlašćenom servisu. Datum prve registracije: 29.04.2015.",
                             EngineTypeId = 6,
                             FuelTypeId = 1,
-                            ImageUrl = "/images/car/Porsche Macan.jpg",
                             Mileage = 119899,
                             ModelId = 52,
                             NumberOfDoors = 1,
@@ -1324,7 +1268,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Prvi vlasnik. Svaki servis urađen u ovlašćenom servisu. Servisna knjiga. Visok nivo opreme: panorama, privlačenje vrata, key lets go, ambijentalna rasveta, grejanje i hlađenje sedišta, display na zadnjoj klupi, full matrix far....... Možete proveriti vozilo sa svojim majstorom ili zakazati pregled u ovlašćenom servisu. Vozilo je apsolutno ispravno bez ulaganja bilo koje vrste.",
                             EngineTypeId = 6,
                             FuelTypeId = 2,
-                            ImageUrl = "/images/car/Porsche Panamera.jpg",
                             Mileage = 123000,
                             ModelId = 53,
                             NumberOfDoors = 1,
@@ -1345,7 +1288,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Vozilo je u fabričkoj garanciji. Na stanju i odmah dostupno.",
                             EngineTypeId = 6,
                             FuelTypeId = 2,
-                            ImageUrl = "/images/car/Porsche Targa.jpg",
                             Mileage = 12000,
                             ModelId = 54,
                             NumberOfDoors = 0,
@@ -1366,7 +1308,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Uvoz iz Nemacke! Vozilo iz uvoza, kupljeno od prvog vlasnika. Redovno održavano u ovlašćenom servisu (original servisna knjižica ili elektronska servisna istorija dostupna na uvid ). Vozilo je pregledano od strane kompanije SGS-a ili Dekre i nema nikakvih nedostataka ili dodatnih troškova nakon kupovine, osim registracije čije troškove snosi kupac.",
                             EngineTypeId = 4,
                             FuelTypeId = 2,
-                            ImageUrl = "/images/car/Porsche Boxster.jpg",
                             Mileage = 82000,
                             ModelId = 55,
                             NumberOfDoors = 0,
@@ -1387,7 +1328,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "U odličnom stanju zadnjih 10 godina se ne vozi garažiran. Cena nije fiksna. S motor 190 ks nova tabla klima. Električna sedišta sa grejačima, multimedija, alarm, daljensko zaključavanje.",
                             EngineTypeId = 1,
                             FuelTypeId = 1,
-                            ImageUrl = "/images/car/Porsche 944.jpg",
                             Mileage = 150000,
                             ModelId = 56,
                             NumberOfDoors = 0,
@@ -1408,7 +1348,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Polovno vozilo kupljeno u salonu Jevtović Auto pre dva meseca.",
                             EngineTypeId = 6,
                             FuelTypeId = 2,
-                            ImageUrl = "/images/car/Renault Austral.jpg",
                             Mileage = 400,
                             ModelId = 57,
                             NumberOfDoors = 1,
@@ -1429,7 +1368,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Auto kupljen nov u Srbiji, bez udesa i kvarova. Ima servisnu knjižicu, ECC sertifikat. Ima funciju povezivosti na Android Auto i Apple CarPlay, ESM sistem. Mali servis uradjen.",
                             EngineTypeId = 6,
                             FuelTypeId = 2,
-                            ImageUrl = "/images/car/Renault Clio.jpg",
                             Mileage = 15135,
                             ModelId = 58,
                             NumberOfDoors = 1,
@@ -1450,7 +1388,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Nema klimu. Nije oštećen.",
                             EngineTypeId = 2,
                             FuelTypeId = 1,
-                            ImageUrl = "/images/car/Renault Express.jpg",
                             Mileage = 250000,
                             ModelId = 59,
                             NumberOfDoors = 0,
@@ -1471,7 +1408,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Redovno održavan, korišćen uglavnom za duga putovanja. Postoje sitna oštećenja na limariji od gradske vožnje, ništa ekstremno. Mehanički je auto ispravan, atest nije produžen, dokunentacija je skroz uredna ali nisam imao slobodnog vremena pa se to odlagalo. Nepušački auto, dva seta guma. Letnje 16 inča, gume zrele za zamenu, zimske su dobre i na čeličnim su felnama. Nije lupan auto. Ne troši ulje, motor je perfektan. Registracija ističe kraj četvrtog meseca.",
                             EngineTypeId = 5,
                             FuelTypeId = 2,
-                            ImageUrl = "/images/car/Renault Fluence.jpg",
                             Mileage = 296763,
                             ModelId = 60,
                             NumberOfDoors = 1,
@@ -1492,7 +1428,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Održavan isključivo u ovlašćenom Renault servisu, servisna knjiga plus elektronski listing održavanja.",
                             EngineTypeId = 6,
                             FuelTypeId = 2,
-                            ImageUrl = "/images/car/Renault Kadjar.jpg",
                             Mileage = 96532,
                             ModelId = 61,
                             NumberOfDoors = 1,
@@ -1513,7 +1448,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "VOZILO KUPLJENO NOVO U SRBIJI. ODRŽAVANO U OVLAŠĆENOM SERVISU.",
                             EngineTypeId = 6,
                             FuelTypeId = 2,
-                            ImageUrl = "/images/car/Renault Megane.jpg",
                             Mileage = 58504,
                             ModelId = 62,
                             NumberOfDoors = 1,
@@ -1534,7 +1468,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Vozilo je u dobrom stanju, nema limarskih oštećenja. Urađen veliki servis i redovan servis u aprilu 2023 godine, kvačilo je promenjeno u novembru 2023 godine.",
                             EngineTypeId = 4,
                             FuelTypeId = 2,
-                            ImageUrl = "/images/car/Renault Modus.jpg",
                             Mileage = 171400,
                             ModelId = 63,
                             NumberOfDoors = 1,
@@ -1555,7 +1488,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Automobil u perfektnom stanju,bez ostecenja na unutrasnjost i spoljasnost vozila. Mehanicki u potpunosti ispravan i ne zahteva nikakva ulaganja. Četiri odlicne zimske gume.",
                             EngineTypeId = 6,
                             FuelTypeId = 2,
-                            ImageUrl = "/images/car/Renault Twingo.jpg",
                             Mileage = 180000,
                             ModelId = 64,
                             NumberOfDoors = 1,
@@ -1576,7 +1508,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Auto je kupljeno u Tesla Norge, auto je bio na detaljnoj proveri pre prodaje, sto posedujem dokumentaciju. Domet baterije je oko 400km. Automobil je u savrsenom stanju, slike pri kupovini.",
                             EngineTypeId = 6,
                             FuelTypeId = 3,
-                            ImageUrl = "/images/car/Tesla Model S.jpg",
                             Mileage = 179000,
                             ModelId = 65,
                             NumberOfDoors = 1,
@@ -1597,7 +1528,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Простран и веома безбедан, са високим фокусом на безбедност, модел 3 је практично без дугмади, где се већина функција аутомобила контролише са централно постављеног екрана од 15 инча. Пуноправна самовозећа седишта чине аутомобил подељен на самовозећи уз помоћ 8 камера, дванаест сензора и 1 радара. Има јединствен домет од 620 км (ВЛПТ), убрзање од 0-100 за 4,4 секунде и максималну брзину од 233 км/х, тако да може да иде брзо.",
                             EngineTypeId = 6,
                             FuelTypeId = 3,
-                            ImageUrl = "/images/car/Tesla Model 3.jpg",
                             Mileage = 74000,
                             ModelId = 66,
                             NumberOfDoors = 1,
@@ -1618,7 +1548,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "Nov auto, kupljen od prvog vlasnika u Nemačkoj. Svaka vrsta provere od strane kupca je moguća.",
                             EngineTypeId = 6,
                             FuelTypeId = 3,
-                            ImageUrl = "/images/car/Tesla Model Y.jpg",
                             Mileage = 11841,
                             ModelId = 67,
                             NumberOfDoors = 1,
@@ -1639,7 +1568,6 @@ namespace AutoShop.Infrastructure.Migrations
                             Description = "SNAGA 525 KS. RANGE (DOMET BATERIJE) 405 KM.",
                             EngineTypeId = 6,
                             FuelTypeId = 3,
-                            ImageUrl = "/images/car/Tesla Model X.jpg",
                             Mileage = 63000,
                             ModelId = 68,
                             NumberOfDoors = 1,
@@ -1743,6 +1671,2262 @@ namespace AutoShop.Infrastructure.Migrations
                         {
                             FuelTypeId = 5,
                             Type = "Natural gas"
+                        });
+                });
+
+            modelBuilder.Entity("AutoShop.Domain.Image", b =>
+                {
+                    b.Property<int>("ImageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ImageId"));
+
+                    b.Property<int>("CarId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ImageId");
+
+                    b.HasIndex("CarId");
+
+                    b.ToTable("Images");
+
+                    b.HasData(
+                        new
+                        {
+                            ImageId = 1,
+                            CarId = 1,
+                            ImageUrl = "/images/car/Audi 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 2,
+                            CarId = 1,
+                            ImageUrl = "/images/car/Audi 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 3,
+                            CarId = 1,
+                            ImageUrl = "/images/car/Audi 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 4,
+                            CarId = 1,
+                            ImageUrl = "/images/car/Audi 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 5,
+                            CarId = 1,
+                            ImageUrl = "/images/car/Audi 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 6,
+                            CarId = 1,
+                            ImageUrl = "/images/car/Audi 6.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 7,
+                            CarId = 1,
+                            ImageUrl = "/images/car/Audi 7.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 8,
+                            CarId = 1,
+                            ImageUrl = "/images/car/Audi 8.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 9,
+                            CarId = 2,
+                            ImageUrl = "/images/car/Audi 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 10,
+                            CarId = 2,
+                            ImageUrl = "/images/car/Audi 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 11,
+                            CarId = 2,
+                            ImageUrl = "/images/car/Audi 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 12,
+                            CarId = 2,
+                            ImageUrl = "/images/car/Audi 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 13,
+                            CarId = 2,
+                            ImageUrl = "/images/car/Audi 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 14,
+                            CarId = 2,
+                            ImageUrl = "/images/car/Audi 6.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 15,
+                            CarId = 2,
+                            ImageUrl = "/images/car/Audi 7.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 16,
+                            CarId = 2,
+                            ImageUrl = "/images/car/Audi 8.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 17,
+                            CarId = 3,
+                            ImageUrl = "/images/car/Audi 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 18,
+                            CarId = 3,
+                            ImageUrl = "/images/car/Audi 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 19,
+                            CarId = 3,
+                            ImageUrl = "/images/car/Audi 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 20,
+                            CarId = 3,
+                            ImageUrl = "/images/car/Audi 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 21,
+                            CarId = 3,
+                            ImageUrl = "/images/car/Audi 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 22,
+                            CarId = 3,
+                            ImageUrl = "/images/car/Audi 6.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 23,
+                            CarId = 3,
+                            ImageUrl = "/images/car/Audi 7.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 24,
+                            CarId = 3,
+                            ImageUrl = "/images/car/Audi 8.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 25,
+                            CarId = 4,
+                            ImageUrl = "/images/car/Audi 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 26,
+                            CarId = 4,
+                            ImageUrl = "/images/car/Audi 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 27,
+                            CarId = 4,
+                            ImageUrl = "/images/car/Audi 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 28,
+                            CarId = 4,
+                            ImageUrl = "/images/car/Audi 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 29,
+                            CarId = 4,
+                            ImageUrl = "/images/car/Audi 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 30,
+                            CarId = 4,
+                            ImageUrl = "/images/car/Audi 6.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 31,
+                            CarId = 4,
+                            ImageUrl = "/images/car/Audi 7.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 32,
+                            CarId = 4,
+                            ImageUrl = "/images/car/Audi 8.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 33,
+                            CarId = 5,
+                            ImageUrl = "/images/car/Audi 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 34,
+                            CarId = 5,
+                            ImageUrl = "/images/car/Audi 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 35,
+                            CarId = 5,
+                            ImageUrl = "/images/car/Audi 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 36,
+                            CarId = 5,
+                            ImageUrl = "/images/car/Audi 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 37,
+                            CarId = 5,
+                            ImageUrl = "/images/car/Audi 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 38,
+                            CarId = 5,
+                            ImageUrl = "/images/car/Audi 6.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 39,
+                            CarId = 5,
+                            ImageUrl = "/images/car/Audi 7.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 40,
+                            CarId = 5,
+                            ImageUrl = "/images/car/Audi 8.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 41,
+                            CarId = 6,
+                            ImageUrl = "/images/car/Audi 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 42,
+                            CarId = 6,
+                            ImageUrl = "/images/car/Audi 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 43,
+                            CarId = 6,
+                            ImageUrl = "/images/car/Audi 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 44,
+                            CarId = 6,
+                            ImageUrl = "/images/car/Audi 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 45,
+                            CarId = 6,
+                            ImageUrl = "/images/car/Audi 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 46,
+                            CarId = 6,
+                            ImageUrl = "/images/car/Audi 6.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 47,
+                            CarId = 6,
+                            ImageUrl = "/images/car/Audi 7.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 48,
+                            CarId = 6,
+                            ImageUrl = "/images/car/Audi 8.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 49,
+                            CarId = 7,
+                            ImageUrl = "/images/car/Audi 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 50,
+                            CarId = 7,
+                            ImageUrl = "/images/car/Audi 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 51,
+                            CarId = 7,
+                            ImageUrl = "/images/car/Audi 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 52,
+                            CarId = 7,
+                            ImageUrl = "/images/car/Audi 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 53,
+                            CarId = 7,
+                            ImageUrl = "/images/car/Audi 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 54,
+                            CarId = 7,
+                            ImageUrl = "/images/car/Audi 6.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 55,
+                            CarId = 7,
+                            ImageUrl = "/images/car/Audi 7.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 56,
+                            CarId = 7,
+                            ImageUrl = "/images/car/Audi 8.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 57,
+                            CarId = 8,
+                            ImageUrl = "/images/car/Audi 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 58,
+                            CarId = 8,
+                            ImageUrl = "/images/car/Audi 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 59,
+                            CarId = 8,
+                            ImageUrl = "/images/car/Audi 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 60,
+                            CarId = 8,
+                            ImageUrl = "/images/car/Audi 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 61,
+                            CarId = 8,
+                            ImageUrl = "/images/car/Audi 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 62,
+                            CarId = 8,
+                            ImageUrl = "/images/car/Audi 6.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 63,
+                            CarId = 8,
+                            ImageUrl = "/images/car/Audi 7.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 64,
+                            CarId = 8,
+                            ImageUrl = "/images/car/Audi 8.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 65,
+                            CarId = 9,
+                            ImageUrl = "/images/car/BMW 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 66,
+                            CarId = 9,
+                            ImageUrl = "/images/car/BMW 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 67,
+                            CarId = 9,
+                            ImageUrl = "/images/car/BMW 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 68,
+                            CarId = 9,
+                            ImageUrl = "/images/car/BMW 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 69,
+                            CarId = 9,
+                            ImageUrl = "/images/car/BMW 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 70,
+                            CarId = 10,
+                            ImageUrl = "/images/car/BMW 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 71,
+                            CarId = 10,
+                            ImageUrl = "/images/car/BMW 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 72,
+                            CarId = 10,
+                            ImageUrl = "/images/car/BMW 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 73,
+                            CarId = 10,
+                            ImageUrl = "/images/car/BMW 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 74,
+                            CarId = 10,
+                            ImageUrl = "/images/car/BMW 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 75,
+                            CarId = 11,
+                            ImageUrl = "/images/car/BMW 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 76,
+                            CarId = 11,
+                            ImageUrl = "/images/car/BMW 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 77,
+                            CarId = 11,
+                            ImageUrl = "/images/car/BMW 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 78,
+                            CarId = 11,
+                            ImageUrl = "/images/car/BMW 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 79,
+                            CarId = 11,
+                            ImageUrl = "/images/car/BMW 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 80,
+                            CarId = 12,
+                            ImageUrl = "/images/car/BMW 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 81,
+                            CarId = 12,
+                            ImageUrl = "/images/car/BMW 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 82,
+                            CarId = 12,
+                            ImageUrl = "/images/car/BMW 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 83,
+                            CarId = 12,
+                            ImageUrl = "/images/car/BMW 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 84,
+                            CarId = 12,
+                            ImageUrl = "/images/car/BMW 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 85,
+                            CarId = 13,
+                            ImageUrl = "/images/car/BMW 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 86,
+                            CarId = 13,
+                            ImageUrl = "/images/car/BMW 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 87,
+                            CarId = 13,
+                            ImageUrl = "/images/car/BMW 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 88,
+                            CarId = 13,
+                            ImageUrl = "/images/car/BMW 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 89,
+                            CarId = 13,
+                            ImageUrl = "/images/car/BMW 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 90,
+                            CarId = 14,
+                            ImageUrl = "/images/car/BMW 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 91,
+                            CarId = 14,
+                            ImageUrl = "/images/car/BMW 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 92,
+                            CarId = 14,
+                            ImageUrl = "/images/car/BMW 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 93,
+                            CarId = 14,
+                            ImageUrl = "/images/car/BMW 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 94,
+                            CarId = 14,
+                            ImageUrl = "/images/car/BMW 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 95,
+                            CarId = 15,
+                            ImageUrl = "/images/car/BMW 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 96,
+                            CarId = 15,
+                            ImageUrl = "/images/car/BMW 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 97,
+                            CarId = 15,
+                            ImageUrl = "/images/car/BMW 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 98,
+                            CarId = 15,
+                            ImageUrl = "/images/car/BMW 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 99,
+                            CarId = 15,
+                            ImageUrl = "/images/car/BMW 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 100,
+                            CarId = 16,
+                            ImageUrl = "/images/car/BMW 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 101,
+                            CarId = 16,
+                            ImageUrl = "/images/car/BMW 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 102,
+                            CarId = 16,
+                            ImageUrl = "/images/car/BMW 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 103,
+                            CarId = 16,
+                            ImageUrl = "/images/car/BMW 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 104,
+                            CarId = 16,
+                            ImageUrl = "/images/car/BMW 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 105,
+                            CarId = 17,
+                            ImageUrl = "/images/car/Citroen 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 106,
+                            CarId = 17,
+                            ImageUrl = "/images/car/Citroen 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 107,
+                            CarId = 17,
+                            ImageUrl = "/images/car/Citroen 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 108,
+                            CarId = 17,
+                            ImageUrl = "/images/car/Citroen 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 109,
+                            CarId = 17,
+                            ImageUrl = "/images/car/Citroen 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 110,
+                            CarId = 18,
+                            ImageUrl = "/images/car/Citroen 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 111,
+                            CarId = 18,
+                            ImageUrl = "/images/car/Citroen 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 112,
+                            CarId = 18,
+                            ImageUrl = "/images/car/Citroen 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 113,
+                            CarId = 18,
+                            ImageUrl = "/images/car/Citroen 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 114,
+                            CarId = 18,
+                            ImageUrl = "/images/car/Citroen 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 115,
+                            CarId = 19,
+                            ImageUrl = "/images/car/Citroen 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 116,
+                            CarId = 19,
+                            ImageUrl = "/images/car/Citroen 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 117,
+                            CarId = 19,
+                            ImageUrl = "/images/car/Citroen 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 118,
+                            CarId = 19,
+                            ImageUrl = "/images/car/Citroen 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 119,
+                            CarId = 19,
+                            ImageUrl = "/images/car/Citroen 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 120,
+                            CarId = 20,
+                            ImageUrl = "/images/car/Citroen 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 121,
+                            CarId = 20,
+                            ImageUrl = "/images/car/Citroen 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 122,
+                            CarId = 20,
+                            ImageUrl = "/images/car/Citroen 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 123,
+                            CarId = 20,
+                            ImageUrl = "/images/car/Citroen 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 124,
+                            CarId = 20,
+                            ImageUrl = "/images/car/Citroen 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 125,
+                            CarId = 21,
+                            ImageUrl = "/images/car/Citroen 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 126,
+                            CarId = 21,
+                            ImageUrl = "/images/car/Citroen 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 127,
+                            CarId = 21,
+                            ImageUrl = "/images/car/Citroen 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 128,
+                            CarId = 21,
+                            ImageUrl = "/images/car/Citroen 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 129,
+                            CarId = 21,
+                            ImageUrl = "/images/car/Citroen 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 130,
+                            CarId = 22,
+                            ImageUrl = "/images/car/Citroen 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 131,
+                            CarId = 22,
+                            ImageUrl = "/images/car/Citroen 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 132,
+                            CarId = 22,
+                            ImageUrl = "/images/car/Citroen 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 133,
+                            CarId = 22,
+                            ImageUrl = "/images/car/Citroen 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 134,
+                            CarId = 22,
+                            ImageUrl = "/images/car/Citroen 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 135,
+                            CarId = 23,
+                            ImageUrl = "/images/car/Citroen 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 136,
+                            CarId = 23,
+                            ImageUrl = "/images/car/Citroen 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 137,
+                            CarId = 23,
+                            ImageUrl = "/images/car/Citroen 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 138,
+                            CarId = 23,
+                            ImageUrl = "/images/car/Citroen 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 139,
+                            CarId = 23,
+                            ImageUrl = "/images/car/Citroen 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 140,
+                            CarId = 24,
+                            ImageUrl = "/images/car/Citroen 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 141,
+                            CarId = 24,
+                            ImageUrl = "/images/car/Citroen 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 142,
+                            CarId = 24,
+                            ImageUrl = "/images/car/Citroen 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 143,
+                            CarId = 24,
+                            ImageUrl = "/images/car/Citroen 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 144,
+                            CarId = 24,
+                            ImageUrl = "/images/car/Citroen 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 145,
+                            CarId = 25,
+                            ImageUrl = "/images/car/Fiat 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 146,
+                            CarId = 25,
+                            ImageUrl = "/images/car/Fiat 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 147,
+                            CarId = 25,
+                            ImageUrl = "/images/car/Fiat 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 148,
+                            CarId = 25,
+                            ImageUrl = "/images/car/Fiat 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 149,
+                            CarId = 25,
+                            ImageUrl = "/images/car/Fiat 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 150,
+                            CarId = 26,
+                            ImageUrl = "/images/car/Fiat 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 151,
+                            CarId = 26,
+                            ImageUrl = "/images/car/Fiat 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 152,
+                            CarId = 26,
+                            ImageUrl = "/images/car/Fiat 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 153,
+                            CarId = 26,
+                            ImageUrl = "/images/car/Fiat 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 154,
+                            CarId = 26,
+                            ImageUrl = "/images/car/Fiat 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 155,
+                            CarId = 27,
+                            ImageUrl = "/images/car/Fiat 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 156,
+                            CarId = 27,
+                            ImageUrl = "/images/car/Fiat 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 157,
+                            CarId = 27,
+                            ImageUrl = "/images/car/Fiat 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 158,
+                            CarId = 27,
+                            ImageUrl = "/images/car/Fiat 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 159,
+                            CarId = 27,
+                            ImageUrl = "/images/car/Fiat 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 160,
+                            CarId = 28,
+                            ImageUrl = "/images/car/Fiat 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 161,
+                            CarId = 28,
+                            ImageUrl = "/images/car/Fiat 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 162,
+                            CarId = 28,
+                            ImageUrl = "/images/car/Fiat 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 163,
+                            CarId = 28,
+                            ImageUrl = "/images/car/Fiat 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 164,
+                            CarId = 28,
+                            ImageUrl = "/images/car/Fiat 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 165,
+                            CarId = 29,
+                            ImageUrl = "/images/car/Fiat 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 166,
+                            CarId = 29,
+                            ImageUrl = "/images/car/Fiat 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 167,
+                            CarId = 29,
+                            ImageUrl = "/images/car/Fiat 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 168,
+                            CarId = 29,
+                            ImageUrl = "/images/car/Fiat 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 169,
+                            CarId = 29,
+                            ImageUrl = "/images/car/Fiat 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 170,
+                            CarId = 30,
+                            ImageUrl = "/images/car/Fiat 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 171,
+                            CarId = 30,
+                            ImageUrl = "/images/car/Fiat 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 172,
+                            CarId = 30,
+                            ImageUrl = "/images/car/Fiat 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 173,
+                            CarId = 30,
+                            ImageUrl = "/images/car/Fiat 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 174,
+                            CarId = 30,
+                            ImageUrl = "/images/car/Fiat 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 175,
+                            CarId = 31,
+                            ImageUrl = "/images/car/Fiat 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 176,
+                            CarId = 31,
+                            ImageUrl = "/images/car/Fiat 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 177,
+                            CarId = 31,
+                            ImageUrl = "/images/car/Fiat 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 178,
+                            CarId = 31,
+                            ImageUrl = "/images/car/Fiat 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 179,
+                            CarId = 31,
+                            ImageUrl = "/images/car/Fiat 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 180,
+                            CarId = 32,
+                            ImageUrl = "/images/car/Fiat 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 181,
+                            CarId = 32,
+                            ImageUrl = "/images/car/Fiat 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 182,
+                            CarId = 32,
+                            ImageUrl = "/images/car/Fiat 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 183,
+                            CarId = 32,
+                            ImageUrl = "/images/car/Fiat 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 184,
+                            CarId = 32,
+                            ImageUrl = "/images/car/Fiat 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 185,
+                            CarId = 33,
+                            ImageUrl = "/images/car/Hyundai 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 186,
+                            CarId = 33,
+                            ImageUrl = "/images/car/Hyundai 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 187,
+                            CarId = 33,
+                            ImageUrl = "/images/car/Hyundai 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 188,
+                            CarId = 33,
+                            ImageUrl = "/images/car/Hyundai 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 189,
+                            CarId = 33,
+                            ImageUrl = "/images/car/Hyundai 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 190,
+                            CarId = 34,
+                            ImageUrl = "/images/car/Hyundai 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 191,
+                            CarId = 34,
+                            ImageUrl = "/images/car/Hyundai 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 192,
+                            CarId = 34,
+                            ImageUrl = "/images/car/Hyundai 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 193,
+                            CarId = 34,
+                            ImageUrl = "/images/car/Hyundai 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 194,
+                            CarId = 34,
+                            ImageUrl = "/images/car/Hyundai 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 195,
+                            CarId = 35,
+                            ImageUrl = "/images/car/Hyundai 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 196,
+                            CarId = 35,
+                            ImageUrl = "/images/car/Hyundai 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 197,
+                            CarId = 35,
+                            ImageUrl = "/images/car/Hyundai 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 198,
+                            CarId = 35,
+                            ImageUrl = "/images/car/Hyundai 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 199,
+                            CarId = 35,
+                            ImageUrl = "/images/car/Hyundai 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 200,
+                            CarId = 36,
+                            ImageUrl = "/images/car/Hyundai 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 201,
+                            CarId = 36,
+                            ImageUrl = "/images/car/Hyundai 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 202,
+                            CarId = 36,
+                            ImageUrl = "/images/car/Hyundai 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 203,
+                            CarId = 36,
+                            ImageUrl = "/images/car/Hyundai 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 204,
+                            CarId = 36,
+                            ImageUrl = "/images/car/Hyundai 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 205,
+                            CarId = 37,
+                            ImageUrl = "/images/car/Hyundai 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 206,
+                            CarId = 37,
+                            ImageUrl = "/images/car/Hyundai 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 207,
+                            CarId = 37,
+                            ImageUrl = "/images/car/Hyundai 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 208,
+                            CarId = 37,
+                            ImageUrl = "/images/car/Hyundai 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 209,
+                            CarId = 37,
+                            ImageUrl = "/images/car/Hyundai 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 210,
+                            CarId = 38,
+                            ImageUrl = "/images/car/Hyundai 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 211,
+                            CarId = 38,
+                            ImageUrl = "/images/car/Hyundai 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 212,
+                            CarId = 38,
+                            ImageUrl = "/images/car/Hyundai 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 213,
+                            CarId = 38,
+                            ImageUrl = "/images/car/Hyundai 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 214,
+                            CarId = 38,
+                            ImageUrl = "/images/car/Hyundai 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 215,
+                            CarId = 39,
+                            ImageUrl = "/images/car/Hyundai 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 216,
+                            CarId = 39,
+                            ImageUrl = "/images/car/Hyundai 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 217,
+                            CarId = 39,
+                            ImageUrl = "/images/car/Hyundai 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 218,
+                            CarId = 39,
+                            ImageUrl = "/images/car/Hyundai 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 219,
+                            CarId = 39,
+                            ImageUrl = "/images/car/Hyundai 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 220,
+                            CarId = 40,
+                            ImageUrl = "/images/car/Hyundai 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 221,
+                            CarId = 40,
+                            ImageUrl = "/images/car/Hyundai 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 222,
+                            CarId = 40,
+                            ImageUrl = "/images/car/Hyundai 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 223,
+                            CarId = 40,
+                            ImageUrl = "/images/car/Hyundai 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 224,
+                            CarId = 40,
+                            ImageUrl = "/images/car/Hyundai 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 225,
+                            CarId = 41,
+                            ImageUrl = "/images/car/Opel 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 226,
+                            CarId = 41,
+                            ImageUrl = "/images/car/Opel 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 227,
+                            CarId = 41,
+                            ImageUrl = "/images/car/Opel 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 228,
+                            CarId = 41,
+                            ImageUrl = "/images/car/Opel 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 229,
+                            CarId = 41,
+                            ImageUrl = "/images/car/Opel 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 230,
+                            CarId = 42,
+                            ImageUrl = "/images/car/Opel 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 231,
+                            CarId = 42,
+                            ImageUrl = "/images/car/Opel 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 232,
+                            CarId = 42,
+                            ImageUrl = "/images/car/Opel 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 233,
+                            CarId = 42,
+                            ImageUrl = "/images/car/Opel 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 234,
+                            CarId = 42,
+                            ImageUrl = "/images/car/Opel 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 235,
+                            CarId = 43,
+                            ImageUrl = "/images/car/Opel 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 236,
+                            CarId = 43,
+                            ImageUrl = "/images/car/Opel 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 237,
+                            CarId = 43,
+                            ImageUrl = "/images/car/Opel 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 238,
+                            CarId = 43,
+                            ImageUrl = "/images/car/Opel 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 239,
+                            CarId = 43,
+                            ImageUrl = "/images/car/Opel 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 240,
+                            CarId = 44,
+                            ImageUrl = "/images/car/Opel 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 241,
+                            CarId = 44,
+                            ImageUrl = "/images/car/Opel 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 242,
+                            CarId = 44,
+                            ImageUrl = "/images/car/Opel 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 243,
+                            CarId = 44,
+                            ImageUrl = "/images/car/Opel 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 244,
+                            CarId = 44,
+                            ImageUrl = "/images/car/Opel 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 245,
+                            CarId = 45,
+                            ImageUrl = "/images/car/Opel 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 246,
+                            CarId = 45,
+                            ImageUrl = "/images/car/Opel 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 247,
+                            CarId = 45,
+                            ImageUrl = "/images/car/Opel 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 248,
+                            CarId = 45,
+                            ImageUrl = "/images/car/Opel 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 249,
+                            CarId = 45,
+                            ImageUrl = "/images/car/Opel 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 250,
+                            CarId = 46,
+                            ImageUrl = "/images/car/Opel 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 251,
+                            CarId = 46,
+                            ImageUrl = "/images/car/Opel 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 252,
+                            CarId = 46,
+                            ImageUrl = "/images/car/Opel 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 253,
+                            CarId = 46,
+                            ImageUrl = "/images/car/Opel 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 254,
+                            CarId = 46,
+                            ImageUrl = "/images/car/Opel 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 255,
+                            CarId = 47,
+                            ImageUrl = "/images/car/Opel 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 256,
+                            CarId = 47,
+                            ImageUrl = "/images/car/Opel 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 257,
+                            CarId = 47,
+                            ImageUrl = "/images/car/Opel 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 258,
+                            CarId = 47,
+                            ImageUrl = "/images/car/Opel 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 259,
+                            CarId = 47,
+                            ImageUrl = "/images/car/Opel 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 260,
+                            CarId = 48,
+                            ImageUrl = "/images/car/Opel 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 261,
+                            CarId = 48,
+                            ImageUrl = "/images/car/Opel 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 262,
+                            CarId = 48,
+                            ImageUrl = "/images/car/Opel 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 263,
+                            CarId = 48,
+                            ImageUrl = "/images/car/Opel 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 264,
+                            CarId = 48,
+                            ImageUrl = "/images/car/Opel 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 265,
+                            CarId = 49,
+                            ImageUrl = "/images/car/Porsche 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 266,
+                            CarId = 49,
+                            ImageUrl = "/images/car/Porsche 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 267,
+                            CarId = 49,
+                            ImageUrl = "/images/car/Porsche 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 268,
+                            CarId = 49,
+                            ImageUrl = "/images/car/Porsche 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 269,
+                            CarId = 49,
+                            ImageUrl = "/images/car/Porsche 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 270,
+                            CarId = 50,
+                            ImageUrl = "/images/car/Porsche 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 271,
+                            CarId = 50,
+                            ImageUrl = "/images/car/Porsche 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 272,
+                            CarId = 50,
+                            ImageUrl = "/images/car/Porsche 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 273,
+                            CarId = 50,
+                            ImageUrl = "/images/car/Porsche 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 274,
+                            CarId = 50,
+                            ImageUrl = "/images/car/Porsche 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 275,
+                            CarId = 51,
+                            ImageUrl = "/images/car/Porsche 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 276,
+                            CarId = 51,
+                            ImageUrl = "/images/car/Porsche 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 277,
+                            CarId = 51,
+                            ImageUrl = "/images/car/Porsche 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 278,
+                            CarId = 51,
+                            ImageUrl = "/images/car/Porsche 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 279,
+                            CarId = 51,
+                            ImageUrl = "/images/car/Porsche 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 280,
+                            CarId = 52,
+                            ImageUrl = "/images/car/Porsche 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 281,
+                            CarId = 52,
+                            ImageUrl = "/images/car/Porsche 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 282,
+                            CarId = 52,
+                            ImageUrl = "/images/car/Porsche 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 283,
+                            CarId = 52,
+                            ImageUrl = "/images/car/Porsche 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 284,
+                            CarId = 52,
+                            ImageUrl = "/images/car/Porsche 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 285,
+                            CarId = 53,
+                            ImageUrl = "/images/car/Porsche 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 286,
+                            CarId = 53,
+                            ImageUrl = "/images/car/Porsche 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 287,
+                            CarId = 53,
+                            ImageUrl = "/images/car/Porsche 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 288,
+                            CarId = 53,
+                            ImageUrl = "/images/car/Porsche 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 289,
+                            CarId = 53,
+                            ImageUrl = "/images/car/Porsche 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 290,
+                            CarId = 54,
+                            ImageUrl = "/images/car/Porsche 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 291,
+                            CarId = 54,
+                            ImageUrl = "/images/car/Porsche 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 292,
+                            CarId = 54,
+                            ImageUrl = "/images/car/Porsche 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 293,
+                            CarId = 54,
+                            ImageUrl = "/images/car/Porsche 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 294,
+                            CarId = 54,
+                            ImageUrl = "/images/car/Porsche 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 295,
+                            CarId = 55,
+                            ImageUrl = "/images/car/Porsche 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 296,
+                            CarId = 55,
+                            ImageUrl = "/images/car/Porsche 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 297,
+                            CarId = 55,
+                            ImageUrl = "/images/car/Porsche 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 298,
+                            CarId = 55,
+                            ImageUrl = "/images/car/Porsche 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 299,
+                            CarId = 55,
+                            ImageUrl = "/images/car/Porsche 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 300,
+                            CarId = 56,
+                            ImageUrl = "/images/car/Porsche 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 301,
+                            CarId = 56,
+                            ImageUrl = "/images/car/Porsche 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 302,
+                            CarId = 56,
+                            ImageUrl = "/images/car/Porsche 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 303,
+                            CarId = 56,
+                            ImageUrl = "/images/car/Porsche 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 304,
+                            CarId = 56,
+                            ImageUrl = "/images/car/Porsche 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 305,
+                            CarId = 57,
+                            ImageUrl = "/images/car/Renault 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 306,
+                            CarId = 57,
+                            ImageUrl = "/images/car/Renault 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 307,
+                            CarId = 57,
+                            ImageUrl = "/images/car/Renault 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 308,
+                            CarId = 57,
+                            ImageUrl = "/images/car/Renault 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 309,
+                            CarId = 57,
+                            ImageUrl = "/images/car/Renault 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 310,
+                            CarId = 58,
+                            ImageUrl = "/images/car/Renault 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 311,
+                            CarId = 58,
+                            ImageUrl = "/images/car/Renault 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 312,
+                            CarId = 58,
+                            ImageUrl = "/images/car/Renault 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 313,
+                            CarId = 58,
+                            ImageUrl = "/images/car/Renault 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 314,
+                            CarId = 58,
+                            ImageUrl = "/images/car/Renault 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 315,
+                            CarId = 59,
+                            ImageUrl = "/images/car/Renault 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 316,
+                            CarId = 59,
+                            ImageUrl = "/images/car/Renault 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 317,
+                            CarId = 59,
+                            ImageUrl = "/images/car/Renault 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 318,
+                            CarId = 59,
+                            ImageUrl = "/images/car/Renault 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 319,
+                            CarId = 59,
+                            ImageUrl = "/images/car/Renault 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 320,
+                            CarId = 60,
+                            ImageUrl = "/images/car/Renault 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 321,
+                            CarId = 60,
+                            ImageUrl = "/images/car/Renault 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 322,
+                            CarId = 60,
+                            ImageUrl = "/images/car/Renault 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 323,
+                            CarId = 60,
+                            ImageUrl = "/images/car/Renault 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 324,
+                            CarId = 60,
+                            ImageUrl = "/images/car/Renault 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 325,
+                            CarId = 61,
+                            ImageUrl = "/images/car/Renault 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 326,
+                            CarId = 61,
+                            ImageUrl = "/images/car/Renault 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 327,
+                            CarId = 61,
+                            ImageUrl = "/images/car/Renault 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 328,
+                            CarId = 61,
+                            ImageUrl = "/images/car/Renault 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 329,
+                            CarId = 61,
+                            ImageUrl = "/images/car/Renault 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 330,
+                            CarId = 62,
+                            ImageUrl = "/images/car/Renault 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 331,
+                            CarId = 62,
+                            ImageUrl = "/images/car/Renault 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 332,
+                            CarId = 62,
+                            ImageUrl = "/images/car/Renault 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 333,
+                            CarId = 62,
+                            ImageUrl = "/images/car/Renault 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 334,
+                            CarId = 62,
+                            ImageUrl = "/images/car/Renault 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 335,
+                            CarId = 63,
+                            ImageUrl = "/images/car/Renault 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 336,
+                            CarId = 63,
+                            ImageUrl = "/images/car/Renault 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 337,
+                            CarId = 63,
+                            ImageUrl = "/images/car/Renault 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 338,
+                            CarId = 63,
+                            ImageUrl = "/images/car/Renault 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 339,
+                            CarId = 63,
+                            ImageUrl = "/images/car/Renault 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 340,
+                            CarId = 64,
+                            ImageUrl = "/images/car/Renault 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 341,
+                            CarId = 64,
+                            ImageUrl = "/images/car/Renault 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 342,
+                            CarId = 64,
+                            ImageUrl = "/images/car/Renault 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 343,
+                            CarId = 64,
+                            ImageUrl = "/images/car/Renault 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 344,
+                            CarId = 64,
+                            ImageUrl = "/images/car/Renault 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 345,
+                            CarId = 65,
+                            ImageUrl = "/images/car/Tesla 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 346,
+                            CarId = 65,
+                            ImageUrl = "/images/car/Tesla 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 347,
+                            CarId = 65,
+                            ImageUrl = "/images/car/Tesla 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 348,
+                            CarId = 65,
+                            ImageUrl = "/images/car/Tesla 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 349,
+                            CarId = 65,
+                            ImageUrl = "/images/car/Tesla 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 350,
+                            CarId = 65,
+                            ImageUrl = "/images/car/Tesla 6.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 351,
+                            CarId = 65,
+                            ImageUrl = "/images/car/Tesla 7.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 352,
+                            CarId = 66,
+                            ImageUrl = "/images/car/Tesla 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 353,
+                            CarId = 66,
+                            ImageUrl = "/images/car/Tesla 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 354,
+                            CarId = 66,
+                            ImageUrl = "/images/car/Tesla 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 355,
+                            CarId = 66,
+                            ImageUrl = "/images/car/Tesla 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 356,
+                            CarId = 66,
+                            ImageUrl = "/images/car/Tesla 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 357,
+                            CarId = 66,
+                            ImageUrl = "/images/car/Tesla 6.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 358,
+                            CarId = 66,
+                            ImageUrl = "/images/car/Tesla 7.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 359,
+                            CarId = 67,
+                            ImageUrl = "/images/car/Tesla 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 360,
+                            CarId = 67,
+                            ImageUrl = "/images/car/Tesla 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 361,
+                            CarId = 67,
+                            ImageUrl = "/images/car/Tesla 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 362,
+                            CarId = 67,
+                            ImageUrl = "/images/car/Tesla 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 363,
+                            CarId = 67,
+                            ImageUrl = "/images/car/Tesla 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 364,
+                            CarId = 67,
+                            ImageUrl = "/images/car/Tesla 6.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 365,
+                            CarId = 67,
+                            ImageUrl = "/images/car/Tesla 7.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 366,
+                            CarId = 68,
+                            ImageUrl = "/images/car/Tesla 1.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 367,
+                            CarId = 68,
+                            ImageUrl = "/images/car/Tesla 2.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 368,
+                            CarId = 68,
+                            ImageUrl = "/images/car/Tesla 3.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 369,
+                            CarId = 68,
+                            ImageUrl = "/images/car/Tesla 4.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 370,
+                            CarId = 68,
+                            ImageUrl = "/images/car/Tesla 5.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 371,
+                            CarId = 68,
+                            ImageUrl = "/images/car/Tesla 6.jpg"
+                        },
+                        new
+                        {
+                            ImageId = 372,
+                            CarId = 68,
+                            ImageUrl = "/images/car/Tesla 7.jpg"
                         });
                 });
 
@@ -2458,6 +4642,17 @@ namespace AutoShop.Infrastructure.Migrations
                     b.Navigation("TransmissionType");
                 });
 
+            modelBuilder.Entity("AutoShop.Domain.Image", b =>
+                {
+                    b.HasOne("AutoShop.Domain.CarListing", "CarListing")
+                        .WithMany("Images")
+                        .HasForeignKey("CarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CarListing");
+                });
+
             modelBuilder.Entity("AutoShop.Domain.Model", b =>
                 {
                     b.HasOne("AutoShop.Domain.Brand", "Brand")
@@ -2528,6 +4723,11 @@ namespace AutoShop.Infrastructure.Migrations
             modelBuilder.Entity("AutoShop.Domain.Brand", b =>
                 {
                     b.Navigation("Models");
+                });
+
+            modelBuilder.Entity("AutoShop.Domain.CarListing", b =>
+                {
+                    b.Navigation("Images");
                 });
 
             modelBuilder.Entity("AutoShop.Domain.EngineType", b =>

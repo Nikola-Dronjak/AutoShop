@@ -45,6 +45,7 @@ builder.Services.AddScoped<IEngineTypeService, EngineTypeServices>();
 builder.Services.AddScoped<ITransmissionTypeService, TransmissionTypeService>();
 builder.Services.AddScoped<IFuelTypeService, FuelTypeService>();
 builder.Services.AddScoped<IBodyTypeService, BodyTypeService>();
+builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddScoped<ICarListingService, CarListingService>();
 builder.Services.AddScoped<IEmailSender, EmailSender>();
 

@@ -2,6 +2,7 @@
 using AutoShop.Services.Interfaces;
 using AutoShop.ViewModel;
 using DataAccessLayer.UnitOfWork;
+using Microsoft.EntityFrameworkCore;
 
 namespace AutoShop.Services.ImplementationDatabase
 {
@@ -18,6 +19,11 @@ namespace AutoShop.Services.ImplementationDatabase
         public CarListing Get(int id)
         {
             return _uow.CarListingRepository.GetById(id);
+        }
+
+        public bool VINExists(string vin, int excludeCarId)
+        {
+            return _uow.CarListingRepository.VINExists(vin, excludeCarId);
         }
 
         public void Add(CarListing Car)

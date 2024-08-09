@@ -2,7 +2,7 @@
 
 <form method="post" enctype="multipart/form-data">
     <input asp-for="Car.CarId" hidden />
-    <input asp-for="Car.ImageUrl" hidden />
+    <input asp-for="UserId" value="@Model.UserId" hidden/>
     <div class="border p-3 mt-4">
         <div class="row pb-2">
             <h2 class="text-primary">Update Listing</h2>
@@ -104,16 +104,36 @@
                     <textarea asp-for="Car.Description" class="form-control"></textarea>
                     <span asp-validation-for="Car.Description" class="text-danger"></span>
                 </div>
+                <div id="carImagesCarousel" class="carousel carousel-dark slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        @foreach (var image in Model.Car.Images)
+                        {
+                            var isActive = image == Model.Car.Images.First() ? "active" : "";
+                            <div class="carousel-item @isActive" data-image-id="@image.ImageId" style="position: relative;">
+                                <img src="@image.ImageUrl" alt="Car Image" class="d-block w-100" style="object-fit: cover; height: 500px; width: 100%; border-radius:5px; border:1px solid #bbb9b9" />
+                                <button type="button" class="btn btn-danger" style="position: absolute; top: 10px; right: 10px; z-index: 10;" onclick="removeImage('@image.ImageId')">
+                                    Remove
+                                </button>
+                            </div>
+                        }
+                    </div>
+                    <a class="carousel-control-prev" href="#carImagesCarousel" role="button" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carImagesCarousel" role="button" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </a>
+                </div>
+                <input name="removedImageIds" id="RemovedImageIds" hidden/>
                 <div class="mb-3 row p-1">
-                    <label asp-for="Car.ImageUrl" class="p-0"></label>
-                    <input type="file" name="file" class="form-control border-0 shadow" />
-                    <span asp-validation-for="Car.ImageUrl" class="text-danger"></span>
+                    <label for="newImages" class="p-0">Add new Images:</label>
+                    <input for="newImages" type="file" name="newImages" class="form-control border-0 shadow" multiple />
+                    <span asp-validation-for="Car.Images" class="text-danger"></span>
                 </div>
                 <button type="submit" class="btn btn-secondary" style="width:150px">Update</button>
                 <a asp-controller="CarListing" asp-action="Index" class="btn btn-primary" style="width:150px">Back to List</a>
-            </div>
-            <div class="col-2">
-                <img src="@Model.Car.ImageUrl" alt="Car Image" width="100%;" style="border-radius:5px; border:1px solid #bbb9b9" />
             </div>
         </div>
     </div>
@@ -125,7 +145,7 @@
         document.addEventListener("DOMContentLoaded", function () {
             const brandDropdown = document.getElementById("brandDropdown");
             const modelDropdown = document.getElementById("modelDropdown");
-            const modelIdFromBackend = "@Model.Car.ModelId"; // Replace this with the appropriate property from your backend model
+            const modelIdFromBackend = "@Model.Car.ModelId";
 
             // Function to populate the models based on the selected brand
             function populateModels(selectedBrandId) {
@@ -135,7 +155,7 @@
                     // Clear existing options
                     modelDropdown.innerHTML = "";
 
-                    // Fetch models based on the selected brand (assuming you have an API or method to retrieve models based on brandId)
+                    // Fetch models based on the selected brand
                     fetch(`/GetModelsByBrand?brandId=${selectedBrandId}`)
                         .then(response => response.json())
                         .then(data => {
@@ -168,5 +188,49 @@
             const selectedBrandId = brandDropdown.value;
             populateModels(selectedBrandId);
         });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('#carImagesCarousel').carousel();
+        });
+    </script>
+
+    <script>
+        function removeImage(imageId) {
+            // Add the image ID to the hidden input field
+            var removedImageIds = document.getElementById('RemovedImageIds');
+            var currentIds = removedImageIds.value.split(',').filter(id => id);
+            if (!currentIds.includes(imageId)) {
+                currentIds.push(imageId);
+            }
+            removedImageIds.value = currentIds.join(',');
+
+            // Remove the carousel item from the DOM
+            var carouselItem = document.querySelector(`.carousel-item[data-image-id="${imageId}"]`);
+            if (carouselItem) {
+                carouselItem.parentNode.removeChild(carouselItem);
+
+                // Update active state of the remaining carousel items
+                var remainingItems = document.querySelectorAll('.carousel-item');
+                if (remainingItems.length > 0) {
+                    remainingItems[0].classList.add('active');
+                }
+            }
+
+            // Check the number of remaining items
+            var carouselElement = document.getElementById('carImagesCarousel');
+            var carouselInstance = bootstrap.Carousel.getInstance(carouselElement);
+            if (carouselInstance) {
+                carouselInstance.dispose();
+            }
+
+            if (remainingItems.length > 0) {
+                carouselElement.style.display = 'block';
+                carouselInstance = new bootstrap.Carousel(carouselElement);
+            } else {
+                carouselElement.style.display = 'none';
+            }
+        }
     </script>
 }

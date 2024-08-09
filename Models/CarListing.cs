@@ -118,9 +118,8 @@ namespace AutoShop.Domain
         [DisplayName("Description:")]
         public string? Description { get; set; }
 
-        [Required(ErrorMessage = "You must upload an image of the car.")]
-        [DisplayName("Image:")]
-        public string? ImageUrl { get; set; }
+        [DisplayName("Images:")]
+        public ICollection<Image> Images { get; set; }
 
         [DisplayName("Status:")]
         [ValidateNever]

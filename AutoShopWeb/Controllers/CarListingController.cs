@@ -19,8 +19,9 @@ namespace AutoShopWeb.Controllers
         private readonly IBodyTypeService _bodyTypeService;
         private readonly IModelService _modelService;
         private readonly IBrandService _brandService;
+        private readonly IImageService _imageService;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        public CarListingController(ICarListingService carListingService, IEngineTypeService engineTypeService, ITransmissionTypeService transmissionTypeService, IFuelTypeService fuelTypeService, IBodyTypeService bodyTypeService, IModelService modelService, IBrandService brandService, IWebHostEnvironment webHostEnvironment)
+        public CarListingController(ICarListingService carListingService, IEngineTypeService engineTypeService, ITransmissionTypeService transmissionTypeService, IFuelTypeService fuelTypeService, IBodyTypeService bodyTypeService, IModelService modelService, IBrandService brandService, IImageService imageService, IWebHostEnvironment webHostEnvironment)
         {
             _carListingService = carListingService;
             _engineTypeService = engineTypeService;
@@ -29,6 +30,7 @@ namespace AutoShopWeb.Controllers
             _bodyTypeService = bodyTypeService;
             _modelService = modelService;
             _brandService = brandService;
+            _imageService = imageService;
             _webHostEnvironment = webHostEnvironment;
         }
 
@@ -99,11 +101,11 @@ namespace AutoShopWeb.Controllers
 
         // Handles the post request with the new car listing
         [HttpPost]
-        public IActionResult Create(CarListingVM CarListing, IFormFile? file)
+        public IActionResult Create(CarListingVM CarListing, IEnumerable<IFormFile> files)
         {
-            if (ModelState.IsValid && file != null)
+            if (ModelState.IsValid && files != null && files.Any())
             {
-                bool vinExists = _carListingService.CarListings.Any(car => car.VIN == CarListing.Car.VIN);
+                bool vinExists = _carListingService.VINExists(CarListing.Car.VIN, CarListing.Car.CarId);
                 if (vinExists)
                 {
                     ModelState.AddModelError("Car.VIN", "This VIN already exists. Please provide a different VIN.");
@@ -146,25 +148,37 @@ namespace AutoShopWeb.Controllers
                 }
 
                 string wwwRootPath = _webHostEnvironment.WebRootPath;
-                string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-                string productPath = Path.Combine(wwwRootPath, @"images\car");
+                string imagePath = Path.Combine(wwwRootPath, @"images\car");
+                var images = new List<Image>();
 
-                using (var fileStream = new FileStream(Path.Combine(productPath, fileName), FileMode.Create))
+                foreach(var file in files)
                 {
-                    file.CopyTo(fileStream);
-                }
+                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                    using (var fileStream = new FileStream(Path.Combine(imagePath, fileName), FileMode.Create))
+                    {
+                        file.CopyTo(fileStream);
+                    }
 
-                CarListing.Car.ImageUrl = "/images/car/" + fileName;
+                    var image = new Image
+                    {
+                        ImageUrl = "/images/car/" + fileName,
+                        CarId = CarListing.Car.CarId,
+                        CarListing = CarListing.Car
+                    };
+
+                    images.Add(image);
+                }
 
                 CarListing.Car.UserId = CarListing.UserId;
                 CarListing.Car.Status = CarStatus.Active;
+                CarListing.Car.Images = images;
                 _carListingService.Add(CarListing.Car);
                 TempData["success"] = "New car listing added successfully.";
                 return RedirectToAction("Index");
             }
-            else if (file == null)
+            else if (files == null || files.Count() < 1)
             {
-                ModelState.AddModelError("Car.ImageUrl", "You must upload an image of the car.");
+                ModelState.AddModelError("Car.Images", "You must upload at least 5 images of the car.");
                 CarListing.EngineTypeOptions = _engineTypeService.EngineTypes.Select(et => new SelectListItem
                 {
                     Text = et.Type,
@@ -283,25 +297,148 @@ namespace AutoShopWeb.Controllers
 
         // Handles the post request with the updated car listing
         [HttpPost]
-        public IActionResult Edit(CarListingVM CarListing, IFormFile? file)
+        public IActionResult Edit(CarListingVM CarListing, IEnumerable<IFormFile>? newImages, string? removedImageIds)
         {
             if (ModelState.IsValid)
             {
-                if (file != null && file.Length > 0)
+                bool vinExists = _carListingService.VINExists(CarListing.Car.VIN, CarListing.Car.CarId);
+                if (vinExists)
                 {
-                    string wwwRootPath = _webHostEnvironment.WebRootPath;
-                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-                    string productPath = Path.Combine(wwwRootPath, @"images\car");
-
-                    using (var fileStream = new FileStream(Path.Combine(productPath, fileName), FileMode.Create))
+                    ModelState.AddModelError("Car.VIN", "This VIN already exists. Please provide a different VIN.");
+                    CarListing.EngineTypeOptions = _engineTypeService.EngineTypes.Select(et => new SelectListItem
                     {
-                        file.CopyTo(fileStream);
-                    }
+                        Text = et.Type,
+                        Value = et.EngineTypeId.ToString()
+                    });
 
-                    CarListing.Car.ImageUrl = "/images/car/" + fileName;
+                    CarListing.TransmissionTypeOptions = _transmissionTypeService.TransmissionTypes.Select(tt => new SelectListItem
+                    {
+                        Text = tt.Type,
+                        Value = tt.TransmissionTypeId.ToString()
+                    });
+
+                    CarListing.FuelTypeOptions = _fuelTypeService.FuelTypes.Select(ft => new SelectListItem
+                    {
+                        Text = ft.Type,
+                        Value = ft.FuelTypeId.ToString()
+                    });
+
+                    CarListing.BodyTypeOptions = _bodyTypeService.BodyTypes.Select(bt => new SelectListItem
+                    {
+                        Text = bt.Type,
+                        Value = bt.BodyTypeId.ToString()
+                    });
+
+                    CarListing.ModelOptions = _modelService.Models.Select(m => new SelectListItem
+                    {
+                        Text = m.Name,
+                        Value = m.ModelId.ToString()
+                    });
+
+                    CarListing.BrandOptions = _brandService.Brands.Select(b => new SelectListItem
+                    {
+                        Text = b.Name,
+                        Value = b.BrandId.ToString()
+                    });
+
+                    CarListing.Car.Images = _imageService.ImagesOfCar(CarListing.Car.CarId).ToList();
+
+                    return View(CarListing);
                 }
 
-                CarListing.Car.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var imagesOfTheCar = _imageService.ImagesOfCar(CarListing.Car.CarId).ToList();
+                var imagesToRemove = removedImageIds?.Split(',', StringSplitOptions.RemoveEmptyEntries);
+                if ((newImages != null && newImages.Any() && (imagesOfTheCar.Count + newImages.Count()) - imagesToRemove?.Length < 1) || ((newImages == null || !newImages.Any()) && imagesOfTheCar.Count - imagesToRemove?.Length < 1))
+                {
+                    ModelState.AddModelError("Car.Images", "You cant remove all the images of the car, there has to be at least 1 image of the car.");
+                    CarListing.EngineTypeOptions = _engineTypeService.EngineTypes.Select(et => new SelectListItem
+                    {
+                        Text = et.Type,
+                        Value = et.EngineTypeId.ToString()
+                    });
+
+                    CarListing.TransmissionTypeOptions = _transmissionTypeService.TransmissionTypes.Select(tt => new SelectListItem
+                    {
+                        Text = tt.Type,
+                        Value = tt.TransmissionTypeId.ToString()
+                    });
+
+                    CarListing.FuelTypeOptions = _fuelTypeService.FuelTypes.Select(ft => new SelectListItem
+                    {
+                        Text = ft.Type,
+                        Value = ft.FuelTypeId.ToString()
+                    });
+
+                    CarListing.BodyTypeOptions = _bodyTypeService.BodyTypes.Select(bt => new SelectListItem
+                    {
+                        Text = bt.Type,
+                        Value = bt.BodyTypeId.ToString()
+                    });
+
+                    CarListing.ModelOptions = _modelService.Models.Select(m => new SelectListItem
+                    {
+                        Text = m.Name,
+                        Value = m.ModelId.ToString()
+                    });
+
+                    CarListing.BrandOptions = _brandService.Brands.Select(b => new SelectListItem
+                    {
+                        Text = b.Name,
+                        Value = b.BrandId.ToString()
+                    });
+
+                    CarListing.Car.Images = _imageService.ImagesOfCar(CarListing.Car.CarId).ToList();
+
+                    return View(CarListing);
+                }
+
+                if (newImages != null && newImages.Count() > 0)
+                {
+                    string wwwRootPath = _webHostEnvironment.WebRootPath;
+                    string productPath = Path.Combine(wwwRootPath, @"images\car");
+                    var images = new List<Image>();
+
+                    foreach (var file in newImages)
+                    {
+                        string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+
+                        using (var fileStream = new FileStream(Path.Combine(productPath, fileName), FileMode.Create))
+                        {
+                            file.CopyTo(fileStream);
+                        }
+
+                        var image = new Image
+                        {
+                            ImageUrl = "/images/car/" + fileName,
+                            CarId = CarListing.Car.CarId,
+                            CarListing = CarListing.Car
+                        };
+
+                        images.Add(image);
+                    }
+
+                    CarListing.Car.Images = images;
+                }
+
+                if (!string.IsNullOrEmpty(removedImageIds))
+                {
+                    foreach(var imageId in imagesToRemove)
+                    {
+                        var image = _imageService.Get(int.Parse(imageId));
+                        if(image != null)
+                        {
+                            var filePath = Path.Combine(_webHostEnvironment.WebRootPath, image.ImageUrl.TrimStart('/'));
+                            if (System.IO.File.Exists(filePath))
+                            {
+                                System.IO.File.Delete(filePath);
+                            }
+
+                            _imageService.Delete(image);
+                        }
+                    }
+                }
+
+                CarListing.Car.UserId = CarListing.UserId;
                 CarListing.Car.Status = CarStatus.Active;
                 _carListingService.Update(CarListing.Car);
                 TempData["success"] = "Car listing updated successfully.";
@@ -344,10 +481,12 @@ namespace AutoShopWeb.Controllers
                 Value = b.BrandId.ToString()
             });
 
+            CarListing.Car.Images = _imageService.ImagesOfCar(CarListing.Car.CarId).ToList();
+
             return View(CarListing);
         }
 
-        // Returns the page for removing car listings
+        // Returns the page for archiving car listings
         public IActionResult Archive(int id)
         {
             if (id == 0)
@@ -411,7 +550,7 @@ namespace AutoShopWeb.Controllers
             return View(viewModel);
         }
 
-        // Handles the post request with the car listing that is supposed to be removed
+        // Handles the post request with the car listing that is supposed to be archived
         [HttpPost]
         public IActionResult Archive(CarListingVM CarListing)
         {

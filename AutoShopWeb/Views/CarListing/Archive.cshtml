@@ -2,7 +2,6 @@
 
 <form method="post" enctype="multipart/form-data">
     <input asp-for="Car.CarId" hidden />
-    <input asp-for="Car.ImageUrl" hidden />
     <div class="border p-3 mt-4">
         <div class="row pb-2">
             <h2 class="text-primary">Remove Listing</h2>
@@ -10,6 +9,40 @@
         </div>
         <div class="row">
             <div class="col-10">
+                @{
+                    <div id="carImagesCarousel" class="carousel carousel-dark slide" data-bs-ride="carousel">
+                        <div class="carousel-indicators">
+                            @{
+                                var i = 0;
+                                foreach (var image in Model.Car.Images)
+                                {
+                                    <button type="button" data-bs-target="#carImagesCarousel" data-bs-slide-to="@i" class="@(i == 0 ? "active" : "")" aria-current="@(i == 0 ? "true" : "false")" aria-label="Slide @(i + 1)"></button>
+                                    i++;
+                                }
+                            }
+                        </div>
+                        <div class="carousel-inner">
+                            @{
+                                var isFirst = true;
+                                foreach (var image in Model.Car.Images)
+                                {
+                                    <div class="carousel-item @(isFirst ? "active" : "")" data-bs-interval="10000">
+                                        <img src="@image.ImageUrl" alt="Car Image" class="d-block w-100" style="object-fit: cover; height: 500px; width: 100%; border-radius:5px; border:1px solid #bbb9b9" />
+                                    </div>
+                                    isFirst = false;
+                                }
+                            }
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carImagesCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carImagesCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                }
                 <div class="mb-3 row p-1">
                     <label asp-for="Car.BrandName" class="p-0"></label>
                     <select asp-for="Car.BrandName" asp-items="@Model.BrandOptions" class="form-control p-0" id="brandDropdown" disabled>
@@ -92,9 +125,6 @@
                 </div>
                 <button type="submit" class="btn btn-danger" style="width:150px">Archive</button>
                 <a asp-controller="CarListing" asp-action="Index" class="btn btn-primary" style="width:150px">Back to List</a>
-            </div>
-            <div class="col-2">
-                <img src="@Model.Car.ImageUrl" alt="Car Image" width="100%;" style="border-radius:5px; border:1px solid #bbb9b9" />
             </div>
         </div>
     </div>

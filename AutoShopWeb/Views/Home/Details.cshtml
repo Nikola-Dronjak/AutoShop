@@ -5,7 +5,40 @@
         <div class="col-md-8">
             <h2>@Model.CarListing.Model?.Brand.Name @Model.CarListing.Model?.Name</h2>
             <h5>Price: @Model.CarListing.Price€</h5>
-            <img src="@Model.CarListing.ImageUrl" alt="Car image" style="max-width: 100%;" />
+            @{
+                <div id="carImagesCarousel" class="carousel carousel-dark slide" data-bs-ride="carousel">
+                    <div class="carousel-indicators">
+                        @{
+                            var i = 0;
+                            foreach (var image in Model.CarListing.Images)
+                            {
+                                <button type="button" data-bs-target="#carImagesCarousel" data-bs-slide-to="@i" class="@(i == 0 ? "active" : "")" aria-current="@(i == 0 ? "true" : "false")" aria-label="Slide @(i + 1)"></button>
+                                i++;
+                            }
+                        }
+                    </div>
+                    <div class="carousel-inner">
+                        @{
+                            var isFirst = true;
+                            foreach (var image in Model.CarListing.Images)
+                            {
+                                <div class="carousel-item @(isFirst ? "active" : "")" data-bs-interval="10000">
+                                    <img src="@image.ImageUrl" alt="Car Image" class="d-block w-100" style="object-fit: cover; height: 500px; width: 100%; border-radius:5px; border:1px solid #bbb9b9" />
+                                </div>
+                                isFirst = false;
+                            }
+                        }
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carImagesCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carImagesCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            }
             <hr />
             <div class="card mb-3">
                 <div class="card-body">
@@ -98,3 +131,9 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $('#carImagesCarousel').carousel();
+    });
+</script>
