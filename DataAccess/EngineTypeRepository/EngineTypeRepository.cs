@@ -1,5 +1,4 @@
-﻿
-using AutoShop.Domain;
+﻿using AutoShop.Domain;
 using AutoShop.Infrastructure;
 
 namespace DataAccessLayer.EngineTypeRepository
@@ -7,6 +6,7 @@ namespace DataAccessLayer.EngineTypeRepository
     public class EngineTypeRepository : IEngineTypeRepository
     {
         private readonly ApplicationDbContext _db;
+
         public EngineTypeRepository(ApplicationDbContext db)
         {
             _db = db;
@@ -22,19 +22,19 @@ namespace DataAccessLayer.EngineTypeRepository
             return _db.EngineTypes.FirstOrDefault(u => u.EngineTypeId == id);
         }
 
-        public void Add(EngineType EngineType)
+        public void Add(EngineType engineType)
         {
-            _db.EngineTypes.Add(EngineType);
+            _db.EngineTypes.Add(engineType);
         }
 
-        public void Update(EngineType EngineType)
+        public void Update(EngineType engineType)
         {
-            _db.EngineTypes.Update(EngineType);
+            _db.EngineTypes.Update(engineType);
         }
 
-        public void Delete(EngineType EngineType)
+        public void Delete(EngineType engineType)
         {
-            _db.EngineTypes.Remove(EngineType);
+            _db.EngineTypes.Remove(engineType);
         }
     }
 }

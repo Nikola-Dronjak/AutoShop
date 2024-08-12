@@ -8,8 +8,8 @@ namespace AutoShop.Domain
         [Key]
         public int FuelTypeId { get; set; }
 
-        [Required(ErrorMessage = "Type cannot be empty.")]
-        [DisplayName("Type:")]
+        [Required(ErrorMessage = "Fuel type cannot be empty.")]
+        [DisplayName("Fuel type:")]
         public string? Type { get; set; }
 
         public ICollection<CarListing>? CarListings { get; set; }

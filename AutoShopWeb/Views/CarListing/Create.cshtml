@@ -98,7 +98,7 @@
         </div>
         <div class="mb-3 row p-1">
             <label asp-for="Car.Description" class="p-0"></label>
-            <textarea asp-for="Car.Description" class="form-control" ></textarea>
+            <textarea asp-for="Car.Description" class="form-control"></textarea>
             <span asp-validation-for="Car.Description" class="text-danger"></span>
         </div>
         <div class="mb-3 row p-1">
@@ -111,51 +111,6 @@
     </div>
 </form>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const brandDropdown = document.getElementById("brandDropdown");
-        const modelDropdown = document.getElementById("modelDropdown");
-
-        // Function to populate the models based on the selected brand
-        function populateModels(selectedBrandId) {
-            if (selectedBrandId !== "") {
-                modelDropdown.disabled = false;
-
-                // Clear existing options
-                modelDropdown.innerHTML = "<option value=''>---Select Model---</option>";
-
-                // Fetch models based on the selected brand
-                fetch(`/GetModelsByBrand?brandId=${selectedBrandId}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        data.forEach(model => {
-                            const option = document.createElement("option");
-                            option.value = model.modelId;
-                            option.text = model.name;
-                            modelDropdown.appendChild(option);
-                        });
-                    })
-                    .catch(error => console.error('Error:', error));
-            } else {
-                modelDropdown.disabled = true;
-                modelDropdown.innerHTML = "<option value=''>---Select Model---</option>";
-            }
-        }
-
-        // Event listener for brand dropdown change
-        brandDropdown.addEventListener("change", function () {
-            const selectedBrandId = brandDropdown.value;
-            populateModels(selectedBrandId);
-        });
-
-        // When the page loads, populate models if a brand is already selected
-        const selectedBrandId = brandDropdown.value;
-        populateModels(selectedBrandId);
-    });
-</script>
-
 @section Scripts {
-    @{
-                <partial name="_ValidationScriptsPartial" />
-    }
+    <partial name="_ValidationScriptsPartial" />
 }

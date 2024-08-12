@@ -7,10 +7,12 @@ namespace AutoShop.Services.ImplementationDatabase
     public class BodyTypeService : IBodyTypeService
     {
         private readonly IUnitOfWork _uow;
+
         public BodyTypeService(IUnitOfWork uow)
         {
             _uow = uow;
         }
+
         public IEnumerable<BodyType> BodyTypes => _uow.BodyTypeRepository.GetAll();
 
         public BodyType Get(int id)
@@ -18,20 +20,21 @@ namespace AutoShop.Services.ImplementationDatabase
             return _uow.BodyTypeRepository.GetById(id);
         }
 
-        public void Add(BodyType BodyType)
+        public void Add(BodyType bodyType)
         {
-            _uow.BodyTypeRepository.Add(BodyType);
-            _uow.SaveChanges();
-        }
-        public void Update(BodyType BodyType)
-        {
-            _uow.BodyTypeRepository.Update(BodyType);
+            _uow.BodyTypeRepository.Add(bodyType);
             _uow.SaveChanges();
         }
 
-        public void Delete(BodyType BodyType)
+        public void Update(BodyType bodyType)
         {
-            _uow.BodyTypeRepository.Delete(BodyType);
+            _uow.BodyTypeRepository.Update(bodyType);
+            _uow.SaveChanges();
+        }
+
+        public void Delete(BodyType bodyType)
+        {
+            _uow.BodyTypeRepository.Delete(bodyType);
             _uow.SaveChanges();
         }
     }

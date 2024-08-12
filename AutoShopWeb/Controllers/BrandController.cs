@@ -9,6 +9,7 @@ namespace AutoShopWeb.Controllers
     public class BrandController : Controller
     {
         private readonly IBrandService _brandService;
+
         public BrandController(IBrandService brandService)
         {
             _brandService = brandService;
@@ -26,70 +27,73 @@ namespace AutoShopWeb.Controllers
             return View();
         }
 
-
         // Handles the post request with the new brands
         [HttpPost]
-        public IActionResult Create(Brand Brand)
+        public IActionResult Create(Brand brand)
         {
             if (ModelState.IsValid)
             {
-                _brandService.Add(Brand);
+                _brandService.Add(brand);
                 TempData["success"] = "New brand added successfully.";
                 return RedirectToAction("Index");
             }
+
             return View();
         }
 
         // Returns the page for updating existing brands
         public IActionResult Edit(int id)
         {
-            if (id == null || id == 0)
+            if (id == 0)
             {
                 return NotFound();
             }
-            Brand? BrandFromDb = _brandService.Get(id);
-            if (BrandFromDb == null)
-            {
-                return NotFound();
-            }
-            return View(BrandFromDb);
-        }
 
+            Brand? brandFromDb = _brandService.Get(id);
+            if (brandFromDb == null)
+            {
+                return NotFound();
+            }
+
+            return View(brandFromDb);
+        }
 
         // Handles the post request with the updated brand
         [HttpPost]
-        public IActionResult Edit(Brand Brand)
+        public IActionResult Edit(Brand brand)
         {
             if (ModelState.IsValid)
             {
-                _brandService.Update(Brand);
+                _brandService.Update(brand);
                 TempData["success"] = "Brand updated successfully.";
                 return RedirectToAction("Index");
             }
+
             return View();
         }
 
         // Returns the page for removing brands
         public IActionResult Delete(int id)
         {
-            if (id == null || id == 0)
+            if (id == 0)
             {
                 return NotFound();
             }
-            Brand? BrandFromDb = _brandService.Get(id);
-            if (BrandFromDb == null)
-            {
-                return NotFound();
-            }
-            return View(BrandFromDb);
-        }
 
+            Brand? brandFromDb = _brandService.Get(id);
+            if (brandFromDb == null)
+            {
+                return NotFound();
+            }
+
+            return View(brandFromDb);
+        }
 
         // Handles the post request with the brand that is supposed to be removed
         [HttpPost]
-        public IActionResult Delete(Brand Brand)
+        public IActionResult Delete(Brand brand)
         {
-            _brandService.Delete(Brand);
+            _brandService.Delete(brand);
             TempData["success"] = "Brand removed successfully.";
             return RedirectToAction("Index");
         }

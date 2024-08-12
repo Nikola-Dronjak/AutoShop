@@ -36,11 +36,11 @@ namespace AutoShop.Domain
         public int CarId { get; set; }
 
         [ValidateNever]
-        public string UserId { get; set; }
+        public string? UserId { get; set; }
 
         [Required(ErrorMessage = "Brand name cannot be empty.")]
         [DisplayName("Brand:")]
-        public string BrandName { get; set; }
+        public string? BrandName { get; set; }
 
         [Required(ErrorMessage = "Model name cannot be empty.")]
         public int ModelId { get; set; }
@@ -51,7 +51,7 @@ namespace AutoShop.Domain
         public Model? Model { get; set; }
 
         [Required(ErrorMessage = "Year cannot be empty.")]
-        [Range(1950, 2024, ErrorMessage = "Year must be between 1950 and 2024.")]
+        [Range(1950, 2025, ErrorMessage = "Year must be between 1950 and 2025.")]
         [DisplayName("Year:")]
         public int Year { get; set; }
 
@@ -119,7 +119,7 @@ namespace AutoShop.Domain
         public string? Description { get; set; }
 
         [DisplayName("Images:")]
-        public ICollection<Image> Images { get; set; }
+        public ICollection<Image>? Images { get; set; }
 
         [DisplayName("Status:")]
         [ValidateNever]

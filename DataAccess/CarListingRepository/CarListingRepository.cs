@@ -2,11 +2,13 @@
 using AutoShop.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
 namespace DataAccessLayer.CarListingRepository
 {
     public class CarListingRepository : ICarListingRepository
     {
         private readonly ApplicationDbContext _db;
+
         public CarListingRepository(ApplicationDbContext db)
         {
             _db = db;
@@ -40,24 +42,22 @@ namespace DataAccessLayer.CarListingRepository
 
         public bool VINExists(string vin, int excludeCarId)
         {
-            return _db.CarListings
-                .AsNoTracking()
-                .Any(u => u.VIN == vin && u.CarId != excludeCarId);
+            return _db.CarListings.AsNoTracking().Any(u => u.VIN == vin && u.CarId != excludeCarId);
         }
 
-        public void Add(CarListing Car)
+        public void Add(CarListing car)
         {
-            _db.Add(Car);
+            _db.Add(car);
         }
 
-        public void Update(CarListing Car)
+        public void Update(CarListing car)
         {
-            _db.Update(Car);
+            _db.Update(car);
         }
 
-        public void Delete(CarListing Car)
+        public void Delete(CarListing car)
         {
-            _db.Remove(Car);
+            _db.Remove(car);
         }
     }
 }

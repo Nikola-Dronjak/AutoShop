@@ -3,9 +3,10 @@
 <div class="container mt-4">
     <div class="row">
         <div class="col-md-8">
-            <h2>@Model.CarListing.Model?.Brand.Name @Model.CarListing.Model?.Name</h2>
-            <h5>Price: @Model.CarListing.Price€</h5>
-            @{
+            <h2>@Model.CarListing?.Model?.Brand?.Name @Model.CarListing?.Model?.Name</h2>
+            <h5>Price: @Model.CarListing?.Price€</h5>
+            @if (Model.CarListing?.Images != null && Model.CarListing.Images.Any())
+            {
                 <div id="carImagesCarousel" class="carousel carousel-dark slide" data-bs-ride="carousel">
                     <div class="carousel-indicators">
                         @{
@@ -58,17 +59,17 @@
                             <h6><strong>Fuel Type:</strong></h6>
                         </div>
                         <div class="col-md-6">
-                            <h6>@Model.CarListing.Model?.Brand.Name</h6>
+                            <h6>@Model.CarListing?.Model?.Brand?.Name</h6>
                             <hr />
-                            <h6>@Model.CarListing.Model?.Name</h6>
+                            <h6>@Model.CarListing?.Model?.Name</h6>
                             <hr />
-                            <h6>@Model.CarListing.Year</h6>
+                            <h6>@Model.CarListing?.Year</h6>
                             <hr />
-                            <h6>@Model.CarListing.Mileage.ToString("N0") km</h6>
+                            <h6>@Model.CarListing?.Mileage.ToString("N0") km</h6>
                             <hr />
-                            <h6>@Model.CarListing.BodyType?.Type</h6>
+                            <h6>@Model.CarListing?.BodyType?.Type</h6>
                             <hr />
-                            <h6>@Model.CarListing.FuelType?.Type</h6>
+                            <h6>@Model.CarListing?.FuelType?.Type</h6>
                         </div>
                     </div>
                 </div>
@@ -93,19 +94,19 @@
                             <h6><strong>Description:</strong></h6>
                         </div>
                         <div class="col-md-6">
-                            <h6>@Model.CarListing.EngineType?.Type</h6>
+                            <h6>@Model.CarListing?.EngineType?.Type</h6>
                             <hr />
-                            <h6>@Model.CarListing.TransmissionType?.Type</h6>
+                            <h6>@Model.CarListing?.TransmissionType?.Type</h6>
                             <hr />
-                            <h6>@Model.CarListing.NumberOfDoors</h6>
+                            <h6>@Model.CarListing?.NumberOfDoors</h6>
                             <hr />
-                            <h6>@Model.CarListing.NumberOfSeats</h6>
+                            <h6>@Model.CarListing?.NumberOfSeats</h6>
                             <hr />
-                            <h6>@Model.CarListing.Color</h6>
+                            <h6>@Model.CarListing?.Color</h6>
                             <hr />
-                            <h6>@Model.CarListing.VIN</h6>
+                            <h6>@Model.CarListing?.VIN</h6>
                             <hr />
-                            <h6>@Model.CarListing.Description</h6>
+                            <h6>@Model.CarListing?.Description</h6>
                         </div>
                     </div>
                 </div>
@@ -132,8 +133,6 @@
     </div>
 </div>
 
-<script>
-    $(document).ready(function () {
-        $('#carImagesCarousel').carousel();
-    });
-</script>
+@section Scripts {
+    <script src="~/js/carousel.js"></script>
+}

@@ -6,6 +6,7 @@ namespace DataAccessLayer.FuelTypeRepository
     public class FuelTypeRepository : IFuelTypeRepository
     {
         private readonly ApplicationDbContext _db;
+
         public FuelTypeRepository(ApplicationDbContext db)
         {
             _db = db;
@@ -20,19 +21,20 @@ namespace DataAccessLayer.FuelTypeRepository
         {
             return _db.FuelTypes.FirstOrDefault(u => u.FuelTypeId == id);
         }
-        public void Add(FuelType FuelType)
+
+        public void Add(FuelType fuelType)
         {
-            _db.Add(FuelType);
+            _db.Add(fuelType);
         }
 
-        public void Update(FuelType FuelType)
+        public void Update(FuelType fuelType)
         {
-            _db.Update(FuelType);
+            _db.Update(fuelType);
         }
 
-        public void Delete(FuelType FuelType)
+        public void Delete(FuelType fuelType)
         {
-            _db.Remove(FuelType);
+            _db.Remove(fuelType);
         }
     }
 }

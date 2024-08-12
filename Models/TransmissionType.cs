@@ -8,8 +8,8 @@ namespace AutoShop.Domain
         [Key]
         public int TransmissionTypeId { get; set; }
 
-        [Required(ErrorMessage = "Type cannot be empty.")]
-        [DisplayName("Type:")]
+        [Required(ErrorMessage = "Transmission type cannot be empty.")]
+        [DisplayName("Transmission type:")]
         public string? Type { get; set; }
 
         public ICollection<CarListing>? CarListings { get; set; }

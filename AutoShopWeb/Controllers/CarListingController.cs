@@ -4,7 +4,6 @@ using AutoShop.Utility;
 using AutoShopWeb.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Security.Claims;
 
 namespace AutoShopWeb.Controllers
@@ -21,6 +20,7 @@ namespace AutoShopWeb.Controllers
         private readonly IBrandService _brandService;
         private readonly IImageService _imageService;
         private readonly IWebHostEnvironment _webHostEnvironment;
+
         public CarListingController(ICarListingService carListingService, IEngineTypeService engineTypeService, ITransmissionTypeService transmissionTypeService, IFuelTypeService fuelTypeService, IBodyTypeService bodyTypeService, IModelService modelService, IBrandService brandService, IImageService imageService, IWebHostEnvironment webHostEnvironment)
         {
             _carListingService = carListingService;
@@ -38,17 +38,9 @@ namespace AutoShopWeb.Controllers
         public IActionResult Index()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var CarListings = _carListingService.CarListings
-                .Where(c => c.UserId == userId)
-                .Select(c => new CarListingVM
-                {
-                    Car = c
-                })
-                .ToList();
-
-            CarListings.Sort(new CarListingsStatusComparer());
-
-            return View(CarListings);
+            var carListings = _carListingService.CarListings.Where(c => c.UserId == userId).Select(c => new CarListingVM { Car = c }).ToList();
+            carListings.Sort(new CarListingsStatusComparer());
+            return View(carListings);
         }
 
         // Returns the page for adding new car listings
@@ -56,102 +48,32 @@ namespace AutoShopWeb.Controllers
         {
             CarListingVM carListing = new()
             {
-                EngineTypeOptions = _engineTypeService.EngineTypes.Select(et => new SelectListItem
-                {
-                    Text = et.Type,
-                    Value = et.EngineTypeId.ToString()
-                }),
-
-                TransmissionTypeOptions = _transmissionTypeService.TransmissionTypes.Select(tt => new SelectListItem
-                {
-                    Text = tt.Type,
-                    Value = tt.TransmissionTypeId.ToString()
-                }),
-
-                FuelTypeOptions = _fuelTypeService.FuelTypes.Select(ft => new SelectListItem
-                {
-                    Text = ft.Type,
-                    Value = ft.FuelTypeId.ToString()
-                }),
-
-                BodyTypeOptions = _bodyTypeService.BodyTypes.Select(bt => new SelectListItem
-                {
-                    Text = bt.Type,
-                    Value = bt.BodyTypeId.ToString()
-                }),
-
-                ModelOptions = _modelService.Models.Select(m => new SelectListItem
-                {
-                    Text = m.Name,
-                    Value = m.ModelId.ToString()
-                }),
-
-                BrandOptions = _brandService.Brands.Select(b => new SelectListItem
-                {
-                    Text = b.Name,
-                    Value = b.BrandId.ToString()
-                }),
-
                 UserId = User.FindFirstValue(ClaimTypes.NameIdentifier)
             };
 
+            DropdownHelper.PopulateDropdown(carListing, _engineTypeService, _transmissionTypeService, _fuelTypeService, _bodyTypeService, _modelService, _brandService);
             return View(carListing);
         }
 
-
         // Handles the post request with the new car listing
         [HttpPost]
-        public IActionResult Create(CarListingVM CarListing, IEnumerable<IFormFile> files)
+        public IActionResult Create(CarListingVM carListing, IEnumerable<IFormFile> files)
         {
             if (ModelState.IsValid && files != null && files.Any())
             {
-                bool vinExists = _carListingService.VINExists(CarListing.Car.VIN, CarListing.Car.CarId);
+                bool vinExists = _carListingService.VINExists(carListing.Car.VIN, carListing.Car.CarId);
                 if (vinExists)
                 {
                     ModelState.AddModelError("Car.VIN", "This VIN already exists. Please provide a different VIN.");
-                    CarListing.EngineTypeOptions = _engineTypeService.EngineTypes.Select(et => new SelectListItem
-                    {
-                        Text = et.Type,
-                        Value = et.EngineTypeId.ToString()
-                    });
-
-                    CarListing.TransmissionTypeOptions = _transmissionTypeService.TransmissionTypes.Select(tt => new SelectListItem
-                    {
-                        Text = tt.Type,
-                        Value = tt.TransmissionTypeId.ToString()
-                    });
-
-                    CarListing.FuelTypeOptions = _fuelTypeService.FuelTypes.Select(ft => new SelectListItem
-                    {
-                        Text = ft.Type,
-                        Value = ft.FuelTypeId.ToString()
-                    });
-
-                    CarListing.BodyTypeOptions = _bodyTypeService.BodyTypes.Select(bt => new SelectListItem
-                    {
-                        Text = bt.Type,
-                        Value = bt.BodyTypeId.ToString()
-                    });
-
-                    CarListing.ModelOptions = _modelService.Models.Select(m => new SelectListItem
-                    {
-                        Text = m.Name,
-                        Value = m.ModelId.ToString()
-                    });
-
-                    CarListing.BrandOptions = _brandService.Brands.Select(b => new SelectListItem
-                    {
-                        Text = b.Name,
-                        Value = b.BrandId.ToString()
-                    });
-                    return View(CarListing);
+                    DropdownHelper.PopulateDropdown(carListing, _engineTypeService, _transmissionTypeService, _fuelTypeService, _bodyTypeService, _modelService, _brandService);
+                    return View(carListing);
                 }
 
                 string wwwRootPath = _webHostEnvironment.WebRootPath;
                 string imagePath = Path.Combine(wwwRootPath, @"images\car");
                 var images = new List<Image>();
 
-                foreach(var file in files)
+                foreach (var file in files)
                 {
                     string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
                     using (var fileStream = new FileStream(Path.Combine(imagePath, fileName), FileMode.Create))
@@ -162,59 +84,25 @@ namespace AutoShopWeb.Controllers
                     var image = new Image
                     {
                         ImageUrl = "/images/car/" + fileName,
-                        CarId = CarListing.Car.CarId,
-                        CarListing = CarListing.Car
+                        CarId = carListing.Car.CarId,
+                        CarListing = carListing.Car
                     };
 
                     images.Add(image);
                 }
 
-                CarListing.Car.UserId = CarListing.UserId;
-                CarListing.Car.Status = CarStatus.Active;
-                CarListing.Car.Images = images;
-                _carListingService.Add(CarListing.Car);
+                carListing.Car.UserId = carListing.UserId;
+                carListing.Car.Status = CarStatus.Active;
+                carListing.Car.Images = images;
+                _carListingService.Add(carListing.Car);
                 TempData["success"] = "New car listing added successfully.";
                 return RedirectToAction("Index");
             }
-            else if (files == null || files.Count() < 1)
+            else if (files == null || files.Count() < 5)
             {
                 ModelState.AddModelError("Car.Images", "You must upload at least 5 images of the car.");
-                CarListing.EngineTypeOptions = _engineTypeService.EngineTypes.Select(et => new SelectListItem
-                {
-                    Text = et.Type,
-                    Value = et.EngineTypeId.ToString()
-                });
-
-                CarListing.TransmissionTypeOptions = _transmissionTypeService.TransmissionTypes.Select(tt => new SelectListItem
-                {
-                    Text = tt.Type,
-                    Value = tt.TransmissionTypeId.ToString()
-                });
-
-                CarListing.FuelTypeOptions = _fuelTypeService.FuelTypes.Select(ft => new SelectListItem
-                {
-                    Text = ft.Type,
-                    Value = ft.FuelTypeId.ToString()
-                });
-
-                CarListing.BodyTypeOptions = _bodyTypeService.BodyTypes.Select(bt => new SelectListItem
-                {
-                    Text = bt.Type,
-                    Value = bt.BodyTypeId.ToString()
-                });
-
-                CarListing.ModelOptions = _modelService.Models.Select(m => new SelectListItem
-                {
-                    Text = m.Name,
-                    Value = m.ModelId.ToString()
-                });
-
-                CarListing.BrandOptions = _brandService.Brands.Select(b => new SelectListItem
-                {
-                    Text = b.Name,
-                    Value = b.BrandId.ToString()
-                });
-                return View(CarListing);
+                DropdownHelper.PopulateDropdown(carListing, _engineTypeService, _transmissionTypeService, _fuelTypeService, _bodyTypeService, _modelService, _brandService);
+                return View(carListing);
             }
             return View();
         }
@@ -227,169 +115,51 @@ namespace AutoShopWeb.Controllers
                 return NotFound();
             }
 
-            CarListing? CarListingFromDb = _carListingService.Get(id);
-            if (CarListingFromDb == null)
+            CarListing? carListingFromDb = _carListingService.Get(id);
+            if (carListingFromDb == null)
             {
                 return NotFound();
             }
 
-            // Retrieve logged-in user's ID
             var loggedInUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            // Check if the logged-in user owns this car listing
-            if (CarListingFromDb.UserId != loggedInUserId)
+            if (carListingFromDb.UserId != loggedInUserId)
             {
-                // If the logged-in user doesn't own this car listing, prevent editing
                 return Unauthorized();
             }
 
-            var EngineTypeOptions = _engineTypeService.EngineTypes.Select(et => new SelectListItem
+            CarListingVM carListing = new()
             {
-                Text = et.Type,
-                Value = et.EngineTypeId.ToString()
-            });
-
-            var TransmissionTypeOptions = _transmissionTypeService.TransmissionTypes.Select(tt => new SelectListItem
-            {
-                Text = tt.Type,
-                Value = tt.TransmissionTypeId.ToString()
-            });
-
-            var FuelTypeOptions = _fuelTypeService.FuelTypes.Select(ft => new SelectListItem
-            {
-                Text = ft.Type,
-                Value = ft.FuelTypeId.ToString()
-            });
-
-            var BodyTypeOptions = _bodyTypeService.BodyTypes.Select(bt => new SelectListItem
-            {
-                Text = bt.Type,
-                Value = bt.BodyTypeId.ToString()
-            });
-
-            var ModelOptions = _modelService.Models.Select(m => new SelectListItem
-            {
-                Text = m.Name,
-                Value = m.ModelId.ToString()
-            });
-
-            var BrandOptions = _brandService.Brands.Select(b => new SelectListItem
-            {
-                Text = b.Name,
-                Value = b.BrandId.ToString()
-            });
-
-            var viewModel = new CarListingVM
-            {
-                BrandOptions = BrandOptions,
-                ModelOptions = ModelOptions,
-                EngineTypeOptions = EngineTypeOptions,
-                FuelTypeOptions = FuelTypeOptions,
-                TransmissionTypeOptions = TransmissionTypeOptions,
-                BodyTypeOptions = BodyTypeOptions,
-                Car = CarListingFromDb,
-                UserId = loggedInUserId
+                Car = carListingFromDb,
+                UserId = User.FindFirstValue(ClaimTypes.NameIdentifier)
             };
 
-            return View(viewModel);
+            DropdownHelper.PopulateDropdown(carListing, _engineTypeService, _transmissionTypeService, _fuelTypeService, _bodyTypeService, _modelService, _brandService);
+            return View(carListing);
         }
-
 
         // Handles the post request with the updated car listing
         [HttpPost]
-        public IActionResult Edit(CarListingVM CarListing, IEnumerable<IFormFile>? newImages, string? removedImageIds)
+        public IActionResult Edit(CarListingVM carListing, IEnumerable<IFormFile>? newImages, string? removedImageIds)
         {
             if (ModelState.IsValid)
             {
-                bool vinExists = _carListingService.VINExists(CarListing.Car.VIN, CarListing.Car.CarId);
+                bool vinExists = _carListingService.VINExists(carListing.Car.VIN, carListing.Car.CarId);
                 if (vinExists)
                 {
                     ModelState.AddModelError("Car.VIN", "This VIN already exists. Please provide a different VIN.");
-                    CarListing.EngineTypeOptions = _engineTypeService.EngineTypes.Select(et => new SelectListItem
-                    {
-                        Text = et.Type,
-                        Value = et.EngineTypeId.ToString()
-                    });
-
-                    CarListing.TransmissionTypeOptions = _transmissionTypeService.TransmissionTypes.Select(tt => new SelectListItem
-                    {
-                        Text = tt.Type,
-                        Value = tt.TransmissionTypeId.ToString()
-                    });
-
-                    CarListing.FuelTypeOptions = _fuelTypeService.FuelTypes.Select(ft => new SelectListItem
-                    {
-                        Text = ft.Type,
-                        Value = ft.FuelTypeId.ToString()
-                    });
-
-                    CarListing.BodyTypeOptions = _bodyTypeService.BodyTypes.Select(bt => new SelectListItem
-                    {
-                        Text = bt.Type,
-                        Value = bt.BodyTypeId.ToString()
-                    });
-
-                    CarListing.ModelOptions = _modelService.Models.Select(m => new SelectListItem
-                    {
-                        Text = m.Name,
-                        Value = m.ModelId.ToString()
-                    });
-
-                    CarListing.BrandOptions = _brandService.Brands.Select(b => new SelectListItem
-                    {
-                        Text = b.Name,
-                        Value = b.BrandId.ToString()
-                    });
-
-                    CarListing.Car.Images = _imageService.ImagesOfCar(CarListing.Car.CarId).ToList();
-
-                    return View(CarListing);
+                    DropdownHelper.PopulateDropdown(carListing, _engineTypeService, _transmissionTypeService, _fuelTypeService, _bodyTypeService, _modelService, _brandService);
+                    carListing.Car.Images = _imageService.ImagesOfCar(carListing.Car.CarId).ToList();
+                    return View(carListing);
                 }
 
-                var imagesOfTheCar = _imageService.ImagesOfCar(CarListing.Car.CarId).ToList();
+                var imagesOfTheCar = _imageService.ImagesOfCar(carListing.Car.CarId).ToList();
                 var imagesToRemove = removedImageIds?.Split(',', StringSplitOptions.RemoveEmptyEntries);
                 if ((newImages != null && newImages.Any() && (imagesOfTheCar.Count + newImages.Count()) - imagesToRemove?.Length < 1) || ((newImages == null || !newImages.Any()) && imagesOfTheCar.Count - imagesToRemove?.Length < 1))
                 {
                     ModelState.AddModelError("Car.Images", "You cant remove all the images of the car, there has to be at least 1 image of the car.");
-                    CarListing.EngineTypeOptions = _engineTypeService.EngineTypes.Select(et => new SelectListItem
-                    {
-                        Text = et.Type,
-                        Value = et.EngineTypeId.ToString()
-                    });
-
-                    CarListing.TransmissionTypeOptions = _transmissionTypeService.TransmissionTypes.Select(tt => new SelectListItem
-                    {
-                        Text = tt.Type,
-                        Value = tt.TransmissionTypeId.ToString()
-                    });
-
-                    CarListing.FuelTypeOptions = _fuelTypeService.FuelTypes.Select(ft => new SelectListItem
-                    {
-                        Text = ft.Type,
-                        Value = ft.FuelTypeId.ToString()
-                    });
-
-                    CarListing.BodyTypeOptions = _bodyTypeService.BodyTypes.Select(bt => new SelectListItem
-                    {
-                        Text = bt.Type,
-                        Value = bt.BodyTypeId.ToString()
-                    });
-
-                    CarListing.ModelOptions = _modelService.Models.Select(m => new SelectListItem
-                    {
-                        Text = m.Name,
-                        Value = m.ModelId.ToString()
-                    });
-
-                    CarListing.BrandOptions = _brandService.Brands.Select(b => new SelectListItem
-                    {
-                        Text = b.Name,
-                        Value = b.BrandId.ToString()
-                    });
-
-                    CarListing.Car.Images = _imageService.ImagesOfCar(CarListing.Car.CarId).ToList();
-
-                    return View(CarListing);
+                    DropdownHelper.PopulateDropdown(carListing, _engineTypeService, _transmissionTypeService, _fuelTypeService, _bodyTypeService, _modelService, _brandService);
+                    carListing.Car.Images = _imageService.ImagesOfCar(carListing.Car.CarId).ToList();
+                    return View(carListing);
                 }
 
                 if (newImages != null && newImages.Count() > 0)
@@ -410,22 +180,22 @@ namespace AutoShopWeb.Controllers
                         var image = new Image
                         {
                             ImageUrl = "/images/car/" + fileName,
-                            CarId = CarListing.Car.CarId,
-                            CarListing = CarListing.Car
+                            CarId = carListing.Car.CarId,
+                            CarListing = carListing.Car
                         };
 
                         images.Add(image);
                     }
 
-                    CarListing.Car.Images = images;
+                    carListing.Car.Images = images;
                 }
 
                 if (!string.IsNullOrEmpty(removedImageIds))
                 {
-                    foreach(var imageId in imagesToRemove)
+                    foreach (var imageId in imagesToRemove)
                     {
                         var image = _imageService.Get(int.Parse(imageId));
-                        if(image != null)
+                        if (image != null)
                         {
                             var filePath = Path.Combine(_webHostEnvironment.WebRootPath, image.ImageUrl.TrimStart('/'));
                             if (System.IO.File.Exists(filePath))
@@ -438,52 +208,16 @@ namespace AutoShopWeb.Controllers
                     }
                 }
 
-                CarListing.Car.UserId = CarListing.UserId;
-                CarListing.Car.Status = CarStatus.Active;
-                _carListingService.Update(CarListing.Car);
+                carListing.Car.UserId = carListing.UserId;
+                carListing.Car.Status = CarStatus.Active;
+                _carListingService.Update(carListing.Car);
                 TempData["success"] = "Car listing updated successfully.";
                 return RedirectToAction("Index");
             }
 
-            CarListing.EngineTypeOptions = _engineTypeService.EngineTypes.Select(et => new SelectListItem
-            {
-                Text = et.Type,
-                Value = et.EngineTypeId.ToString()
-            });
-
-            CarListing.TransmissionTypeOptions = _transmissionTypeService.TransmissionTypes.Select(tt => new SelectListItem
-            {
-                Text = tt.Type,
-                Value = tt.TransmissionTypeId.ToString()
-            });
-
-            CarListing.FuelTypeOptions = _fuelTypeService.FuelTypes.Select(ft => new SelectListItem
-            {
-                Text = ft.Type,
-                Value = ft.FuelTypeId.ToString()
-            });
-
-            CarListing.BodyTypeOptions = _bodyTypeService.BodyTypes.Select(bt => new SelectListItem
-            {
-                Text = bt.Type,
-                Value = bt.BodyTypeId.ToString()
-            });
-
-            CarListing.ModelOptions = _modelService.Models.Select(m => new SelectListItem
-            {
-                Text = m.Name,
-                Value = m.ModelId.ToString()
-            });
-
-            CarListing.BrandOptions = _brandService.Brands.Select(b => new SelectListItem
-            {
-                Text = b.Name,
-                Value = b.BrandId.ToString()
-            });
-
-            CarListing.Car.Images = _imageService.ImagesOfCar(CarListing.Car.CarId).ToList();
-
-            return View(CarListing);
+            DropdownHelper.PopulateDropdown(carListing, _engineTypeService, _transmissionTypeService, _fuelTypeService, _bodyTypeService, _modelService, _brandService);
+            carListing.Car.Images = _imageService.ImagesOfCar(carListing.Car.CarId).ToList();
+            return View(carListing);
         }
 
         // Returns the page for archiving car listings
@@ -494,72 +228,38 @@ namespace AutoShopWeb.Controllers
                 return NotFound();
             }
 
-            CarListing? CarListingFromDb = _carListingService.Get(id);
-            if (CarListingFromDb == null)
+            CarListing? carListingFromDb = _carListingService.Get(id);
+            if (carListingFromDb == null)
             {
                 return NotFound();
             }
 
-            var EngineTypeOptions = _engineTypeService.EngineTypes.Select(et => new SelectListItem
+            var loggedInUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (carListingFromDb.UserId != loggedInUserId)
             {
-                Text = et.Type,
-                Value = et.EngineTypeId.ToString()
-            });
+                return Unauthorized();
+            }
 
-            var TransmissionTypeOptions = _transmissionTypeService.TransmissionTypes.Select(tt => new SelectListItem
+            CarListingVM carListing = new()
             {
-                Text = tt.Type,
-                Value = tt.TransmissionTypeId.ToString()
-            });
-
-            var FuelTypeOptions = _fuelTypeService.FuelTypes.Select(ft => new SelectListItem
-            {
-                Text = ft.Type,
-                Value = ft.FuelTypeId.ToString()
-            });
-
-            var BodyTypeOptions = _bodyTypeService.BodyTypes.Select(bt => new SelectListItem
-            {
-                Text = bt.Type,
-                Value = bt.BodyTypeId.ToString()
-            });
-
-            var ModelOptions = _modelService.Models.Select(m => new SelectListItem
-            {
-                Text = m.Name,
-                Value = m.ModelId.ToString()
-            });
-
-            var BrandOptions = _brandService.Brands.Select(b => new SelectListItem
-            {
-                Text = b.Name,
-                Value = b.BrandId.ToString()
-            });
-
-            var viewModel = new CarListingVM
-            {
-                BrandOptions = BrandOptions,
-                ModelOptions = ModelOptions,
-                EngineTypeOptions = EngineTypeOptions,
-                FuelTypeOptions = FuelTypeOptions,
-                TransmissionTypeOptions = TransmissionTypeOptions,
-                BodyTypeOptions = BodyTypeOptions,
-                Car = CarListingFromDb
+                Car = carListingFromDb,
+                UserId = User.FindFirstValue(ClaimTypes.NameIdentifier)
             };
 
-            return View(viewModel);
+            DropdownHelper.PopulateDropdown(carListing, _engineTypeService, _transmissionTypeService, _fuelTypeService, _bodyTypeService, _modelService, _brandService);
+            return View(carListing);
         }
 
         // Handles the post request with the car listing that is supposed to be archived
         [HttpPost]
-        public IActionResult Archive(CarListingVM CarListing)
+        public IActionResult Archive(CarListingVM carListing)
         {
-            if (CarListing.Car == null || CarListing.Car.CarId == 0)
+            if (carListing.Car == null || carListing.Car.CarId == 0)
             {
                 return NotFound();
             }
 
-            _carListingService.Archive(CarListing.Car.CarId);
+            _carListingService.Archive(carListing.Car.CarId);
             TempData["success"] = "Car listing archived successfully.";
             return RedirectToAction("Index");
         }

@@ -9,6 +9,7 @@ namespace AutoShopWeb.Controllers
     public class FuelTypeController : Controller
     {
         private readonly IFuelTypeService _fuelTypeServices;
+
         public FuelTypeController(IFuelTypeService fuelTypeServices)
         {
             _fuelTypeServices = fuelTypeServices;
@@ -26,70 +27,73 @@ namespace AutoShopWeb.Controllers
             return View();
         }
 
-
         // Handles the post request with the new fuel type
         [HttpPost]
-        public IActionResult Create(FuelType FuelType)
+        public IActionResult Create(FuelType fuelType)
         {
             if (ModelState.IsValid)
             {
-                _fuelTypeServices.Add(FuelType);
+                _fuelTypeServices.Add(fuelType);
                 TempData["success"] = "New fuel type added successfully.";
                 return RedirectToAction("Index");
             }
+
             return View();
         }
 
         // Returns the page for updating existing fuel types
         public IActionResult Edit(int id)
         {
-            if (id == null || id == 0)
+            if (id == 0)
             {
                 return NotFound();
             }
-            FuelType? FuelTypeFromDb = _fuelTypeServices.Get(id);
-            if (FuelTypeFromDb == null)
-            {
-                return NotFound();
-            }
-            return View(FuelTypeFromDb);
-        }
 
+            FuelType? fuelTypeFromDb = _fuelTypeServices.Get(id);
+            if (fuelTypeFromDb == null)
+            {
+                return NotFound();
+            }
+
+            return View(fuelTypeFromDb);
+        }
 
         // Handles the post request with the updated fuel type
         [HttpPost]
-        public IActionResult Edit(FuelType FuelType)
+        public IActionResult Edit(FuelType fuelType)
         {
             if (ModelState.IsValid)
             {
-                _fuelTypeServices.Update(FuelType);
+                _fuelTypeServices.Update(fuelType);
                 TempData["success"] = "Fuel type updated successfully.";
                 return RedirectToAction("Index");
             }
+
             return View();
         }
 
         // Returns the page for removing fuel types
         public IActionResult Delete(int id)
         {
-            if (id == null || id == 0)
+            if (id == 0)
             {
                 return NotFound();
             }
-            FuelType? FuelTypeFromDb = _fuelTypeServices.Get(id);
-            if (FuelTypeFromDb == null)
-            {
-                return NotFound();
-            }
-            return View(FuelTypeFromDb);
-        }
 
+            FuelType? fuelTypeFromDb = _fuelTypeServices.Get(id);
+            if (fuelTypeFromDb == null)
+            {
+                return NotFound();
+            }
+
+            return View(fuelTypeFromDb);
+        }
 
         // Handles the post request with the fuel type that is supposed to be removed
         [HttpPost]
-        public IActionResult Delete(FuelType FuelType)
+        public IActionResult Delete(FuelType fuelType)
         {
-            _fuelTypeServices.Delete(FuelType);
+            _fuelTypeServices.Delete(fuelType);
             TempData["success"] = "Fuel type removed successfully.";
             return RedirectToAction("Index");
         }

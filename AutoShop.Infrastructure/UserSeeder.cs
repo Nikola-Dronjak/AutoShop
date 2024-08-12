@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
-using System.Runtime.Intrinsics.X86;
 
 namespace AutoShop.Infrastructure
 {
@@ -16,9 +15,9 @@ namespace AutoShop.Infrastructure
 
                 if (!await roleManager.RoleExistsAsync(UserRole.Admin_Role))
                     await roleManager.CreateAsync(new IdentityRole(UserRole.Admin_Role));
+
                 if (!await roleManager.RoleExistsAsync(UserRole.User_Role))
                     await roleManager.CreateAsync(new IdentityRole(UserRole.User_Role));
-
 
                 var userManager = serviceScope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
 
@@ -37,6 +36,7 @@ namespace AutoShop.Infrastructure
                         PhoneNumber = "+381 61 123 456 78",
                         PhoneNumberConfirmed = true,
                     };
+
                     var result = await userManager.CreateAsync(newAdminUser, "Admin1!");
                     if (result.Succeeded)
                     {
@@ -59,6 +59,7 @@ namespace AutoShop.Infrastructure
                         PhoneNumber = "+381 61 123 456 79",
                         PhoneNumberConfirmed = true,
                     };
+
                     var result1 = await userManager.CreateAsync(user1, "User1!");
                     if (result1.Succeeded)
                     {
@@ -80,6 +81,7 @@ namespace AutoShop.Infrastructure
                         PhoneNumber = "+381 61 123 456 80",
                         PhoneNumberConfirmed = true,
                     };
+
                     var result2 = await userManager.CreateAsync(user2, "User2!");
                     if (result2.Succeeded)
                     {
@@ -101,6 +103,7 @@ namespace AutoShop.Infrastructure
                         PhoneNumber = "+381 61 123 456 81",
                         PhoneNumberConfirmed = true,
                     };
+
                     var result3 = await userManager.CreateAsync(user3, "User3!");
                     if (result3.Succeeded)
                     {
@@ -122,6 +125,7 @@ namespace AutoShop.Infrastructure
                         PhoneNumber = "+381 61 123 456 82",
                         PhoneNumberConfirmed = true,
                     };
+
                     var result4 = await userManager.CreateAsync(user4, "User4!");
                     if (result4.Succeeded)
                     {
@@ -143,6 +147,7 @@ namespace AutoShop.Infrastructure
                         PhoneNumber = "+381 61 123 456 83",
                         PhoneNumberConfirmed = true,
                     };
+
                     var result5 = await userManager.CreateAsync(user5, "User5!");
                     if (result5.Succeeded)
                     {
@@ -164,6 +169,7 @@ namespace AutoShop.Infrastructure
                         PhoneNumber = "+381 61 123 456 84",
                         PhoneNumberConfirmed = true,
                     };
+
                     var result6 = await userManager.CreateAsync(user6, "User6!");
                     if (result6.Succeeded)
                     {
@@ -185,6 +191,7 @@ namespace AutoShop.Infrastructure
                         PhoneNumber = "+381 61 123 456 85",
                         PhoneNumberConfirmed = true,
                     };
+
                     var result7 = await userManager.CreateAsync(user7, "User7!");
                     if (result7.Succeeded)
                     {
@@ -206,6 +213,7 @@ namespace AutoShop.Infrastructure
                         PhoneNumber = "+381 61 123 456 86",
                         PhoneNumberConfirmed = true,
                     };
+
                     var result8 = await userManager.CreateAsync(user8, "User8!");
                     if (result8.Succeeded)
                     {
@@ -227,6 +235,7 @@ namespace AutoShop.Infrastructure
                         PhoneNumber = "+381 61 123 456 87",
                         PhoneNumberConfirmed = true,
                     };
+
                     var result9 = await userManager.CreateAsync(user9, "User9!");
                     if (result9.Succeeded)
                     {
@@ -248,6 +257,7 @@ namespace AutoShop.Infrastructure
                         PhoneNumber = "+381 61 123 456 88",
                         PhoneNumberConfirmed = true,
                     };
+
                     var result10 = await userManager.CreateAsync(user10, "User10!");
                     if (result10.Succeeded)
                     {

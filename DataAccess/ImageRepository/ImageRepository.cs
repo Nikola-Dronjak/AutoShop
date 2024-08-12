@@ -6,6 +6,7 @@ namespace DataAccessLayer.ImageRepository
     public class ImageRepository : IImageRepository
     {
         private readonly ApplicationDbContext _db;
+
         public ImageRepository(ApplicationDbContext db)
         {
             _db = db;
@@ -16,9 +17,9 @@ namespace DataAccessLayer.ImageRepository
             return _db.Images;
         }
 
-        public IEnumerable<Image> GetAllImagesByCarId(int CarId)
+        public IEnumerable<Image> GetAllImagesByCarId(int carId)
         {
-            return _db.Images.Where(u => u.CarId == CarId);
+            return _db.Images.Where(u => u.CarId == carId);
         }
 
         public Image GetById(int id)
@@ -26,19 +27,19 @@ namespace DataAccessLayer.ImageRepository
             return _db.Images.FirstOrDefault(u => u.ImageId == id);
         }
 
-        public void Add(Image Image)
+        public void Add(Image image)
         {
-            _db.Add(Image);
+            _db.Add(image);
         }
 
-        public void Update(Image Image)
+        public void Update(Image image)
         {
-            _db.Update(Image);
+            _db.Update(image);
         }
 
-        public void Delete(Image Image)
+        public void Delete(Image image)
         {
-            _db.Remove(Image);
+            _db.Remove(image);
         }
     }
 }

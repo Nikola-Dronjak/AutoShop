@@ -5,10 +5,15 @@ namespace AutoShop.Services.Interfaces
     public interface IImageService
     {
         public IEnumerable<Image> Images { get; }
-        public IEnumerable<Image> ImagesOfCar(int CarId);
+
+        public IEnumerable<Image> ImagesOfCar(int carId);
+
         public Image Get(int id);
-        public void Add(Image Image);
-        public void Update(Image Image);
-        public void Delete(Image Image);
+
+        public void Add(Image image);
+
+        public void Update(Image image);
+
+        public void Delete(Image image);
     }
 }

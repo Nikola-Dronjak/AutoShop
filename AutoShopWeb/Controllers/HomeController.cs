@@ -1,16 +1,16 @@
 using AutoShop.Domain;
 using AutoShop.Services.Interfaces;
+using AutoShop.Utility;
 using AutoShop.ViewModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Diagnostics;
 
+#pragma warning disable CS8604 // Possible null reference argument.
 namespace AutoShopWeb.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
         private readonly ICarListingService _carListingService;
         private readonly IEngineTypeService _engineTypeService;
         private readonly ITransmissionTypeService _transmissionTypeService;
@@ -19,9 +19,9 @@ namespace AutoShopWeb.Controllers
         private readonly IModelService _modelService;
         private readonly IBrandService _brandService;
         private readonly UserManager<IdentityUser> _userManager;
-        public HomeController(ILogger<HomeController> logger, ICarListingService carListingService, IEngineTypeService engineTypeService, ITransmissionTypeService transmissionTypeService, IBodyTypeService bodyTypeService, IFuelTypeService fuelTypeService, IModelService modelService, IBrandService brandService, UserManager<IdentityUser> userManager)
+
+        public HomeController(ICarListingService carListingService, IEngineTypeService engineTypeService, ITransmissionTypeService transmissionTypeService, IBodyTypeService bodyTypeService, IFuelTypeService fuelTypeService, IModelService modelService, IBrandService brandService, UserManager<IdentityUser> userManager)
         {
-            _logger = logger;
             _carListingService = carListingService;
             _engineTypeService = engineTypeService;
             _transmissionTypeService = transmissionTypeService;
@@ -36,6 +36,10 @@ namespace AutoShopWeb.Controllers
         {
             const int PageSize = 10;
 
+            var searchCriteria = new CarListingFilterVM();
+
+            DropdownHelper.PopulateDropdownFilter(searchCriteria, _engineTypeService, _transmissionTypeService, _fuelTypeService, _bodyTypeService, _modelService, _brandService);
+
             var paginatedCarListings = _carListingService.GetPaginatedCarListings(page, PageSize);
             var totalPages = _carListingService.GetTotalPages(PageSize);
             var hasPreviousPage = page > 1;
@@ -47,7 +51,8 @@ namespace AutoShopWeb.Controllers
                 TotalPages = totalPages,
                 HasPreviousPage = hasPreviousPage,
                 HasNextPage = hasNextPage,
-                PageIndex = page
+                PageIndex = page,
+                SearchCriteria = searchCriteria
             };
 
             return View(viewModel);
@@ -62,7 +67,6 @@ namespace AutoShopWeb.Controllers
             }
 
             var user = await _userManager.FindByIdAsync(Car.UserId);
-
             if (user == null)
             {
                 return NotFound();
@@ -80,54 +84,14 @@ namespace AutoShopWeb.Controllers
 
         public IActionResult Search(CarListingFilterVM searchCriteria, int page = 1)
         {
+            DropdownHelper.PopulateDropdownFilter(searchCriteria, _engineTypeService, _transmissionTypeService, _fuelTypeService, _bodyTypeService, _modelService, _brandService);
             if (!ModelState.IsValid)
             {
-                // Repopulate dropdowns with available options if ModelState is invalid
-                searchCriteria.EngineTypeOptions = _engineTypeService.EngineTypes.Select(et => new SelectListItem
-                {
-                    Text = et.Type,
-                    Value = et.EngineTypeId.ToString()
-                });
-
-                searchCriteria.TransmissionTypeOptions = _transmissionTypeService.TransmissionTypes.Select(tt => new SelectListItem
-                {
-                    Text = tt.Type,
-                    Value = tt.TransmissionTypeId.ToString()
-                });
-
-                searchCriteria.FuelTypeOptions = _fuelTypeService.FuelTypes.Select(ft => new SelectListItem
-                {
-                    Text = ft.Type,
-                    Value = ft.FuelTypeId.ToString()
-                });
-
-                searchCriteria.BodyTypeOptions = _bodyTypeService.BodyTypes.Select(bt => new SelectListItem
-                {
-                    Text = bt.Type,
-                    Value = bt.BodyTypeId.ToString()
-                });
-
-                searchCriteria.ModelOptions = _modelService.Models.Select(m => new SelectListItem
-                {
-                    Text = m.Name,
-                    Value = m.ModelId.ToString()
-                });
-
-                searchCriteria.BrandOptions = _brandService.Brands.Select(b => new SelectListItem
-                {
-                    Text = b.Name,
-                    Value = b.BrandId.ToString()
-                });
-
                 return View("_SearchBar", searchCriteria);
             }
 
             const int PageSize = 10;
 
-            // Apply filtering based on the search criteria
-            var filteredCarListings = _carListingService.FilterCarListings(searchCriteria);
-
-            // Get paginated results based on the filtered data
             var paginatedCarListings = _carListingService.GetPaginatedCarListingsForFiltering(searchCriteria, page, PageSize);
             var totalPages = _carListingService.GetTotalPagesForFiltering(searchCriteria, PageSize);
             var hasPreviousPage = page > 1;

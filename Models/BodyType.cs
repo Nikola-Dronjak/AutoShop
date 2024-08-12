@@ -8,8 +8,8 @@ namespace AutoShop.Domain
         [Key]
         public int BodyTypeId { get; set; }
 
-        [Required(ErrorMessage = "Type cannot be empty.")]
-        [DisplayName("Type:")]
+        [Required(ErrorMessage = "Body type cannot be empty.")]
+        [DisplayName("Body type:")]
         public string? Type { get; set; }
 
         public ICollection<CarListing>? CarListings { get; set; }

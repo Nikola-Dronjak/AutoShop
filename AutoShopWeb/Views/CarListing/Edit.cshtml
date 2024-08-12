@@ -2,7 +2,7 @@
 
 <form method="post" enctype="multipart/form-data">
     <input asp-for="Car.CarId" hidden />
-    <input asp-for="UserId" value="@Model.UserId" hidden/>
+    <input asp-for="UserId" value="@Model.UserId" hidden />
     <div class="border p-3 mt-4">
         <div class="row pb-2">
             <h2 class="text-primary">Update Listing</h2>
@@ -19,7 +19,7 @@
                 </div>
                 <div class="mb-3 row p-1">
                     <label asp-for="Car.Model" class="p-0"></label>
-                    <select asp-for="Car.ModelId" asp-items="@Model.ModelOptions" class="form-control p-0" id="modelDropdown" disabled>
+                    <select asp-for="Car.ModelId" asp-items="@Model.ModelOptions" class="form-control p-0" id="modelDropdown">
                         <option value="">---Select Model---</option>
                     </select>
                     <span asp-validation-for="Car.ModelId" class="text-danger"></span>
@@ -126,7 +126,7 @@
                         <span class="visually-hidden">Next</span>
                     </a>
                 </div>
-                <input name="removedImageIds" id="RemovedImageIds" hidden/>
+                <input name="removedImageIds" id="RemovedImageIds" hidden />
                 <div class="mb-3 row p-1">
                     <label for="newImages" class="p-0">Add new Images:</label>
                     <input for="newImages" type="file" name="newImages" class="form-control border-0 shadow" multiple />
@@ -141,96 +141,4 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const brandDropdown = document.getElementById("brandDropdown");
-            const modelDropdown = document.getElementById("modelDropdown");
-            const modelIdFromBackend = "@Model.Car.ModelId";
-
-            // Function to populate the models based on the selected brand
-            function populateModels(selectedBrandId) {
-                if (selectedBrandId !== "") {
-                    modelDropdown.disabled = false;
-
-                    // Clear existing options
-                    modelDropdown.innerHTML = "";
-
-                    // Fetch models based on the selected brand
-                    fetch(`/GetModelsByBrand?brandId=${selectedBrandId}`)
-                        .then(response => response.json())
-                        .then(data => {
-                            data.forEach(model => {
-                                const option = document.createElement("option");
-                                option.value = model.modelId;
-                                option.text = model.name;
-                                modelDropdown.appendChild(option);
-                            });
-
-                            // Pre-select the model from the database if available
-                            if (modelIdFromBackend !== "") {
-                                modelDropdown.value = modelIdFromBackend;
-                            }
-                        })
-                        .catch(error => console.error('Error:', error));
-                } else {
-                    modelDropdown.disabled = true;
-                    modelDropdown.innerHTML = "<option value=''>---Select Model---</option>";
-                }
-            }
-
-            // Event listener for brand dropdown change
-            brandDropdown.addEventListener("change", function () {
-                const selectedBrandId = brandDropdown.value;
-                populateModels(selectedBrandId);
-            });
-
-            // When the page loads, populate models if a brand is already selected
-            const selectedBrandId = brandDropdown.value;
-            populateModels(selectedBrandId);
-        });
-    </script>
-
-    <script>
-        $(document).ready(function () {
-            $('#carImagesCarousel').carousel();
-        });
-    </script>
-
-    <script>
-        function removeImage(imageId) {
-            // Add the image ID to the hidden input field
-            var removedImageIds = document.getElementById('RemovedImageIds');
-            var currentIds = removedImageIds.value.split(',').filter(id => id);
-            if (!currentIds.includes(imageId)) {
-                currentIds.push(imageId);
-            }
-            removedImageIds.value = currentIds.join(',');
-
-            // Remove the carousel item from the DOM
-            var carouselItem = document.querySelector(`.carousel-item[data-image-id="${imageId}"]`);
-            if (carouselItem) {
-                carouselItem.parentNode.removeChild(carouselItem);
-
-                // Update active state of the remaining carousel items
-                var remainingItems = document.querySelectorAll('.carousel-item');
-                if (remainingItems.length > 0) {
-                    remainingItems[0].classList.add('active');
-                }
-            }
-
-            // Check the number of remaining items
-            var carouselElement = document.getElementById('carImagesCarousel');
-            var carouselInstance = bootstrap.Carousel.getInstance(carouselElement);
-            if (carouselInstance) {
-                carouselInstance.dispose();
-            }
-
-            if (remainingItems.length > 0) {
-                carouselElement.style.display = 'block';
-                carouselInstance = new bootstrap.Carousel(carouselElement);
-            } else {
-                carouselElement.style.display = 'none';
-            }
-        }
-    </script>
 }

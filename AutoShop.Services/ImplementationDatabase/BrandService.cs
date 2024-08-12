@@ -7,6 +7,7 @@ namespace AutoShop.Services.ImplementationDatabase
     public class BrandService : IBrandService
     {
         private readonly IUnitOfWork _uow;
+
         public BrandService(IUnitOfWork uow)
         {
             _uow = uow;
@@ -19,20 +20,21 @@ namespace AutoShop.Services.ImplementationDatabase
             return _uow.BrandRepository.GetById(id);
         }
 
-        public void Add(Brand Brand)
+        public void Add(Brand brand)
         {
-            _uow.BrandRepository.Add(Brand);
-            _uow.SaveChanges();
-        }
-        public void Update(Brand Brand)
-        {
-            _uow.BrandRepository.Update(Brand);
+            _uow.BrandRepository.Add(brand);
             _uow.SaveChanges();
         }
 
-        public void Delete(Brand Brand)
+        public void Update(Brand brand)
         {
-            _uow.BrandRepository.Delete(Brand);
+            _uow.BrandRepository.Update(brand);
+            _uow.SaveChanges();
+        }
+
+        public void Delete(Brand brand)
+        {
+            _uow.BrandRepository.Delete(brand);
             _uow.SaveChanges();
         }
     }

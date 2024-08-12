@@ -10,13 +10,13 @@ namespace AutoShop.Domain
         public int ImageId { get; set; }
 
         [Required(ErrorMessage = "ImageUrl cannot be empty.")]
-        public string ImageUrl { get; set; }
+        public string? ImageUrl { get; set; }
 
         [Required]
         public int CarId { get; set; }
 
         [ForeignKey("CarId")]
         [ValidateNever]
-        public CarListing CarListing { get; set; }
+        public CarListing? CarListing { get; set; }
     }
 }

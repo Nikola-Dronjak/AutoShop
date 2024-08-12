@@ -9,37 +9,39 @@ namespace AutoShopWeb.Controllers
     public class ModelController : Controller
     {
         private readonly IModelService _modelService;
+
         public ModelController(IModelService modelService)
         {
             _modelService = modelService;
         }
 
         // Returns all the models for a specific brand
-        public IActionResult Index(int BrandId)
+        public IActionResult Index(int brandId)
         {
-            ViewBag.BrandId = BrandId;
-            var modelsOfBrand = _modelService.Models.Where(m => m.BrandId ==  BrandId).ToList();
+            ViewBag.BrandId = brandId;
+            var modelsOfBrand = _modelService.Models.Where(m => m.BrandId == brandId).ToList();
             return View(modelsOfBrand);
         }
 
         // Returns the page for adding new models for a brand
-        public IActionResult Create(int BrandId)
+        public IActionResult Create(int brandId)
         {
-            ViewData["BrandId"] = BrandId;
+            ViewData["BrandId"] = brandId;
             return View();
         }
 
         // Handles the post request with the new models
         [HttpPost]
-        public IActionResult Create(Model Model)
+        public IActionResult Create(Model model)
         {
             if (ModelState.IsValid)
             {
-                Model.BrandId = Convert.ToInt32(Request.Form["BrandId"]);
-                _modelService.Add(Model);
+                model.BrandId = Convert.ToInt32(Request.Form["BrandId"]);
+                _modelService.Add(model);
                 TempData["success"] = "New model added successfully.";
-                return RedirectToAction("Index", new { BrandId = Model.BrandId });
+                return RedirectToAction("Index", new { BrandId = model.BrandId });
             }
+
             return View();
         }
 
@@ -50,29 +52,30 @@ namespace AutoShopWeb.Controllers
             {
                 return NotFound();
             }
-            Model ModelFromDb = _modelService.Get(id);
-            if (ModelFromDb == null)
+
+            Model modelFromDb = _modelService.Get(id);
+            if (modelFromDb == null)
             {
                 return NotFound();
             }
 
-            ViewData["BrandId"] = ModelFromDb.BrandId;
-            return View(ModelFromDb);
+            ViewData["BrandId"] = modelFromDb.BrandId;
+            return View(modelFromDb);
         }
 
         // Handles the post request with the updated model
         [HttpPost]
-        public IActionResult Edit(Model Model)
+        public IActionResult Edit(Model model)
         {
             if (ModelState.IsValid)
             {
-                _modelService.Update(Model);
+                _modelService.Update(model);
                 TempData["success"] = "Model updated successfully.";
-                return RedirectToAction("Index", new { BrandId = Model.BrandId });
+                return RedirectToAction("Index", new { BrandId = model.BrandId });
             }
-            return View(Model);
-        }
 
+            return View(model);
+        }
 
         // Returns the page for removing models of a brand
         public IActionResult Delete(int id)
@@ -81,23 +84,24 @@ namespace AutoShopWeb.Controllers
             {
                 return NotFound();
             }
-            Model? ModelFromDb = _modelService.Get(id);
-            if (ModelFromDb == null)
+
+            Model? modelFromDb = _modelService.Get(id);
+            if (modelFromDb == null)
             {
                 return NotFound();
             }
-            ViewData["BrandId"] = ModelFromDb.BrandId;
-            return View(ModelFromDb);
-        }
 
+            ViewData["BrandId"] = modelFromDb.BrandId;
+            return View(modelFromDb);
+        }
 
         // Handles the post request with the model that is supposed to be removed from a brand
         [HttpPost]
-        public IActionResult Delete(Model Model)
+        public IActionResult Delete(Model model)
         {
-            _modelService.Delete(Model);
+            _modelService.Delete(model);
             TempData["success"] = "Model removed successfully.";
-            return RedirectToAction("Index", new { BrandId = Model.BrandId });
+            return RedirectToAction("Index", new { BrandId = model.BrandId });
         }
     }
 }

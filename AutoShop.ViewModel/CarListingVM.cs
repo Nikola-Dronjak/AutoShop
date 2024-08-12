@@ -7,27 +7,27 @@ namespace AutoShopWeb.ViewModels
     public class CarListingVM
     {
         [ValidateNever]
-        public CarListing Car { get; set; }
+        public CarListing? Car { get; set; }
 
         [ValidateNever]
-        public string UserId { get; set; }
+        public string? UserId { get; set; }
 
         [ValidateNever]
-        public IEnumerable<SelectListItem> BrandOptions { get; set; }
+        public IEnumerable<SelectListItem>? BrandOptions { get; set; }
 
         [ValidateNever]
-        public IEnumerable<SelectListItem> ModelOptions { get; set; }
+        public IEnumerable<SelectListItem>? ModelOptions { get; set; }
 
         [ValidateNever]
-        public IEnumerable<SelectListItem> EngineTypeOptions { get; set; }
+        public IEnumerable<SelectListItem>? EngineTypeOptions { get; set; }
 
         [ValidateNever]
-        public IEnumerable<SelectListItem> TransmissionTypeOptions { get; set; }
+        public IEnumerable<SelectListItem>? TransmissionTypeOptions { get; set; }
 
         [ValidateNever]
-        public IEnumerable<SelectListItem> FuelTypeOptions { get; set; }
+        public IEnumerable<SelectListItem>? FuelTypeOptions { get; set; }
 
         [ValidateNever]
-        public IEnumerable<SelectListItem> BodyTypeOptions { get; set; }
+        public IEnumerable<SelectListItem>? BodyTypeOptions { get; set; }
     }
 }

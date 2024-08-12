@@ -11,7 +11,7 @@ namespace AutoShop.ViewModel
             _otherProperty = otherProperty;
         }
 
-        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        protected override ValidationResult IsValid(object? value, ValidationContext validationContext)
         {
             var otherPropertyInfo = validationContext.ObjectType.GetProperty(_otherProperty);
 
@@ -19,7 +19,6 @@ namespace AutoShop.ViewModel
             {
                 var otherPropertyValue = otherPropertyInfo.GetValue(validationContext.ObjectInstance, null);
 
-                // Check if both YearFrom and YearTo have values before applying GreaterThan validation
                 if (otherPropertyValue != null && value != null)
                 {
                     if ((int)value <= (int)otherPropertyValue)

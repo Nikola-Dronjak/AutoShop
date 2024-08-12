@@ -6,6 +6,7 @@ namespace DataAccessLayer.TransmissionTypeRepository
     public class TransmissionTypeRepository : ITransmissionTypeRepository
     {
         private readonly ApplicationDbContext _db;
+
         public TransmissionTypeRepository(ApplicationDbContext db)
         {
             _db = db;
@@ -21,19 +22,19 @@ namespace DataAccessLayer.TransmissionTypeRepository
             return _db.TransmissionTypes.FirstOrDefault(u => u.TransmissionTypeId == id);
         }
 
-        public void Add(TransmissionType TransmissionType)
+        public void Add(TransmissionType transmissionType)
         {
-            _db.Add(TransmissionType);
+            _db.Add(transmissionType);
         }
 
-        public void Update(TransmissionType TransmissionType)
+        public void Update(TransmissionType transmissionType)
         {
-            _db.Update(TransmissionType);
+            _db.Update(transmissionType);
         }
 
-        public void Delete(TransmissionType TransmissionType)
+        public void Delete(TransmissionType transmissionType)
         {
-            _db.Remove(TransmissionType);
+            _db.Remove(transmissionType);
         }
     }
 }

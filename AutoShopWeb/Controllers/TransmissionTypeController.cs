@@ -9,6 +9,7 @@ namespace AutoShopWeb.Controllers
     public class TransmissionTypeController : Controller
     {
         private readonly ITransmissionTypeService _transmissionTypeServices;
+
         public TransmissionTypeController(ITransmissionTypeService transmissionTypeServices)
         {
             _transmissionTypeServices = transmissionTypeServices;
@@ -26,70 +27,73 @@ namespace AutoShopWeb.Controllers
             return View();
         }
 
-
         // Handles the post request with the new transmission type
         [HttpPost]
-        public IActionResult Create(TransmissionType TransmissionType)
+        public IActionResult Create(TransmissionType transmissionType)
         {
             if (ModelState.IsValid)
             {
-                _transmissionTypeServices.Add(TransmissionType);
+                _transmissionTypeServices.Add(transmissionType);
                 TempData["success"] = "New transmission type added successfully.";
                 return RedirectToAction("Index");
             }
+
             return View();
         }
 
         // Returns the page for updating existing transmission types
         public IActionResult Edit(int id)
         {
-            if (id == null || id == 0)
+            if (id == 0)
             {
                 return NotFound();
             }
-            TransmissionType? TransmissionTypeFromDb = _transmissionTypeServices.Get(id);
-            if (TransmissionTypeFromDb == null)
-            {
-                return NotFound();
-            }
-            return View(TransmissionTypeFromDb);
-        }
 
+            TransmissionType? transmissionTypeFromDb = _transmissionTypeServices.Get(id);
+            if (transmissionTypeFromDb == null)
+            {
+                return NotFound();
+            }
+
+            return View(transmissionTypeFromDb);
+        }
 
         // Handles the post request with the updated transmission type
         [HttpPost]
-        public IActionResult Edit(TransmissionType TransmissionType)
+        public IActionResult Edit(TransmissionType transmissionType)
         {
             if (ModelState.IsValid)
             {
-                _transmissionTypeServices.Update(TransmissionType);
+                _transmissionTypeServices.Update(transmissionType);
                 TempData["success"] = "Transmission type updated successfully.";
                 return RedirectToAction("Index");
             }
+
             return View();
         }
 
         // Returns the page for removing transmission types
         public IActionResult Delete(int id)
         {
-            if (id == null || id == 0)
+            if (id == 0)
             {
                 return NotFound();
             }
-            TransmissionType? TransmissionTypeFromDb = _transmissionTypeServices.Get(id);
-            if (TransmissionTypeFromDb == null)
-            {
-                return NotFound();
-            }
-            return View(TransmissionTypeFromDb);
-        }
 
+            TransmissionType? transmissionTypeFromDb = _transmissionTypeServices.Get(id);
+            if (transmissionTypeFromDb == null)
+            {
+                return NotFound();
+            }
+
+            return View(transmissionTypeFromDb);
+        }
 
         // Handles the post request with the transmission type that is supposed to be removed
         [HttpPost]
-        public IActionResult Delete(TransmissionType TransmissionType)
+        public IActionResult Delete(TransmissionType transmissionType)
         {
-            _transmissionTypeServices.Delete(TransmissionType);
+            _transmissionTypeServices.Delete(transmissionType);
             TempData["success"] = "Transmission type removed successfully.";
             return RedirectToAction("Index");
         }

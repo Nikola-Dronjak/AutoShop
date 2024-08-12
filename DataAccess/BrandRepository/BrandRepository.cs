@@ -6,6 +6,7 @@ namespace DataAccessLayer.BrandRepository
     public class BrandRepository : IBrandRepository
     {
         private readonly ApplicationDbContext _db;
+
         public BrandRepository(ApplicationDbContext db)
         {
             _db = db;
@@ -21,19 +22,19 @@ namespace DataAccessLayer.BrandRepository
             return _db.Brands.FirstOrDefault(u => u.BrandId == id);
         }
 
-        public void Add(Brand Brand)
+        public void Add(Brand brand)
         {
-            _db.Brands.Add(Brand);
+            _db.Brands.Add(brand);
         }
 
-        public void Update(Brand Brand)
+        public void Update(Brand brand)
         {
-            _db.Brands.Update(Brand);
+            _db.Brands.Update(brand);
         }
 
-        public void Delete(Brand Brand)
+        public void Delete(Brand brand)
         {
-            _db.Brands.Remove(Brand);
+            _db.Brands.Remove(brand);
         }
     }
 }

@@ -6,7 +6,7 @@ namespace AutoShop.ViewModel
     public class CarListingPaginationVM
     {
         [ValidateNever]
-        public IEnumerable<CarListing> CarListings { get; set; }
+        public IEnumerable<CarListing>? CarListings { get; set; }
 
         [ValidateNever]
         public int TotalPages { get; set; }
@@ -21,6 +21,6 @@ namespace AutoShop.ViewModel
         public bool HasNextPage { get; set; }
 
         [ValidateNever]
-        public CarListingFilterVM SearchCriteria { get; set; }
+        public CarListingFilterVM? SearchCriteria { get; set; }
     }
 }

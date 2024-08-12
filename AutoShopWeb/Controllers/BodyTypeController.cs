@@ -9,6 +9,7 @@ namespace AutoShopWeb.Controllers
     public class BodyTypeController : Controller
     {
         private readonly IBodyTypeService _bodyTypeServices;
+
         public BodyTypeController(IBodyTypeService bodyTypeServices)
         {
             _bodyTypeServices = bodyTypeServices;
@@ -21,75 +22,78 @@ namespace AutoShopWeb.Controllers
         }
 
         // Returns the page for adding new body types
-        public IActionResult Create() 
+        public IActionResult Create()
         {
             return View();
         }
 
-
         // Handles the post request with the new body type
         [HttpPost]
-        public IActionResult Create(BodyType BodyType)
+        public IActionResult Create(BodyType bodyType)
         {
             if (ModelState.IsValid)
             {
-                _bodyTypeServices.Add(BodyType);
+                _bodyTypeServices.Add(bodyType);
                 TempData["success"] = "New body type added successfully.";
                 return RedirectToAction("Index");
             }
+
             return View();
         }
 
         // Returns the page for updating existing body types
         public IActionResult Edit(int id)
         {
-            if (id == null || id == 0)
+            if (id == 0)
             {
                 return NotFound();
             }
-            BodyType? BodyTypeFromDb = _bodyTypeServices.Get(id);
-            if (BodyTypeFromDb == null)
-            {
-                return NotFound();
-            }
-            return View(BodyTypeFromDb);
-        }
 
+            BodyType? bodyTypeFromDb = _bodyTypeServices.Get(id);
+            if (bodyTypeFromDb == null)
+            {
+                return NotFound();
+            }
+
+            return View(bodyTypeFromDb);
+        }
 
         // Handles the post request with the updated body type
         [HttpPost]
-        public IActionResult Edit(BodyType BodyType)
+        public IActionResult Edit(BodyType bodyType)
         {
             if (ModelState.IsValid)
             {
-                _bodyTypeServices.Update(BodyType);
+                _bodyTypeServices.Update(bodyType);
                 TempData["success"] = "Body type updated successfully.";
                 return RedirectToAction("Index");
             }
+
             return View();
         }
 
         // Returns the page for removing body types
         public IActionResult Delete(int id)
         {
-            if (id == null || id == 0)
+            if (id == 0)
             {
                 return NotFound();
             }
-            BodyType? BodyTypeFromDb = _bodyTypeServices.Get(id);
-            if (BodyTypeFromDb == null)
-            {
-                return NotFound();
-            }
-            return View(BodyTypeFromDb);
-        }
 
+            BodyType? bodyTypeFromDb = _bodyTypeServices.Get(id);
+            if (bodyTypeFromDb == null)
+            {
+                return NotFound();
+            }
+
+            return View(bodyTypeFromDb);
+        }
 
         // Handles the post request with the body type that is supposed to be removed
         [HttpPost]
-        public IActionResult Delete(BodyType BodyType)
+        public IActionResult Delete(BodyType bodyType)
         {
-            _bodyTypeServices.Delete(BodyType);
+            _bodyTypeServices.Delete(bodyType);
             TempData["success"] = "Body type removed successfully.";
             return RedirectToAction("Index");
         }

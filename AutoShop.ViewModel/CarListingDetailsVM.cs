@@ -6,12 +6,12 @@ namespace AutoShop.ViewModel
     public class CarListingDetailsVM
     {
         [ValidateNever]
-        public CarListing CarListing { get; set; }
+        public CarListing? CarListing { get; set; }
 
         [ValidateNever]
-        public string UserEmail { get; set; }
+        public string? UserEmail { get; set; }
 
         [ValidateNever]
-        public string UserPhoneNumber { get; set; }
+        public string? UserPhoneNumber { get; set; }
     }
 }

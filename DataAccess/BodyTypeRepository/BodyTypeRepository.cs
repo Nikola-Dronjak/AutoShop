@@ -6,6 +6,7 @@ namespace DataAccessLayer.BodyTypeRepository
     public class BodyTypeRepository : IBodyTypeRepository
     {
         private readonly ApplicationDbContext _db;
+
         public BodyTypeRepository(ApplicationDbContext db)
         {
             _db = db;
@@ -20,19 +21,20 @@ namespace DataAccessLayer.BodyTypeRepository
         {
             return _db.BodyTypes.FirstOrDefault(u => u.BodyTypeId == id);
         }
-        public void Add(BodyType BodyType)
+
+        public void Add(BodyType bodyType)
         {
-            _db.Add(BodyType);
+            _db.Add(bodyType);
         }
 
-        public void Update(BodyType BodyType)
+        public void Update(BodyType bodyType)
         {
-            _db.Update(BodyType);
+            _db.Update(bodyType);
         }
 
-        public void Delete(BodyType BodyType)
+        public void Delete(BodyType bodyType)
         {
-            _db.Remove(BodyType);
+            _db.Remove(bodyType);
         }
     }
 }

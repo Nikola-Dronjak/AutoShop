@@ -10,7 +10,7 @@ namespace AutoShop.Domain
 
         [Required(ErrorMessage = "Brand name cannot be empty.")]
         [DisplayName("Brand:")]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         public ICollection<Model>? Models { get; set; }
     }

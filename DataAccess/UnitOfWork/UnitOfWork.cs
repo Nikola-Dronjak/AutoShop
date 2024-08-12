@@ -13,6 +13,7 @@ namespace DataAccessLayer.UnitOfWork
     public class UnitOfWork : IUnitOfWork
     {
         private readonly ApplicationDbContext _context;
+
         public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
@@ -25,6 +26,7 @@ namespace DataAccessLayer.UnitOfWork
             ImageRepository = new ImageRepository.ImageRepository(context);
             CarListingRepository = new CarListingRepository.CarListingRepository(context);
         }
+
         public IBodyTypeRepository BodyTypeRepository { get; set; }
         public IFuelTypeRepository FuelTypeRepository { get; set; }
         public ITransmissionTypeRepository TransmissionTypeRepository { get; set; }

@@ -12,17 +12,20 @@
                 @{
                     <div id="carImagesCarousel" class="carousel carousel-dark slide" data-bs-ride="carousel">
                         <div class="carousel-indicators">
-                            @{
+                            @if (Model?.Car?.Images != null)
+                            {
                                 var i = 0;
                                 foreach (var image in Model.Car.Images)
                                 {
                                     <button type="button" data-bs-target="#carImagesCarousel" data-bs-slide-to="@i" class="@(i == 0 ? "active" : "")" aria-current="@(i == 0 ? "true" : "false")" aria-label="Slide @(i + 1)"></button>
                                     i++;
                                 }
+
                             }
                         </div>
                         <div class="carousel-inner">
-                            @{
+                            @if (Model?.Car?.Images != null)
+                            {
                                 var isFirst = true;
                                 foreach (var image in Model.Car.Images)
                                 {

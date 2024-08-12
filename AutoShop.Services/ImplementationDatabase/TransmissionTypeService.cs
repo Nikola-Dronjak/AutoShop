@@ -7,6 +7,7 @@ namespace AutoShop.Services.ImplementationDatabase
     public class TransmissionTypeService : ITransmissionTypeService
     {
         private readonly IUnitOfWork _uow;
+
         public TransmissionTypeService(IUnitOfWork uow)
         {
             _uow = uow;
@@ -19,21 +20,21 @@ namespace AutoShop.Services.ImplementationDatabase
             return _uow.TransmissionTypeRepository.GetById(id);
         }
 
-        public void Add(TransmissionType TransmissionType)
+        public void Add(TransmissionType transmissionType)
         {
-            _uow.TransmissionTypeRepository.Add(TransmissionType);
+            _uow.TransmissionTypeRepository.Add(transmissionType);
             _uow.SaveChanges();
         }
 
-        public void Update(TransmissionType TransmissionType)
+        public void Update(TransmissionType transmissionType)
         {
-            _uow.TransmissionTypeRepository.Update(TransmissionType);
+            _uow.TransmissionTypeRepository.Update(transmissionType);
             _uow.SaveChanges();
         }
 
-        public void Delete(TransmissionType TransmissionType)
+        public void Delete(TransmissionType transmissionType)
         {
-            _uow.TransmissionTypeRepository.Delete(TransmissionType);
+            _uow.TransmissionTypeRepository.Delete(transmissionType);
             _uow.SaveChanges();
         }
     }

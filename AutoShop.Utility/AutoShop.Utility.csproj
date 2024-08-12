@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AutoShop.Services\AutoShop.Services.csproj" />
     <ProjectReference Include="..\AutoShop.ViewModel\AutoShop.ViewModel.csproj" />
   </ItemGroup>
 

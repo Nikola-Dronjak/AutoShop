@@ -9,6 +9,7 @@ namespace AutoShopWeb.Controllers
     public class EngineTypeController : Controller
     {
         private readonly IEngineTypeService _engineTypeService;
+
         public EngineTypeController(IEngineTypeService engineTypeService)
         {
             _engineTypeService = engineTypeService;
@@ -26,70 +27,73 @@ namespace AutoShopWeb.Controllers
             return View();
         }
 
-
         // Handles the post request with the new engine type
         [HttpPost]
-        public IActionResult Create(EngineType EngineType)
+        public IActionResult Create(EngineType engineType)
         {
             if (ModelState.IsValid)
             {
-                _engineTypeService.Add(EngineType);
+                _engineTypeService.Add(engineType);
                 TempData["success"] = "New engine type added successfully.";
                 return RedirectToAction("Index");
             }
+
             return View();
         }
 
         // Returns the page for updating existing engine types
         public IActionResult Edit(int id)
         {
-            if (id == null || id == 0)
+            if (id == 0)
             {
                 return NotFound();
             }
-            EngineType? EngineTypeFromDb = _engineTypeService.Get(id);
-            if (EngineTypeFromDb == null)
-            {
-                return NotFound();
-            }
-            return View(EngineTypeFromDb);
-        }
 
+            EngineType? engineTypeFromDb = _engineTypeService.Get(id);
+            if (engineTypeFromDb == null)
+            {
+                return NotFound();
+            }
+
+            return View(engineTypeFromDb);
+        }
 
         // Handles the post request with the updated engine type
         [HttpPost]
-        public IActionResult Edit(EngineType EngineType)
+        public IActionResult Edit(EngineType engineType)
         {
             if (ModelState.IsValid)
             {
-                _engineTypeService.Update(EngineType);
+                _engineTypeService.Update(engineType);
                 TempData["success"] = "Engine type updated successfully.";
                 return RedirectToAction("Index");
             }
+
             return View();
         }
 
         // Returns the page for removing engine types
         public IActionResult Delete(int id)
         {
-            if (id == null || id == 0)
+            if (id == 0)
             {
                 return NotFound();
             }
-            EngineType? EngineTypeFromDb = _engineTypeService.Get(id);
-            if (EngineTypeFromDb == null)
-            {
-                return NotFound();
-            }
-            return View(EngineTypeFromDb);
-        }
 
+            EngineType? engineTypeFromDb = _engineTypeService.Get(id);
+            if (engineTypeFromDb == null)
+            {
+                return NotFound();
+            }
+
+            return View(engineTypeFromDb);
+        }
 
         // Handles the post request with the engine type that is supposed to be removed
         [HttpPost]
-        public IActionResult Delete(EngineType EngineType)
+        public IActionResult Delete(EngineType engineType)
         {
-            _engineTypeService.Delete(EngineType);
+            _engineTypeService.Delete(engineType);
             TempData["success"] = "Engine type removed successfully.";
             return RedirectToAction("Index");
         }

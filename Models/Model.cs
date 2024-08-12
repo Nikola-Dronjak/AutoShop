@@ -12,7 +12,7 @@ namespace AutoShop.Domain
 
         [Required(ErrorMessage = "Model name cannot be empty.")]
         [DisplayName("Model:")]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         [Required(ErrorMessage = "Brand name cannot be empty.")]
         public int BrandId { get; set; }
@@ -20,7 +20,7 @@ namespace AutoShop.Domain
         [ForeignKey("BrandId")]
         [DisplayName("Brand:")]
         [ValidateNever]
-        public Brand Brand { get; set; }
+        public Brand? Brand { get; set; }
 
         public ICollection<CarListing>? CarListings { get; set; }
     }

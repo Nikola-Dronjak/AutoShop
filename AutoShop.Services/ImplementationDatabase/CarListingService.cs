@@ -2,13 +2,13 @@
 using AutoShop.Services.Interfaces;
 using AutoShop.ViewModel;
 using DataAccessLayer.UnitOfWork;
-using Microsoft.EntityFrameworkCore;
 
 namespace AutoShop.Services.ImplementationDatabase
 {
     public class CarListingService : ICarListingService
     {
         private readonly IUnitOfWork _uow;
+
         public CarListingService(IUnitOfWork uow)
         {
             _uow = uow;
@@ -26,28 +26,28 @@ namespace AutoShop.Services.ImplementationDatabase
             return _uow.CarListingRepository.VINExists(vin, excludeCarId);
         }
 
-        public void Add(CarListing Car)
+        public void Add(CarListing car)
         {
-            _uow.CarListingRepository.Add(Car);
+            _uow.CarListingRepository.Add(car);
             _uow.SaveChanges();
         }
 
-        public void Update(CarListing Car)
+        public void Update(CarListing car)
         {
-            _uow.CarListingRepository.Update(Car);
+            _uow.CarListingRepository.Update(car);
             _uow.SaveChanges();
         }
 
-        public void Delete(CarListing Car)
+        public void Delete(CarListing car)
         {
-            _uow.CarListingRepository.Delete(Car);
+            _uow.CarListingRepository.Delete(car);
             _uow.SaveChanges();
         }
 
-        public void Archive(int CarId)
+        public void Archive(int carId)
         {
-            var carListing = _uow.CarListingRepository.GetById(CarId);
-            if(carListing != null)
+            var carListing = _uow.CarListingRepository.GetById(carId);
+            if (carListing != null)
             {
                 carListing.Status = CarStatus.Archived;
                 _uow.SaveChanges();
@@ -60,7 +60,7 @@ namespace AutoShop.Services.ImplementationDatabase
 
             if (filterCriteria.SelectedBrandId != 0 && filterCriteria.SelectedBrandId != null)
             {
-                filteredListings = filteredListings.Where(c => c.Model.Brand.BrandId == filterCriteria.SelectedBrandId);
+                filteredListings = filteredListings.Where(c => c.Model?.Brand?.BrandId == filterCriteria.SelectedBrandId);
             }
 
             if (filterCriteria.SelectedModelIds != null && filterCriteria.SelectedModelIds.Any())

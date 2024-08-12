@@ -6,6 +6,7 @@ namespace DataAccessLayer.ModelRepository
     public class ModelRepository : IModelRepository
     {
         private readonly ApplicationDbContext _db;
+
         public ModelRepository(ApplicationDbContext db)
         {
             _db = db;
@@ -21,19 +22,19 @@ namespace DataAccessLayer.ModelRepository
             return _db.Models.FirstOrDefault(u => u.ModelId == id);
         }
 
-        public void Add(Model Model)
+        public void Add(Model model)
         {
-            _db.Models.Add(Model);
+            _db.Models.Add(model);
         }
 
-        public void Update(Model Model)
+        public void Update(Model model)
         {
-            _db.Models.Update(Model);
+            _db.Models.Update(model);
         }
 
-        public void Delete(Model Model)
+        public void Delete(Model model)
         {
-            _db.Models.Remove(Model);
+            _db.Models.Remove(model);
         }
     }
 }
