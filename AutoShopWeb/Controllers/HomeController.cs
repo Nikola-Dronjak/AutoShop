@@ -110,23 +110,18 @@ namespace AutoShopWeb.Controllers
             return View("Index", viewModel);
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-
         // Fetches models from the database based off of selected brand
         [HttpGet("GetModelsByBrandSearch")]
         public IActionResult GetModelsByBrand(int brandId)
         {
             var models = _modelService.Models.Where(m => m.BrandId == brandId).ToList();
             return Json(models.Select(m => new { ModelId = m.ModelId, Name = m.Name }));
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }
