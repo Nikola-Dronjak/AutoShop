@@ -59,7 +59,7 @@ namespace AutoShopWeb.Controllers
         [HttpPost]
         public IActionResult Create(CarListingVM carListing, IEnumerable<IFormFile> files)
         {
-            if (ModelState.IsValid && files != null && files.Any())
+            if (ModelState.IsValid && files != null && files.Count() >= 5)
             {
                 bool vinExists = _carListingService.VINExists(carListing.Car.VIN, carListing.Car.CarId);
                 if (vinExists)
@@ -154,9 +154,9 @@ namespace AutoShopWeb.Controllers
 
                 var imagesOfTheCar = _imageService.ImagesOfCar(carListing.Car.CarId).ToList();
                 var imagesToRemove = removedImageIds?.Split(',', StringSplitOptions.RemoveEmptyEntries);
-                if ((newImages != null && newImages.Any() && (imagesOfTheCar.Count + newImages.Count()) - imagesToRemove?.Length < 1) || ((newImages == null || !newImages.Any()) && imagesOfTheCar.Count - imagesToRemove?.Length < 1))
+                if ((newImages != null && newImages.Any() && (imagesOfTheCar.Count + newImages.Count()) - imagesToRemove?.Length < 5) || ((newImages == null || !newImages.Any()) && imagesOfTheCar.Count - imagesToRemove?.Length < 5))
                 {
-                    ModelState.AddModelError("Car.Images", "You cant remove all the images of the car, there has to be at least 1 image of the car.");
+                    ModelState.AddModelError("Car.Images", "You cant remove all the images of the car, there have to be at least 5 image of the car.");
                     DropdownHelper.PopulateDropdown(carListing, _engineTypeService, _transmissionTypeService, _fuelTypeService, _bodyTypeService, _modelService, _brandService);
                     carListing.Car.Images = _imageService.ImagesOfCar(carListing.Car.CarId).ToList();
                     return View(carListing);
