@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AutoShop.Commands\AutoShop.Commands.csproj" />
+    <ProjectReference Include="..\AutoShop.Queries\AutoShop.Queries.csproj" />
+    <ProjectReference Include="..\AutoShop.Services\AutoShop.Services.csproj" />
+    <ProjectReference Include="..\Models\AutoShop.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

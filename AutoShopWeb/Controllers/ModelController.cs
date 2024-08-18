@@ -1,5 +1,7 @@
-﻿using AutoShop.Domain;
-using AutoShop.Services.Interfaces;
+﻿using AutoShop.Commands.ModelCommands;
+using AutoShop.Domain;
+using AutoShop.Queries.ModelQueries;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,18 +10,20 @@ namespace AutoShopWeb.Controllers
     [Authorize(Roles = UserRole.Admin_Role)]
     public class ModelController : Controller
     {
-        private readonly IModelService _modelService;
+        private readonly IMediator _mediator;
 
-        public ModelController(IModelService modelService)
+        public ModelController(IMediator mediator)
         {
-            _modelService = modelService;
+            _mediator = mediator;
         }
 
         // Returns all the models for a specific brand
-        public IActionResult Index(int brandId)
+        public async Task<IActionResult> Index(int brandId)
         {
             ViewBag.BrandId = brandId;
-            var modelsOfBrand = _modelService.Models.Where(m => m.BrandId == brandId).ToList();
+            var query = new GetAllModelsQuery();
+            IEnumerable<Model> models = await _mediator.Send(query);
+            var modelsOfBrand = models.Where(m => m.BrandId == brandId).ToList();
             return View(modelsOfBrand);
         }
 
@@ -32,12 +36,13 @@ namespace AutoShopWeb.Controllers
 
         // Handles the post request with the new models
         [HttpPost]
-        public IActionResult Create(Model model)
+        public async Task<IActionResult> Create(Model model)
         {
             if (ModelState.IsValid)
             {
                 model.BrandId = Convert.ToInt32(Request.Form["BrandId"]);
-                _modelService.Add(model);
+                var command = new CreateModelCommand(model);
+                await _mediator.Send(command);
                 TempData["success"] = "New model added successfully.";
                 return RedirectToAction("Index", new { BrandId = model.BrandId });
             }
@@ -46,14 +51,15 @@ namespace AutoShopWeb.Controllers
         }
 
         // Returns the page for updating existing models of a brand
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
             if (id == 0)
             {
                 return NotFound();
             }
 
-            Model modelFromDb = _modelService.Get(id);
+            var query = new GetModelByIdQuery(id);
+            Model modelFromDb = await _mediator.Send(query);
             if (modelFromDb == null)
             {
                 return NotFound();
@@ -65,11 +71,12 @@ namespace AutoShopWeb.Controllers
 
         // Handles the post request with the updated model
         [HttpPost]
-        public IActionResult Edit(Model model)
+        public async Task<IActionResult> Edit(Model model)
         {
             if (ModelState.IsValid)
             {
-                _modelService.Update(model);
+                var command = new UpdateModelCommand(model);
+                await _mediator.Send(command);
                 TempData["success"] = "Model updated successfully.";
                 return RedirectToAction("Index", new { BrandId = model.BrandId });
             }
@@ -78,14 +85,15 @@ namespace AutoShopWeb.Controllers
         }
 
         // Returns the page for removing models of a brand
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             if (id == 0)
             {
                 return NotFound();
             }
 
-            Model? modelFromDb = _modelService.Get(id);
+            var query = new GetModelByIdQuery(id);
+            Model modelFromDb = await _mediator.Send(query);
             if (modelFromDb == null)
             {
                 return NotFound();
@@ -97,9 +105,10 @@ namespace AutoShopWeb.Controllers
 
         // Handles the post request with the model that is supposed to be removed from a brand
         [HttpPost]
-        public IActionResult Delete(Model model)
+        public async Task<IActionResult> Delete(Model model)
         {
-            _modelService.Delete(model);
+            var command = new DeleteModelCommand(model);
+            await _mediator.Send(command);
             TempData["success"] = "Model removed successfully.";
             return RedirectToAction("Index", new { BrandId = model.BrandId });
         }

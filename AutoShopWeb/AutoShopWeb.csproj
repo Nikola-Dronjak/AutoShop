@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <PackageReference Include="MailKit" Version="4.7.1.1" />
+    <PackageReference Include="MediatR" Version="12.4.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="8.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="8.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid.EntityFrameworkAdapter" Version="8.0.0" />
@@ -29,7 +30,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AutoShop.Commands\AutoShop.Commands.csproj" />
+    <ProjectReference Include="..\AutoShop.Handlers\AutoShop.Handlers.csproj" />
     <ProjectReference Include="..\AutoShop.Infrastructure\AutoShop.Infrastructure.csproj" />
+    <ProjectReference Include="..\AutoShop.Queries\AutoShop.Queries.csproj" />
     <ProjectReference Include="..\AutoShop.Services\AutoShop.Services.csproj" />
     <ProjectReference Include="..\AutoShop.Utility\AutoShop.Utility.csproj" />
     <ProjectReference Include="..\AutoShop.ViewModel\AutoShop.ViewModel.csproj" />

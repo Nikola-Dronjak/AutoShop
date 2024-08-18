@@ -16,7 +16,7 @@
         </div>
         <div class="mb-3 row p-1">
             <label asp-for="Car.Model" class="p-0"></label>
-            <select asp-for="Car.ModelId" asp-items="@Model.ModelOptions" class="form-control p-0" id="modelDropdown">
+            <select asp-for="Car.ModelId" asp-items="@Model.ModelOptions" class="form-control p-0" id="modelDropdown" disabled>
                 <option value="">---Select Model---</option>
             </select>
             <span asp-validation-for="Car.ModelId" class="text-danger"></span>

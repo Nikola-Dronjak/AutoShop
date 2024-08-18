@@ -6,6 +6,14 @@ using AutoShop.Infrastructure;
 using AutoShop.Services.Interfaces;
 using DataAccessLayer.UnitOfWork;
 using AutoShop.Utility;
+using AutoShop.Handlers.BodyTypeHandlers;
+using AutoShop.Handlers.EngineTypeHandlers;
+using AutoShop.Handlers.FuelTypeHandlers;
+using AutoShop.Handlers.TransmissionTypeHandlers;
+using AutoShop.Handlers.BrandHandlers;
+using AutoShop.Handlers.ModelHandlers;
+using AutoShop.Handlers.ImageHandlers;
+using AutoShop.Handlers.CarListingHandlers;
 
 #pragma warning disable CS8601 // Possible null reference assignment.
 
@@ -51,6 +59,66 @@ builder.Services.AddScoped<IBodyTypeService, BodyTypeService>();
 builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddScoped<ICarListingService, CarListingService>();
 builder.Services.AddScoped<IEmailSender, EmailSender>();
+
+// Add MediatR services
+builder.Services.AddMediatR(config =>
+{
+    config.RegisterServicesFromAssemblyContaining<GetAllBrandsHandler>();
+    config.RegisterServicesFromAssemblyContaining<GetBrandByIdHandler>();
+    config.RegisterServicesFromAssemblyContaining<CreateBrandHandler>();
+    config.RegisterServicesFromAssemblyContaining<UpdateBrandHandler>();
+    config.RegisterServicesFromAssemblyContaining<DeleteBrandHandler>();
+
+    config.RegisterServicesFromAssemblyContaining<GetAllModelsHandler>();
+    config.RegisterServicesFromAssemblyContaining<GetModelByIdHandler>();
+    config.RegisterServicesFromAssemblyContaining<CreateModelHandler>();
+    config.RegisterServicesFromAssemblyContaining<UpdateModelHandler>();
+    config.RegisterServicesFromAssemblyContaining<DeleteModelHandler>();
+
+    config.RegisterServicesFromAssemblyContaining<GetAllEngineTypesHandler>();
+    config.RegisterServicesFromAssemblyContaining<GetEngineTypeByIdHandler>();
+    config.RegisterServicesFromAssemblyContaining<CreateEngineTypeHandler>();
+    config.RegisterServicesFromAssemblyContaining<UpdateEngineTypeHandler>();
+    config.RegisterServicesFromAssemblyContaining<DeleteEngineTypeHandler>();
+
+    config.RegisterServicesFromAssemblyContaining<GetAllTransmissionTypesHandler>();
+    config.RegisterServicesFromAssemblyContaining<GetTransmissionTypeByIdHandler>();
+    config.RegisterServicesFromAssemblyContaining<CreateTransmissionTypeHandler>();
+    config.RegisterServicesFromAssemblyContaining<UpdateTransmissionTypeHandler>();
+    config.RegisterServicesFromAssemblyContaining<DeleteTransmissionTypeHandler>();
+
+    config.RegisterServicesFromAssemblyContaining<GetAllFuelTypesHandler>();
+    config.RegisterServicesFromAssemblyContaining<GetFuelTypeByIdHandler>();
+    config.RegisterServicesFromAssemblyContaining<CreateFuelTypeHandler>();
+    config.RegisterServicesFromAssemblyContaining<UpdateFuelTypeHandler>();
+    config.RegisterServicesFromAssemblyContaining<DeleteFuelTypeHandler>();
+
+    config.RegisterServicesFromAssemblyContaining<GetAllBodyTypesHandler>();
+    config.RegisterServicesFromAssemblyContaining<GetBodyTypeByIdHandler>();
+    config.RegisterServicesFromAssemblyContaining<CreateBodyTypeHandler>();
+    config.RegisterServicesFromAssemblyContaining<UpdateBodyTypeHandler>();
+    config.RegisterServicesFromAssemblyContaining<DeleteBodyTypeHandler>();
+
+    config.RegisterServicesFromAssemblyContaining<GetAllImagesHandler>();
+    config.RegisterServicesFromAssemblyContaining<GetAllImagesByCarIdHandler>();
+    config.RegisterServicesFromAssemblyContaining<GetImageByIdHandler>();
+    config.RegisterServicesFromAssemblyContaining<CreateImageHandler>();
+    config.RegisterServicesFromAssemblyContaining<UpdateImageHandler>();
+    config.RegisterServicesFromAssemblyContaining<DeleteImageHandler>();
+
+    config.RegisterServicesFromAssemblyContaining<GetAllCarListingsHandler>();
+    config.RegisterServicesFromAssemblyContaining<GetPaginatedCarListingsHandler>();
+    config.RegisterServicesFromAssemblyContaining<GetTotalPagesHandler>();
+    config.RegisterServicesFromAssemblyContaining<GetPaginatedCarListingsForFilteringsHandler>();
+    config.RegisterServicesFromAssemblyContaining<GetTotalPagesForFilteringHandler>();
+    config.RegisterServicesFromAssemblyContaining<GetCarListingByIdHandler>();
+    config.RegisterServicesFromAssemblyContaining<CheckVINExistsHandler>();
+    config.RegisterServicesFromAssemblyContaining<CreateCarListingHandler>();
+    config.RegisterServicesFromAssemblyContaining<UpdateCarListingHandler>();
+    config.RegisterServicesFromAssemblyContaining<DeleteCarListingHandler>();
+    config.RegisterServicesFromAssemblyContaining<ArchiveCarListingHandler>();
+
+});
 
 var app = builder.Build();
 UserSeeder.SeedUsersAndRolesAsync(app).Wait();

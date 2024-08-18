@@ -1,7 +1,9 @@
 using AutoShop.Domain;
-using AutoShop.Services.Interfaces;
+using AutoShop.Queries.CarListingQueries;
+using AutoShop.Queries.ModelQueries;
 using AutoShop.Utility;
 using AutoShop.ViewModel;
+using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -11,37 +13,27 @@ namespace AutoShopWeb.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ICarListingService _carListingService;
-        private readonly IEngineTypeService _engineTypeService;
-        private readonly ITransmissionTypeService _transmissionTypeService;
-        private readonly IBodyTypeService _bodyTypeService;
-        private readonly IFuelTypeService _fuelTypeService;
-        private readonly IModelService _modelService;
-        private readonly IBrandService _brandService;
+        private readonly IMediator _mediator;
         private readonly UserManager<IdentityUser> _userManager;
 
-        public HomeController(ICarListingService carListingService, IEngineTypeService engineTypeService, ITransmissionTypeService transmissionTypeService, IBodyTypeService bodyTypeService, IFuelTypeService fuelTypeService, IModelService modelService, IBrandService brandService, UserManager<IdentityUser> userManager)
+        public HomeController(IMediator mediator, UserManager<IdentityUser> userManager)
         {
-            _carListingService = carListingService;
-            _engineTypeService = engineTypeService;
-            _transmissionTypeService = transmissionTypeService;
-            _bodyTypeService = bodyTypeService;
-            _fuelTypeService = fuelTypeService;
-            _modelService = modelService;
-            _brandService = brandService;
+            _mediator = mediator;
             _userManager = userManager;
         }
 
-        public IActionResult Index(int page = 1)
+        public async Task<IActionResult> Index(int page = 1)
         {
             const int PageSize = 10;
 
             var searchCriteria = new CarListingFilterVM();
 
-            DropdownHelper.PopulateDropdownFilter(searchCriteria, _engineTypeService, _transmissionTypeService, _fuelTypeService, _bodyTypeService, _modelService, _brandService);
+            await DropdownHelper.PopulateDropdownFilter(searchCriteria, _mediator);
 
-            var paginatedCarListings = _carListingService.GetPaginatedCarListings(page, PageSize);
-            var totalPages = _carListingService.GetTotalPages(PageSize);
+            var query = new GetPaginatedCarListingsQuery(page, PageSize);
+            IEnumerable<CarListing> paginatedCarListings = await _mediator.Send(query);
+
+            int totalPages = await _mediator.Send(new GetTotalPagesQuery(PageSize));
             var hasPreviousPage = page > 1;
             var hasNextPage = page < totalPages;
 
@@ -60,13 +52,14 @@ namespace AutoShopWeb.Controllers
 
         public async Task<IActionResult> Details(int id)
         {
-            var Car = _carListingService.Get(id);
-            if (Car == null)
+            var query = new GetCarListingByIdQuery(id);
+            CarListing carListingFromDb = await _mediator.Send(query);
+            if (carListingFromDb == null)
             {
                 return NotFound();
             }
 
-            var user = await _userManager.FindByIdAsync(Car.UserId);
+            var user = await _userManager.FindByIdAsync(carListingFromDb.UserId);
             if (user == null)
             {
                 return NotFound();
@@ -74,7 +67,7 @@ namespace AutoShopWeb.Controllers
 
             var detailsViewModel = new CarListingDetailsVM
             {
-                CarListing = Car,
+                CarListing = carListingFromDb,
                 UserEmail = user.Email,
                 UserPhoneNumber = user.PhoneNumber
             };
@@ -82,9 +75,9 @@ namespace AutoShopWeb.Controllers
             return View(detailsViewModel);
         }
 
-        public IActionResult Search(CarListingFilterVM searchCriteria, int page = 1)
+        public async Task<IActionResult> Search(CarListingFilterVM searchCriteria, int page = 1)
         {
-            DropdownHelper.PopulateDropdownFilter(searchCriteria, _engineTypeService, _transmissionTypeService, _fuelTypeService, _bodyTypeService, _modelService, _brandService);
+            await DropdownHelper.PopulateDropdownFilter(searchCriteria, _mediator);
             if (!ModelState.IsValid)
             {
                 return View("_SearchBar", searchCriteria);
@@ -92,8 +85,10 @@ namespace AutoShopWeb.Controllers
 
             const int PageSize = 10;
 
-            var paginatedCarListings = _carListingService.GetPaginatedCarListingsForFiltering(searchCriteria, page, PageSize);
-            var totalPages = _carListingService.GetTotalPagesForFiltering(searchCriteria, PageSize);
+            var query = new GetPaginatedCarListingsForFilteringsQuery(searchCriteria, page, PageSize);
+            IEnumerable<CarListing> paginatedCarListings = await _mediator.Send(query);
+
+            int totalPages = await _mediator.Send(new GetTotalPagesForFilteringQuery(searchCriteria, PageSize));
             var hasPreviousPage = page > 1;
             var hasNextPage = page < totalPages;
 
@@ -112,10 +107,12 @@ namespace AutoShopWeb.Controllers
 
         // Fetches models from the database based off of selected brand
         [HttpGet("GetModelsByBrandSearch")]
-        public IActionResult GetModelsByBrand(int brandId)
+        public async Task<IActionResult> GetModelsByBrand(int brandId)
         {
-            var models = _modelService.Models.Where(m => m.BrandId == brandId).ToList();
-            return Json(models.Select(m => new { ModelId = m.ModelId, Name = m.Name }));
+            var query = new GetAllModelsQuery();
+            IEnumerable<Model> models = await _mediator.Send(query);
+            var modelsOfBrand = models.Where(m => m.BrandId == brandId).ToList();
+            return Json(modelsOfBrand.Select(m => new { ModelId = m.ModelId, Name = m.Name }));
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

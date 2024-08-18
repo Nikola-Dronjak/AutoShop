@@ -1,5 +1,7 @@
-﻿using AutoShop.Domain;
-using AutoShop.Services.Interfaces;
+﻿using AutoShop.Commands.EngineTypeCommands;
+using AutoShop.Domain;
+using AutoShop.Queries.EngineTypeQueries;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,17 +10,19 @@ namespace AutoShopWeb.Controllers
     [Authorize(Roles = UserRole.Admin_Role)]
     public class EngineTypeController : Controller
     {
-        private readonly IEngineTypeService _engineTypeService;
+        private readonly IMediator _mediator;
 
-        public EngineTypeController(IEngineTypeService engineTypeService)
+        public EngineTypeController(IMediator mediator)
         {
-            _engineTypeService = engineTypeService;
+            _mediator = mediator;
         }
 
         // Returns all the body types
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View(_engineTypeService.EngineTypes);
+            var query = new GetAllEngineTypesQuery();
+            IEnumerable<EngineType> engineTypes = await _mediator.Send(query);
+            return View(engineTypes);
         }
 
         // Returns the page for adding new engine types
@@ -29,11 +33,12 @@ namespace AutoShopWeb.Controllers
 
         // Handles the post request with the new engine type
         [HttpPost]
-        public IActionResult Create(EngineType engineType)
+        public async Task<IActionResult> Create(EngineType engineType)
         {
             if (ModelState.IsValid)
             {
-                _engineTypeService.Add(engineType);
+                var command = new CreateEngineTypeCommand(engineType);
+                await _mediator.Send(command);
                 TempData["success"] = "New engine type added successfully.";
                 return RedirectToAction("Index");
             }
@@ -42,14 +47,15 @@ namespace AutoShopWeb.Controllers
         }
 
         // Returns the page for updating existing engine types
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
             if (id == 0)
             {
                 return NotFound();
             }
 
-            EngineType? engineTypeFromDb = _engineTypeService.Get(id);
+            var query = new GetEngineTypeByIdQuery(id);
+            EngineType engineTypeFromDb = await _mediator.Send(query);
             if (engineTypeFromDb == null)
             {
                 return NotFound();
@@ -60,11 +66,12 @@ namespace AutoShopWeb.Controllers
 
         // Handles the post request with the updated engine type
         [HttpPost]
-        public IActionResult Edit(EngineType engineType)
+        public async Task<IActionResult> Edit(EngineType engineType)
         {
             if (ModelState.IsValid)
             {
-                _engineTypeService.Update(engineType);
+                var command = new UpdateEngineTypeCommand(engineType);
+                await _mediator.Send(command);
                 TempData["success"] = "Engine type updated successfully.";
                 return RedirectToAction("Index");
             }
@@ -73,14 +80,15 @@ namespace AutoShopWeb.Controllers
         }
 
         // Returns the page for removing engine types
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             if (id == 0)
             {
                 return NotFound();
             }
 
-            EngineType? engineTypeFromDb = _engineTypeService.Get(id);
+            var query = new GetEngineTypeByIdQuery(id);
+            EngineType engineTypeFromDb = await _mediator.Send(query);
             if (engineTypeFromDb == null)
             {
                 return NotFound();
@@ -91,9 +99,10 @@ namespace AutoShopWeb.Controllers
 
         // Handles the post request with the engine type that is supposed to be removed
         [HttpPost]
-        public IActionResult Delete(EngineType engineType)
+        public async Task<IActionResult> Delete(EngineType engineType)
         {
-            _engineTypeService.Delete(engineType);
+            var command = new DeleteEngineTypeCommand(engineType);
+            await _mediator.Send(command);
             TempData["success"] = "Engine type removed successfully.";
             return RedirectToAction("Index");
         }

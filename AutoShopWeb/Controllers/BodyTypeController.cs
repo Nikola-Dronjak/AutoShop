@@ -1,5 +1,7 @@
-﻿using AutoShop.Domain;
-using AutoShop.Services.Interfaces;
+﻿using AutoShop.Commands.BodyTypeCommands;
+using AutoShop.Domain;
+using AutoShop.Queries.BodyTypeQueries;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,17 +10,19 @@ namespace AutoShopWeb.Controllers
     [Authorize(Roles = UserRole.Admin_Role)]
     public class BodyTypeController : Controller
     {
-        private readonly IBodyTypeService _bodyTypeServices;
+        private readonly IMediator _mediator;
 
-        public BodyTypeController(IBodyTypeService bodyTypeServices)
+        public BodyTypeController(IMediator mediator)
         {
-            _bodyTypeServices = bodyTypeServices;
+            _mediator = mediator;
         }
 
         // Returns all the body types
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View(_bodyTypeServices.BodyTypes);
+            var query = new GetAllBodyTypesQuery();
+            IEnumerable<BodyType> bodyTypes = await _mediator.Send(query);
+            return View(bodyTypes);
         }
 
         // Returns the page for adding new body types
@@ -29,11 +33,12 @@ namespace AutoShopWeb.Controllers
 
         // Handles the post request with the new body type
         [HttpPost]
-        public IActionResult Create(BodyType bodyType)
+        public async Task<IActionResult> Create(BodyType bodyType)
         {
             if (ModelState.IsValid)
             {
-                _bodyTypeServices.Add(bodyType);
+                var command = new CreateBodyTypeCommand(bodyType);
+                await _mediator.Send(command);
                 TempData["success"] = "New body type added successfully.";
                 return RedirectToAction("Index");
             }
@@ -42,14 +47,15 @@ namespace AutoShopWeb.Controllers
         }
 
         // Returns the page for updating existing body types
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
             if (id == 0)
             {
                 return NotFound();
             }
 
-            BodyType? bodyTypeFromDb = _bodyTypeServices.Get(id);
+            var query = new GetBodyTypeByIdQuery(id);
+            BodyType bodyTypeFromDb = await _mediator.Send(query);
             if (bodyTypeFromDb == null)
             {
                 return NotFound();
@@ -60,11 +66,12 @@ namespace AutoShopWeb.Controllers
 
         // Handles the post request with the updated body type
         [HttpPost]
-        public IActionResult Edit(BodyType bodyType)
+        public async Task<IActionResult> Edit(BodyType bodyType)
         {
             if (ModelState.IsValid)
             {
-                _bodyTypeServices.Update(bodyType);
+                var command = new UpdateBodyTypeCommand(bodyType);
+                await _mediator.Send(command);
                 TempData["success"] = "Body type updated successfully.";
                 return RedirectToAction("Index");
             }
@@ -73,14 +80,15 @@ namespace AutoShopWeb.Controllers
         }
 
         // Returns the page for removing body types
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             if (id == 0)
             {
                 return NotFound();
             }
 
-            BodyType? bodyTypeFromDb = _bodyTypeServices.Get(id);
+            var query = new GetBodyTypeByIdQuery(id);
+            BodyType bodyTypeFromDb = await _mediator.Send(query);
             if (bodyTypeFromDb == null)
             {
                 return NotFound();
@@ -91,9 +99,10 @@ namespace AutoShopWeb.Controllers
 
         // Handles the post request with the body type that is supposed to be removed
         [HttpPost]
-        public IActionResult Delete(BodyType bodyType)
+        public async Task<IActionResult> Delete(BodyType bodyType)
         {
-            _bodyTypeServices.Delete(bodyType);
+            var command = new DeleteBodyTypeCommand(bodyType);
+            await _mediator.Send(command);
             TempData["success"] = "Body type removed successfully.";
             return RedirectToAction("Index");
         }

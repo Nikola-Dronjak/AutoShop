@@ -1,84 +1,104 @@
-﻿using AutoShop.Services.Interfaces;
+﻿using AutoShop.Queries.BodyTypeQueries;
+using AutoShop.Queries.BrandQueries;
+using AutoShop.Queries.EngineTypeQueries;
+using AutoShop.Queries.FuelTypeQueries;
+using AutoShop.Queries.ModelQueries;
+using AutoShop.Queries.TransmissionTypeQueries;
 using AutoShop.ViewModel;
 using AutoShopWeb.ViewModels;
+using MediatR;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace AutoShop.Utility
 {
     public static class DropdownHelper
     {
-        public static void PopulateDropdown(CarListingVM carListing, IEngineTypeService engineTypeService, ITransmissionTypeService transmissionTypeService, IFuelTypeService fuelTypeService, IBodyTypeService bodyTypeService, IModelService modelService, IBrandService brandService)
+        public static async Task PopulateDropdown(CarListingVM carListing, IMediator mediator)
         {
-            carListing.EngineTypeOptions = engineTypeService.EngineTypes.Select(et => new SelectListItem
+            var engineTypes = await mediator.Send(new GetAllEngineTypesQuery());
+            var transmissionTypes = await mediator.Send(new GetAllTransmissionTypesQuery());
+            var fuelTypes = await mediator.Send(new GetAllFuelTypesQuery());
+            var bodyTypes = await mediator.Send(new GetAllBodyTypesQuery());
+            var models = await mediator.Send(new GetAllModelsQuery());
+            var brands = await mediator.Send(new GetAllBrandsQuery());
+
+            carListing.EngineTypeOptions = engineTypes.Select(et => new SelectListItem
             {
                 Text = et.Type,
                 Value = et.EngineTypeId.ToString()
             });
 
-            carListing.TransmissionTypeOptions = transmissionTypeService.TransmissionTypes.Select(tt => new SelectListItem
+            carListing.TransmissionTypeOptions = transmissionTypes.Select(tt => new SelectListItem
             {
                 Text = tt.Type,
                 Value = tt.TransmissionTypeId.ToString()
             });
 
-            carListing.FuelTypeOptions = fuelTypeService.FuelTypes.Select(ft => new SelectListItem
+            carListing.FuelTypeOptions = fuelTypes.Select(ft => new SelectListItem
             {
                 Text = ft.Type,
                 Value = ft.FuelTypeId.ToString()
             });
 
-            carListing.BodyTypeOptions = bodyTypeService.BodyTypes.Select(bt => new SelectListItem
+            carListing.BodyTypeOptions = bodyTypes.Select(bt => new SelectListItem
             {
                 Text = bt.Type,
                 Value = bt.BodyTypeId.ToString()
             });
 
-            carListing.ModelOptions = modelService.Models.Select(m => new SelectListItem
+            carListing.ModelOptions = models.Select(m => new SelectListItem
             {
                 Text = m.Name,
                 Value = m.ModelId.ToString()
             });
 
-            carListing.BrandOptions = brandService.Brands.Select(b => new SelectListItem
+            carListing.BrandOptions = brands.Select(b => new SelectListItem
             {
                 Text = b.Name,
                 Value = b.BrandId.ToString()
             });
         }
 
-        public static void PopulateDropdownFilter(CarListingFilterVM searchCriteria, IEngineTypeService engineTypeService, ITransmissionTypeService transmissionTypeService, IFuelTypeService fuelTypeService, IBodyTypeService bodyTypeService, IModelService modelService, IBrandService brandService)
+        public static async Task PopulateDropdownFilter(CarListingFilterVM searchCriteria, IMediator mediator)
         {
-            searchCriteria.EngineTypeOptions = engineTypeService.EngineTypes.Select(et => new SelectListItem
+            var engineTypes = await mediator.Send(new GetAllEngineTypesQuery());
+            var transmissionTypes = await mediator.Send(new GetAllTransmissionTypesQuery());
+            var fuelTypes = await mediator.Send(new GetAllFuelTypesQuery());
+            var bodyTypes = await mediator.Send(new GetAllBodyTypesQuery());
+            var models = await mediator.Send(new GetAllModelsQuery());
+            var brands = await mediator.Send(new GetAllBrandsQuery());
+
+            searchCriteria.EngineTypeOptions = engineTypes.Select(et => new SelectListItem
             {
                 Text = et.Type,
                 Value = et.EngineTypeId.ToString()
             });
 
-            searchCriteria.TransmissionTypeOptions = transmissionTypeService.TransmissionTypes.Select(tt => new SelectListItem
+            searchCriteria.TransmissionTypeOptions = transmissionTypes.Select(tt => new SelectListItem
             {
                 Text = tt.Type,
                 Value = tt.TransmissionTypeId.ToString()
             });
 
-            searchCriteria.FuelTypeOptions = fuelTypeService.FuelTypes.Select(ft => new SelectListItem
+            searchCriteria.FuelTypeOptions = fuelTypes.Select(ft => new SelectListItem
             {
                 Text = ft.Type,
                 Value = ft.FuelTypeId.ToString()
             });
 
-            searchCriteria.BodyTypeOptions = bodyTypeService.BodyTypes.Select(bt => new SelectListItem
+            searchCriteria.BodyTypeOptions = bodyTypes.Select(bt => new SelectListItem
             {
                 Text = bt.Type,
                 Value = bt.BodyTypeId.ToString()
             });
 
-            searchCriteria.ModelOptions = modelService.Models.Select(m => new SelectListItem
+            searchCriteria.ModelOptions = models.Select(m => new SelectListItem
             {
                 Text = m.Name,
                 Value = m.ModelId.ToString()
             });
 
-            searchCriteria.BrandOptions = brandService.Brands.Select(b => new SelectListItem
+            searchCriteria.BrandOptions = brands.Select(b => new SelectListItem
             {
                 Text = b.Name,
                 Value = b.BrandId.ToString()

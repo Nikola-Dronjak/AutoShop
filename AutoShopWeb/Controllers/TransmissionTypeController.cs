@@ -1,5 +1,7 @@
-﻿using AutoShop.Domain;
-using AutoShop.Services.Interfaces;
+﻿using AutoShop.Commands.TransmissionTypeCommands;
+using AutoShop.Domain;
+using AutoShop.Queries.TransmissionTypeQueries;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,17 +10,19 @@ namespace AutoShopWeb.Controllers
     [Authorize(Roles = UserRole.Admin_Role)]
     public class TransmissionTypeController : Controller
     {
-        private readonly ITransmissionTypeService _transmissionTypeServices;
+        private readonly IMediator _mediator;
 
-        public TransmissionTypeController(ITransmissionTypeService transmissionTypeServices)
+        public TransmissionTypeController(IMediator mediator)
         {
-            _transmissionTypeServices = transmissionTypeServices;
+            _mediator = mediator;
         }
 
         // Returns all the transmission types
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View(_transmissionTypeServices.TransmissionTypes);
+            var query = new GetAllTransmissionTypesQuery();
+            IEnumerable<TransmissionType> transmissionTypes = await _mediator.Send(query);
+            return View(transmissionTypes);
         }
 
         // Returns the page for adding new transmission types
@@ -29,11 +33,12 @@ namespace AutoShopWeb.Controllers
 
         // Handles the post request with the new transmission type
         [HttpPost]
-        public IActionResult Create(TransmissionType transmissionType)
+        public async Task<IActionResult> Create(TransmissionType transmissionType)
         {
             if (ModelState.IsValid)
             {
-                _transmissionTypeServices.Add(transmissionType);
+                var command = new CreateTransmissionTypeCommand(transmissionType);
+                await _mediator.Send(command);
                 TempData["success"] = "New transmission type added successfully.";
                 return RedirectToAction("Index");
             }
@@ -42,14 +47,15 @@ namespace AutoShopWeb.Controllers
         }
 
         // Returns the page for updating existing transmission types
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
             if (id == 0)
             {
                 return NotFound();
             }
 
-            TransmissionType? transmissionTypeFromDb = _transmissionTypeServices.Get(id);
+            var query = new GetTransmissionTypeByIdQuery(id);
+            TransmissionType transmissionTypeFromDb = await _mediator.Send(query);
             if (transmissionTypeFromDb == null)
             {
                 return NotFound();
@@ -60,11 +66,12 @@ namespace AutoShopWeb.Controllers
 
         // Handles the post request with the updated transmission type
         [HttpPost]
-        public IActionResult Edit(TransmissionType transmissionType)
+        public async Task<IActionResult> Edit(TransmissionType transmissionType)
         {
             if (ModelState.IsValid)
             {
-                _transmissionTypeServices.Update(transmissionType);
+                var command = new UpdateTransmissionTypeCommand(transmissionType);
+                await _mediator.Send(command);
                 TempData["success"] = "Transmission type updated successfully.";
                 return RedirectToAction("Index");
             }
@@ -73,14 +80,15 @@ namespace AutoShopWeb.Controllers
         }
 
         // Returns the page for removing transmission types
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             if (id == 0)
             {
                 return NotFound();
             }
 
-            TransmissionType? transmissionTypeFromDb = _transmissionTypeServices.Get(id);
+            var query = new GetTransmissionTypeByIdQuery(id);
+            TransmissionType transmissionTypeFromDb = await _mediator.Send(query);
             if (transmissionTypeFromDb == null)
             {
                 return NotFound();
@@ -91,9 +99,10 @@ namespace AutoShopWeb.Controllers
 
         // Handles the post request with the transmission type that is supposed to be removed
         [HttpPost]
-        public IActionResult Delete(TransmissionType transmissionType)
+        public async Task<IActionResult> Delete(TransmissionType transmissionType)
         {
-            _transmissionTypeServices.Delete(transmissionType);
+            var command = new DeleteTransmissionTypeCommand(transmissionType);
+            await _mediator.Send(command);
             TempData["success"] = "Transmission type removed successfully.";
             return RedirectToAction("Index");
         }
