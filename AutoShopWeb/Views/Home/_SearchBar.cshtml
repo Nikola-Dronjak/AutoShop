@@ -10,7 +10,7 @@
                 <div class="row g-3">
                     <div class="col-md-3">
                         <label asp-for="SelectedBrandId" class="form-label">Brand:</label>
-                        <select asp-for="SelectedBrandId" asp-items="@Model.BrandOptions" class="form-select" id="brandDropdown">
+                        <select asp-for="SelectedBrandId" asp-items="@Model.BrandOptions" class="form-select" id="brandSearchDropdown">
                             <option value="">---Brand---</option>
                         </select>
                         <span asp-validation-for="SelectedBrandId" class="text-danger"></span>
