@@ -65,31 +65,12 @@ namespace AutoShopWeb.Controllers
                     return View(carListing);
                 }
 
-                string wwwRootPath = _webHostEnvironment.WebRootPath;
-                string imagePath = Path.Combine(wwwRootPath, @"images\car");
-                var images = new List<Image>();
-
-                foreach (var file in files)
-                {
-                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-                    using (var fileStream = new FileStream(Path.Combine(imagePath, fileName), FileMode.Create))
-                    {
-                        file.CopyTo(fileStream);
-                    }
-
-                    var image = new Image
-                    {
-                        ImageUrl = "/images/car/" + fileName,
-                        CarId = carListing.Car.CarId,
-                        CarListing = carListing.Car
-                    };
-
-                    images.Add(image);
-                }
+                var images = await SaveImages(files, carListing);
 
                 carListing.Car.UserId = carListing.UserId;
                 carListing.Car.Status = CarStatus.Active;
                 carListing.Car.Images = images;
+
                 var createCommand = new CreateCarListingCommand(carListing.Car);
                 await _mediator.Send(createCommand);
                 TempData["success"] = "New car listing added successfully.";
@@ -165,54 +146,18 @@ namespace AutoShopWeb.Controllers
 
                 if (newImages != null && newImages.Count() > 0)
                 {
-                    string wwwRootPath = _webHostEnvironment.WebRootPath;
-                    string productPath = Path.Combine(wwwRootPath, @"images\car");
-                    var images = new List<Image>();
-
-                    foreach (var file in newImages)
-                    {
-                        string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-
-                        using (var fileStream = new FileStream(Path.Combine(productPath, fileName), FileMode.Create))
-                        {
-                            file.CopyTo(fileStream);
-                        }
-
-                        var image = new Image
-                        {
-                            ImageUrl = "/images/car/" + fileName,
-                            CarId = carListing.Car.CarId,
-                            CarListing = carListing.Car
-                        };
-
-                        images.Add(image);
-                    }
-
+                    var images = await SaveImages(newImages, carListing);
                     carListing.Car.Images = images;
                 }
 
                 if (!string.IsNullOrEmpty(removedImageIds))
                 {
-                    foreach (var imageId in imagesToRemove)
-                    {
-                        var query = new GetImageByIdQuery(int.Parse(imageId));
-                        Image image = await _mediator.Send(query);
-                        if (image != null)
-                        {
-                            var filePath = Path.Combine(_webHostEnvironment.WebRootPath, image.ImageUrl.TrimStart('/'));
-                            if (System.IO.File.Exists(filePath))
-                            {
-                                System.IO.File.Delete(filePath);
-                            }
-
-                            var deleteCommand = new DeleteImageCommand(image);
-                            await _mediator.Send(deleteCommand);
-                        }
-                    }
+                    await RemoveImages(imagesToRemove);
                 }
 
                 carListing.Car.UserId = carListing.UserId;
                 carListing.Car.Status = CarStatus.Active;
+
                 var updateCommand = new UpdateCarListingCommand(carListing.Car);
                 await _mediator.Send(updateCommand);
                 TempData["success"] = "Car listing updated successfully.";
@@ -279,6 +224,55 @@ namespace AutoShopWeb.Controllers
             IEnumerable<Model> models = await _mediator.Send(query);
             var modelsOfBrand = models.Where(m => m.BrandId == brandId).ToList();
             return Json(modelsOfBrand.Select(m => new { ModelId = m.ModelId, Name = m.Name }));
+        }
+
+        private async Task<List<Image>> SaveImages(IEnumerable<IFormFile> files, CarListingVM carListing)
+        {
+            string wwwRootPath = _webHostEnvironment.WebRootPath;
+            string imagePath = Path.Combine(wwwRootPath, @"images\car");
+            var images = new List<Image>();
+
+            foreach (var file in files)
+            {
+                string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                using (var fileStream = new FileStream(Path.Combine(imagePath, fileName), FileMode.Create))
+                {
+                    file.CopyTo(fileStream);
+                }
+
+                var image = new Image
+                {
+                    ImageUrl = "/images/car/" + fileName,
+                    CarId = carListing.Car.CarId,
+                    CarListing = carListing.Car
+                };
+
+                images.Add(image);
+            }
+
+            return images;
+        }
+
+        private async Task RemoveImages(string[]? imagesToRemove)
+        {
+            if (imagesToRemove == null) return;
+
+            foreach (var imageId in imagesToRemove)
+            {
+                var query = new GetImageByIdQuery(int.Parse(imageId));
+                Image image = await _mediator.Send(query);
+                if (image != null)
+                {
+                    var filePath = Path.Combine(_webHostEnvironment.WebRootPath, image.ImageUrl.TrimStart('/'));
+                    if (System.IO.File.Exists(filePath))
+                    {
+                        System.IO.File.Delete(filePath);
+                    }
+
+                    var deleteCommand = new DeleteImageCommand(image);
+                    await _mediator.Send(deleteCommand);
+                }
+            }
         }
     }
 }
