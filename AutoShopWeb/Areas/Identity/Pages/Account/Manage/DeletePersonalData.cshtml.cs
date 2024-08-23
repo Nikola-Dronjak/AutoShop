@@ -2,13 +2,15 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
-using System;
 using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
+using AutoShop.Commands.CarListingCommands;
+using AutoShop.Domain;
+using AutoShop.Queries.CarListingQueries;
+using AutoShopWeb.ViewModels;
+using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
 
 namespace AutoShopWeb.Areas.Identity.Pages.Account.Manage
 {
@@ -17,15 +19,18 @@ namespace AutoShopWeb.Areas.Identity.Pages.Account.Manage
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<DeletePersonalDataModel> _logger;
+        private readonly IMediator _mediator;
 
         public DeletePersonalDataModel(
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
-            ILogger<DeletePersonalDataModel> logger)
+            ILogger<DeletePersonalDataModel> logger,
+            IMediator mediator)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
+            _mediator = mediator;
         }
 
         /// <summary>
@@ -84,6 +89,17 @@ namespace AutoShopWeb.Areas.Identity.Pages.Account.Manage
                     ModelState.AddModelError(string.Empty, "Incorrect password.");
                     return Page();
                 }
+            }
+
+            var query = new GetAllCarListingsQuery();
+            IEnumerable<CarListing> carListings = await _mediator.Send(query);
+            var carListingForArchiving = carListings.Where(c => c.UserId == user.Id).ToList();
+
+            foreach (var carListing in carListingForArchiving)
+            {
+                var archiveCommand = new ArchiveCarListingCommand(carListing.CarId);
+                await _mediator.Send(archiveCommand);
+
             }
 
             var result = await _userManager.DeleteAsync(user);
